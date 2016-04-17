@@ -131,7 +131,8 @@ var MODULE = (function (my) {
         // create marker variable
         var marker = new google.maps.Marker({
           position: latLng,
-          label: firstLetter, // for example, 'P' for #paleo
+          icon: '../images/twitterbird.png',
+          // label: firstLetter, // for example, 'P' for #paleo
           animation: google.maps.Animation.DROP,
           title: 'hot tip'
         });
@@ -151,7 +152,8 @@ var MODULE = (function (my) {
 
         var iwContent = '<div class="iw-container">'+
         '<div class="iw-header">'+
-        '<a href="'+userURL+'">'+username+'</a>'+
+        '<div class="iw-username-div"><a href="'+userURL+'" class="iw-username">'+username+'</a></div>'+
+        '<div class="iw-screenname-div"><a href="'+userURL+'" class="iw-screenname">@'+screenname+'</a></div>'+
         '</div>'+
         '<div class="iw-body">'+
         '<div class="iw-tweet"><a href="'+tweetURL+'">'+text+'</a></div>'+

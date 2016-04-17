@@ -148,6 +148,11 @@ html, body {
   background-position: 0 0;
 }
 
+.dollar-container {
+  font-size: 14px;
+  color: rgba(122, 122, 122, 0.8);
+}
+
 .name-div {
   color: #2c3e50;
   font-size: 14px;
@@ -245,39 +250,83 @@ html, body {
   background-color: rgba(255, 255, 255, 0.9);
   box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
   border: 1px solid rgba(72, 181, 233, 0.0);
-  /*border-radius: 5px 5px 5px 5px; */
+  border-radius: 5px 5px 5px 5px; /* make card-like */
 }
 
 .iw-container .iw-header {
-  font-size: 14px;
-  font-weight: 400;
   padding: 5px 10px;
-  background-color: rgba(0, 172, 237, 0.6); /* twitter blue #00aced */
-  color: white;
+  background-color: rgba(85, 172, 238, 0.6); /* twitter blue #55acee */
   margin: 0;
-  /*border-radius: 2px 2px 0 0;*/
+}
+
+.iw-username-div {
+  padding: 0;
+  margin: 0;
+}
+
+.iw-username {
+  font-weight: 400;
+  font-size: 14px;
+  color: white;
 }
 
 /* unvisited link */
-.iw-container .iw-header a:link {
+/*.iw-container .iw-header a:link {*/
+.iw-username:link {
     color: white;
     text-decoration: none;
 }
 
 /* visited link */
-.iw-container .iw-header a:visited {
+.iw-username:visited {
     color: white;
     text-decoration: none;
 }
 
 /* mouse over link */
-.iw-container .iw-header a:hover {
+.iw-username:hover {
     color: white;
     text-decoration: underline;
 }
 
 /* selected link */
-.iw-container .iw-header a:active {
+.iw-username:active {
+    color: white;
+    text-decoration: none;
+}
+
+.iw-username-div {
+  padding: 0;
+  margin: 0;
+}
+
+.iw-screenname {
+  font-weight: 100;
+  font-size: 10px;
+  color: white;
+}
+
+/* unvisited link */
+/*.iw-container .iw-header a:link {*/
+.iw-screenname:link {
+    color: white;
+    text-decoration: none;
+}
+
+/* visited link */
+.iw-screenname:visited {
+    color: white;
+    text-decoration: none;
+}
+
+/* mouse over link */
+.iw-screenname:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* selected link */
+.iw-screenname:active {
     color: white;
     text-decoration: none;
 }

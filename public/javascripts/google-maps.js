@@ -171,6 +171,17 @@ var MODULE = (function (my) {
           lng: position.coords.longitude
         };
 
+       // mark user location - 'the nest'
+        var marker = new google.maps.Marker({
+          position: pos,
+          icon: '../images/homestar.png',
+          animation: google.maps.Animation.DROP,
+          title: 'you'
+        });
+
+        // add the tweet marker to the map
+        marker.setMap(map);
+
         infoWindow.setPosition(pos);
         infoWindow.setContent('Here you are - time to scavenge!');
         
@@ -242,13 +253,13 @@ var MODULE = (function (my) {
 
       places.forEach(function(place) {
         
-        var icon = {
-          url: place.icon, // design and insert scavenge logo url here
-          size: new google.maps.Size(71, 71),
-          origin: new google.maps.Point(0, 0),
-          anchor: new google.maps.Point(17, 34), // perhaps make 0,0 once you design new logo        
-          scaledSize: new google.maps.Size(25, 25)
-        };
+        // var icon = {
+        //   url: place.icon, // design and insert scavenge logo url here
+        //   size: new google.maps.Size(71, 71),
+        //   origin: new google.maps.Point(0, 0),
+        //   anchor: new google.maps.Point(17, 34), // perhaps make 0,0 once you design new logo        
+        //   scaledSize: new google.maps.Size(25, 25)
+        // };
 
         // for each place, call addToList to present them on the left side of the page
         addToList(place);
@@ -258,7 +269,8 @@ var MODULE = (function (my) {
         // Create a marker for each place.
         var marker = new google.maps.Marker({
           map: map,
-          icon: icon,
+          icon: '../images/restaurant.png',
+          animation: google.maps.Animation.DROP,
           title: place.name,
           position: place.geometry.location
         });
@@ -325,7 +337,19 @@ var MODULE = (function (my) {
   // MAKE A PLAN FOR UNDEFINED RATINGS... can solve with if statement later
   var addToList = function(place) { // pass place from google to this function
 
-    console.log(place.name); // for debugging, remove later
+    // get price level data from google
+    var dollars = place.price_level;
+    
+    // create container for the dollars signifying price level
+    var dollar_container = document.createElement('div');
+    dollar_container.className = 'dollar-container'; // for css
+    
+    // add a dollar sign for each price level
+    for (var i = 0; i < dollars; i++) {
+      var dollar = document.createTextNode('$');
+      dollar_container.appendChild(dollar);
+    }
+
 
 
 
@@ -364,6 +388,10 @@ var MODULE = (function (my) {
 
 
 
+
+
+
+
     // now we create the div that simply shows the places' NAME
     var name_div = document.createElement("div");
     name_div.className = "name-div";
@@ -394,6 +422,7 @@ var MODULE = (function (my) {
     // Create <li> item to hold all the <div>'s we just created
     var place_li = document.createElement("li");
     place_li.appendChild(rating_div);
+    place_li.appendChild(dollar_container);
     place_li.appendChild(name_div);
     place_li.appendChild(add_div);
 
