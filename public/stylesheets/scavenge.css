@@ -1,0 +1,342 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:100,400,700);
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+#nav {
+  height: 5%;
+  min-height: 50px;
+  width: 100%;
+  margin: 0;
+  padding: 0; 
+  background-color: #3498db;
+  color: white;
+  overflow: hidden;
+  /*display: flex;*/
+  /*box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); use shading to emphasize scroll roll*/
+}
+
+#nav-logo {
+  float: left;
+  height: 100%;
+  width: 19%;
+  line-height: 100%;
+  vertical-align: middle;
+  margin: 10px 0 0 1%;
+  font-weight: 100;
+  padding: 0;
+  font-size: 25px;
+  /*flex: 0 0 20%;*/
+}
+
+#search {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0 0 0 19%;
+  /*flex: 1;*/
+}
+
+#enemy {
+  color: white;
+  float: right;
+  font-size: 14px;
+  font-weight: 100;
+  font-style: italic;
+  margin: 16px 24px;
+  line-height: 100%;
+  vertical-align: middle;
+}
+
+.nav-search {
+  font-size: 15px;
+  font-weight: 400;
+  height: 32px;
+  margin-top: 8px;
+  padding: 0 9px;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+}
+
+#nav-search-bar {
+  width: 300px;
+  border-radius: 3px;
+  background-color: #fff;
+  text-overflow: ellipsis;
+}
+
+#nav-search-button {
+  margin-left: 3px;
+  border-radius: 0 2px 2px 0;
+  background-color: #e67e22;
+  color: white;
+}
+
+#container {
+  height: 95%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#places {
+  height: 100%;
+  width: 20%;
+  float: left;
+  padding: 0;
+  margin: 0;
+}
+
+#list {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background-color: #ecf0f1;
+}
+
+#list ul {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  overflow-y: scroll;
+  padding: 0;
+  margin: 0;
+}
+
+#list ul::-webkit-scrollbar { 
+    display: none;
+}
+
+#list ul li {
+  height: 10%;
+  list-style-type: none;
+
+  border-width: 1px;
+  border-bottom-style: dotted;
+  border-color: #bdc3c7;
+
+  overflow: hidden;
+}
+
+#list ul li div {
+  width: 100%;
+  line-height: 100%;
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+  margin: 0 0 0 5px;
+  float: left;
+}
+
+.rating-div {
+
+}
+
+
+.outer-span, .outer-span span {
+  display: block;
+  background: url(../images/stars.png) 0 -16px repeat-x;
+  width: 80px;
+  height: 16px;
+}
+
+.outer-span span {
+  width: 0px;
+  background-position: 0 0;
+}
+
+.name-div {
+  color: #2c3e50;
+  font-size: 14px;
+}
+
+.add-div {
+  color: #7f8c8d;
+  font-size: 12px;
+}
+
+#map {
+  height: 100%;
+  width: 80%;
+  float: left;
+}
+
+.controls {
+  margin-top: 10px;
+  border: 1px solid transparent;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 32px;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#pac-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 300px;
+}
+
+#pac-input:focus {
+  border-color: #4d90fe;
+}
+
+.pac-container {
+  font-family: Roboto;
+}
+
+#type-selector {
+  color: #fff;
+  background-color: #4d90fe;
+  padding: 5px 11px 0px 11px;
+}
+
+#type-selector label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+#target {
+  width: 345px;
+}
+
+#yelp {
+  height: 100%;
+  width: 40%;
+  float: left;
+}
+
+#yelp-header{
+  overflow: hidden;
+}
+
+#yelp-stars {
+  float: left;
+}
+
+#yelp-count {
+  float: left;
+}
+
+.leaflet-marker-icon {
+  background: url(https://foursquare.com/img/pin-blue-transparent.png);
+  padding: 6px;
+  padding-bottom: 17px;
+  top: -6px;
+  left: -6px;
+}
+
+/* styling of infowindow for each tweet */
+
+.gm-style-iw {
+  width: 250px !important;
+  top: 15px !important; /* move the infowindow 15px down */
+  left: 0 !important;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
+  border: 1px solid rgba(72, 181, 233, 0.0);
+  /*border-radius: 5px 5px 5px 5px; */
+}
+
+.iw-container .iw-header {
+  font-size: 14px;
+  font-weight: 400;
+  padding: 5px 10px;
+  background-color: rgba(0, 172, 237, 0.6); /* twitter blue #00aced */
+  color: white;
+  margin: 0;
+  /*border-radius: 2px 2px 0 0;*/
+}
+
+/* unvisited link */
+.iw-container .iw-header a:link {
+    color: white;
+    text-decoration: none;
+}
+
+/* visited link */
+.iw-container .iw-header a:visited {
+    color: white;
+    text-decoration: none;
+}
+
+/* mouse over link */
+.iw-container .iw-header a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* selected link */
+.iw-container .iw-header a:active {
+    color: white;
+    text-decoration: none;
+}
+
+.iw-container .iw-body {
+  margin: 10px;
+}
+
+.iw-tweet {
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+/* unvisited link */
+.iw-tweet a:link {
+    color: black;
+    text-decoration: none;
+}
+
+/* visited link */
+.iw-tweet a:visited {
+    color: black;
+    text-decoration: none;
+}
+
+/* mouse over link */
+.iw-tweet a:hover {
+    color: black;
+    text-decoration: underline;
+}
+
+/* selected link */
+.iw-tweet a:active {
+    color: black;
+    text-decoration: none;
+}
+
+.iw-time {
+  color: gray;
+  font-style: italic;
+  font-size: 10px;
+  float: right;
+  margin: 0;
+  padding: 0;
+}
+
+.iw-bottom-gradient {
+    position: absolute;
+    width: 326px;
+    height: 25px;
+    bottom: 10px;
+    right: 16px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+    background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+    background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+    background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+ }
