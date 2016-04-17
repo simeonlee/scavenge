@@ -370,7 +370,7 @@ var MODULE = (function (my) {
 
     // find the <ul> in the document by its identifier and make <li> and
     // all the <div>'s part of the document
-    var ul = document.getElementById("listicle");             
+    var ul = document.getElementById("list-ul");             
     ul.appendChild(place_li);
 
 
