@@ -7,6 +7,18 @@
 var MODULE = (function (my) {
 
 
+  // google map
+  var map;
+
+  // this will be the input 'restaurants' for google maps search
+  var input;
+  
+  // google maps search box
+  var searchBox;
+
+  // put restaurant markers here
+  var markers = [];
+
 
 
 
@@ -14,6 +26,19 @@ var MODULE = (function (my) {
   document.addEventListener("DOMContentLoaded", function() {
     console.log("Google Maps API JavaScript file loaded successfully");
     setUpGoogleMap();
+    setTimeout(function(){
+      
+      // set google maps search to restaurants
+      input.value = 'restaurants'; 
+      
+      // focus on the google maps search input box
+      google.maps.event.trigger(input, 'focus'); 
+      
+      // programatically press enter to auto search a few secs after load
+      google.maps.event.trigger(input, 'keydown', {
+          keyCode: 13
+      });
+    },5000);
   });
 
 
@@ -60,7 +85,7 @@ var MODULE = (function (my) {
     // need to add my. to initMap() to have it accessible by the callback function in the url
     // of setUpGoogleMap() which calls the my.initMap method from the document body
 
-    var map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'), {
       
       // make center the default location until the geolocate finishes finding you
       center: defaultLocation,
@@ -85,7 +110,7 @@ var MODULE = (function (my) {
     // my.loadMapIntoTwitterAPIScript();
 
     initGeolocate(map);
-    createMarker(map.getCenter(), map, "Welcome to Scavenge"); // create a marker upon map load
+    // createMarker(map.getCenter(), map, "Welcome to Scavenge"); // create a marker upon map load
     initAutocomplete(map);
     my.markTweets(map);
 
@@ -100,38 +125,38 @@ var MODULE = (function (my) {
 
 
   function moveCenter(latLng, map) {
-    createMarker(latLng, map, "Moved your nest here");
+    // createMarker(latLng, map, "Moved your nest here");
     // map.panTo(latLng);
   }
 
 
 
-  function createMarker(latLng, map, markerTitle) {
+  // function createMarker(latLng, map, markerTitle) {
 
-    var contentString = '<div id="content">'+
-      '<h1>Restaurant Name</h1>'+
-      '<div>'+
-      '<p>Insert details of the place here</p>'+
-      '<p>Source: blah blah</p>'+
-      '</div>'+
-      '</div>';
+  //   var contentString = '<div id="content">'+
+  //     '<h1>Restaurant Name</h1>'+
+  //     '<div>'+
+  //     '<p>Insert details of the place here</p>'+
+  //     '<p>Source: blah blah</p>'+
+  //     '</div>'+
+  //     '</div>';
 
-    var infowindow = new google.maps.InfoWindow({
-      content: contentString,
-      maxWidth: 200
-    });
+  //   var infowindow = new google.maps.InfoWindow({
+  //     content: contentString,
+  //     maxWidth: 200
+  //   });
 
-    var marker = new google.maps.Marker({
-      position: latLng, // change to map.center or something later
-      map: map,
-      title: markerTitle
-    });
+  //   var marker = new google.maps.Marker({
+  //     position: latLng, // change to map.center or something later
+  //     map: map,
+  //     title: markerTitle
+  //   });
     
-    marker.addListener('click', function() {
-      infowindow.open(map, marker);
-    });
+  //   marker.addListener('click', function() {
+  //     infowindow.open(map, marker);
+  //   });
     
-  }
+  // }
 
 
 
@@ -173,15 +198,16 @@ var MODULE = (function (my) {
   }
 
 
-
   // Search returns places and predicted search terms
   function initAutocomplete(map) {
 
-    // create the search box and link it to the UI element
+     // create the search box and link it to the UI element
     // want to make auto-search upon page load
-    var input = document.getElementById('nav-search-bar');
-    var searchBox = new google.maps.places.SearchBox(input);
+    input = document.getElementById('nav-search-bar');
+    searchBox = new google.maps.places.SearchBox(input);
 
+
+ 
     // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
     // this previously pushed the search bar into the Google Maps pane...
     // I've left this here so I can delve later into how the controls work
@@ -191,7 +217,6 @@ var MODULE = (function (my) {
       searchBox.setBounds(map.getBounds());
     });
 
-    var markers = [];
     // Listen for the event fired when the user selects a prediction and retrieve
     // more details for that place.
     searchBox.addListener('places_changed', function() {
@@ -285,8 +310,13 @@ var MODULE = (function (my) {
       // automatically zooms out the map to show all the places found
       // map.fitBounds(bounds);
 
-    });
+    });   
   }
+
+  
+
+
+
 
 
 
@@ -390,6 +420,7 @@ var MODULE = (function (my) {
 
 
   
+    
 
 
   return my;

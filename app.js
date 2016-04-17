@@ -26,7 +26,7 @@ var dataJSON = {test: 'test'};
 
 var keyConfig = require('./config');
 
-//Get this data from your twitter apps dashboard
+// to log into twitter api - secret
 var config = {
     "consumerKey": keyConfig.twitter.consumerKey,
     "consumerSecret": keyConfig.twitter.consumerSecret,
@@ -170,17 +170,17 @@ app.use(function(req, res, next) {
 
 // error handlers
 
-app.get('/',function(req,res){
-  res.sendFile(path.join(__dirname+'/index.html'));
-});
+// app.get('/',function(req,res){
+//   res.sendFile(path.join(__dirname+'/index.html'));
+// });
 
-app.get('/about',function(req,res){
-  res.sendFile(path.join(__dirname+'/about.html'));
-});
+// app.get('/about',function(req,res){
+//   res.sendFile(path.join(__dirname+'/about.html'));
+// });
 
-app.get('/sitemap',function(req,res){
-  res.sendFile(path.join(__dirname+'/sitemap.html'));
-});
+// app.get('/sitemap',function(req,res){
+//   res.sendFile(path.join(__dirname+'/sitemap.html'));
+// });
 
 // development error handler
 // will print stacktrace
