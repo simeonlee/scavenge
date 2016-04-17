@@ -38,7 +38,7 @@ var MODULE = (function (my) {
       google.maps.event.trigger(input, 'keydown', {
           keyCode: 13
       });
-    },5000);
+    },4000);
   });
 
 
@@ -111,7 +111,13 @@ var MODULE = (function (my) {
 
     initGeolocate(map);
     // createMarker(map.getCenter(), map, "Welcome to Scavenge"); // create a marker upon map load
+    
+    // add results to list
     initAutocomplete(map);
+
+    
+
+    // mark locations of tweets
     my.markTweets(map);
 
     map.addListener('click', function(event) { // event is object containing information regarding click
@@ -264,6 +270,7 @@ var MODULE = (function (my) {
         // for each place, call addToList to present them on the left side of the page
         addToList(place);
 
+
         // begin marker creation process
 
         // Create a marker for each place.
@@ -319,6 +326,9 @@ var MODULE = (function (my) {
 
       });
 
+      // add empty cells to list for spacing
+      addEmptyLi();
+
       // automatically zooms out the map to show all the places found
       // map.fitBounds(bounds);
 
@@ -326,7 +336,19 @@ var MODULE = (function (my) {
   }
 
   
+  var addEmptyLi = function() {
+    // add empty cell to list for spacing purposes
+    var ul = document.getElementById("list-ul");
+    var empty_li = document.createElement("li");
+    empty_li.className = 'empty-li';
 
+    // set the height of the last cell to a bigger width to clear the bottom scroll gradient
+    var vph = $(window).height()/2;
+    setTimeout(function(){
+      $('.empty-li').css({'height':vph+'px'});
+    }, 1000);
+    ul.appendChild(empty_li);
+  }
 
 
 
@@ -426,6 +448,7 @@ var MODULE = (function (my) {
     place_li.appendChild(name_div);
     place_li.appendChild(add_div);
 
+    place_li.className = 'place-li';
 
     // find the <ul> in the document by its identifier and make <li> and
     // all the <div>'s part of the document
@@ -446,7 +469,6 @@ var MODULE = (function (my) {
     // wasted two hours until I figured out... add +"px" to the end!!
     document.getElementById(id).style.width=size+"px";
   }
-
 
   
     

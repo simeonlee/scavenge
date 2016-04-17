@@ -137,9 +137,16 @@ var MODULE = (function (my) {
           title: 'hot tip'
         });
 
+
+     
+     
+
         // add the tweet marker to the map
         marker.setMap(map);
         // marker.setMap(null) to remove the marker
+
+        
+        
 
         // add the marker variable to the master my.tweets array for later manipulation
         // and to keep all the data related to that specific tweet in a singular object
@@ -149,14 +156,20 @@ var MODULE = (function (my) {
 
         var userURL = 'https://www.twitter.com/'+screenname;
         var tweetURL = 'https://www.twitter.com/'+screenname+'/status/'+tweetID;
+        var profileImageURL = user.profile_image_url;
 
         var iwContent = '<div class="iw-container">'+
         '<div class="iw-header">'+
-        '<div class="iw-username-div"><a href="'+userURL+'" class="iw-username">'+username+'</a></div>'+
-        '<div class="iw-screenname-div"><a href="'+userURL+'" class="iw-screenname">@'+screenname+'</a></div>'+
+        '<a href="'+userURL+'" target="_blank" >'+
+        '<img src="'+profileImageURL+'" alt="image" class="iw-profile-img">'+
+        '</a>'+
+        '<div class="iw-profile-names">'+
+        '<div class="iw-username-div"><a href="'+userURL+'" target="_blank" class="iw-username">'+username+'</a></div>'+
+        '<div class="iw-screenname-div"><a href="'+userURL+'" target="_blank" class="iw-screenname">@'+screenname+'</a></div>'+
+        '</div>'+
         '</div>'+
         '<div class="iw-body">'+
-        '<div class="iw-tweet"><a href="'+tweetURL+'">'+text+'</a></div>'+
+        '<div class="iw-tweet"><a href="'+tweetURL+'" target="_blank" >'+text+'</a></div>'+
         '<p class="iw-time">'+timeSince+'</p>'+
         // '<div class="iw-bottom-gradient"></div>'+
         '</div>'+
@@ -164,11 +177,12 @@ var MODULE = (function (my) {
 
         var infowindow = new google.maps.InfoWindow({
           content: iwContent,
-          maxWidth: 250
+          maxWidth: 175 // width of the card - also change .gm-style-iw width in css
         });
 
+        // marker.addListener('mouseover', function() {  
         infowindow.open(map, marker);
-        
+        // });
 
 
         /*
@@ -240,8 +254,42 @@ var MODULE = (function (my) {
 
 
 
+
+          // function toggleBounce() {
+          //   if (this.getAnimation() != null) {
+          //     this.setAnimation(null);
+          //   } 
+          //   else {
+          //     this.setAnimation(google.maps.Animation.BOUNCE);
+          //   }
+          // }
+
+          // var addMarkerEventListener = function (my) {
+          // for (var i = 0; i < my.tweets.length; i++) {
+          //   var marker = my.tweets[i].marker;
+            
+
+          //   // Add mouseover listener to marker for toggle bounce
+          //   google.maps.event.addListener(marker, 'mouseover', function () {
+          //       toggleBounce();
+          //       // infowindow.open(map, marker);
+          //       setTimeout(toggleBounce, 1500);
+          //   });
+
+          //   // google.maps.event.addListener(marker,'click',function());  
+          
+          //   }
+          // }
+
+          // setTimeout(function(){
+          //   addMarkerEventListener(my);
+          // },2000);
+
         });
 
+
+    
+       
 
 
 
@@ -251,6 +299,16 @@ var MODULE = (function (my) {
     console.log(my.tweets);
 
   }
+
+  // // make the twitter logo bounce
+  // function toggleBounce (marker) {
+  //     if (marker.getAnimation() != null) {
+  //         marker.setAnimation(null);
+  //     } else {
+  //         marker.setAnimation(google.maps.Animation.BOUNCE);
+  //     }
+  // }
+
 
   var queryMatch = function(text, queryArr) {
     for (var i = 0; i < queryArr.length; i++) {

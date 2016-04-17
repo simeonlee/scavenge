@@ -110,8 +110,10 @@ html, body {
     display: none;
 }
 
-#list ul li {
-  height: 10%;
+.place-li {
+  height: 55px;
+  min-height: 55px;
+  max-height: 55px;
   list-style-type: none;
 
   border-width: 3px;
@@ -119,6 +121,9 @@ html, body {
   border-color: #FFFFFF;
 
   overflow: hidden;
+
+  
+  padding: 10px 8px;
 }
 
 #list ul li div {
@@ -244,7 +249,7 @@ html, body {
 /* styling of infowindow for each tweet */
 
 .gm-style-iw {
-  width: 250px !important;
+  width: 175px !important;
   top: 15px !important; /* move the infowindow 15px down */
   left: 0 !important;
   background-color: rgba(255, 255, 255, 0.9);
@@ -259,15 +264,31 @@ html, body {
   margin: 0;
 }
 
+.iw-profile-img {
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid white;
+}
+
+.iw-profile-names {
+  margin: 2px 0 2px 32px;
+  padding: 0 0 0 8px;
+}
+
 .iw-username-div {
   padding: 0;
   margin: 0;
+  overflow: hidden;
 }
 
 .iw-username {
   font-weight: 400;
   font-size: 14px;
   color: white;
+  overflow: hidden;
 }
 
 /* unvisited link */
@@ -275,60 +296,70 @@ html, body {
 .iw-username:link {
     color: white;
     text-decoration: none;
+    overflow: hidden;
 }
 
 /* visited link */
 .iw-username:visited {
     color: white;
     text-decoration: none;
+    overflow: hidden;
 }
 
 /* mouse over link */
 .iw-username:hover {
     color: white;
     text-decoration: underline;
+    overflow: hidden;
 }
 
 /* selected link */
 .iw-username:active {
     color: white;
     text-decoration: none;
+    overflow: hidden;
 }
 
 .iw-username-div {
   padding: 0;
   margin: 0;
+  overflow: hidden;
 }
 
 .iw-screenname {
   font-weight: 100;
   font-size: 10px;
   color: white;
+  overflow: hidden;
 }
 
 /* unvisited link */
 /*.iw-container .iw-header a:link {*/
 .iw-screenname:link {
-    color: white;
-    text-decoration: none;
+  color: white;
+  text-decoration: none;
+  overflow: hidden;
 }
 
 /* visited link */
 .iw-screenname:visited {
     color: white;
     text-decoration: none;
+    overflow: hidden;
 }
 
 /* mouse over link */
 .iw-screenname:hover {
     color: white;
     text-decoration: underline;
+    overflow: hidden;
 }
 
 /* selected link */
 .iw-screenname:active {
     color: white;
     text-decoration: none;
+    overflow: hidden;
 }
 
 .iw-container .iw-body {
@@ -376,7 +407,7 @@ html, body {
 
 .iw-bottom-gradient {
     position: absolute;
-    width: 326px;
+    width: 175px;
     height: 25px;
     bottom: 10px;
     right: 16px;
@@ -384,4 +415,29 @@ html, body {
     background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
     background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
     background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+ }
+
+ .empty-li {
+  list-style-type: none;
+
+  /*border-width: 3px;
+  border-bottom-style: solid;
+  border-color: #FFFFFF;*/
+
+  /*overflow: hidden;*/
+
+  
+/*  padding: 10px 8px;*/
+ }
+
+ .scroll-bottom-gradient {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  bottom: 10px;
+  right: 16px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+  background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+  background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+  background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
  }
