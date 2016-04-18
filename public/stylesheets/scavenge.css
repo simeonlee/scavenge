@@ -417,20 +417,11 @@ html, body {
     background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
  }
 
- .empty-li {
+.empty-li {
   list-style-type: none;
+}
 
-  /*border-width: 3px;
-  border-bottom-style: solid;
-  border-color: #FFFFFF;*/
-
-  /*overflow: hidden;*/
-
-  
-/*  padding: 10px 8px;*/
- }
-
- .scroll-bottom-gradient {
+.scroll-bottom-gradient {
   position: absolute;
   width: 250px;
   height: 250px;
@@ -440,33 +431,35 @@ html, body {
   background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
   background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
   background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
- }
+}
 
- .iw-body-img-container {
+.iw-body-img-container {
   clear: both;
   margin: 20px 0 0 0;
   padding: 0;
- }
+}
 
- .iw-body-img {
+.iw-body-img {
+  margin: 0;
+  padding: 0;
   width: 50%;
   opacity: 0.6;
   filter: alpha(opacity=60); /* For IE8 and earlier */
- }
+}
 
-  .iw-body-img:hover {
-    opacity: 1.0;
-    filter: alpha(opacity=100); /* For IE8 and earlier */
-  }
+.iw-body-img:hover {
+  opacity: 1.0;
+  filter: alpha(opacity=100); /* For IE8 and earlier */
+}
 
- .iw-choices {
+.iw-choices {
   clear: both;
   width: 100%;
   margin: 2px 0 34px;
   padding: 0;
- }
+}
 
- .iw-dislike {
+.iw-dislike {
   width: 85.5px;
   height: 30px;
   vertical-align: middle;
@@ -474,16 +467,16 @@ html, body {
   margin-right: auto;
   padding: 0;
   float: left;
- }
+}
 
 .iw-dislike-img {
   margin-top: 5px;
   display: block;
   margin-left: auto;
   margin-right: auto;
- }
+}
 
- .iw-like {
+.iw-like {
   width: 85.5px;
   height: 30px;
   vertical-align: middle;
@@ -492,11 +485,11 @@ html, body {
   padding: 0;
   float: left;
   border-left: 1px solid rgba(200,200,200,0.6);
- }
+}
 
- .iw-like-img {
+.iw-like-img {
   margin-top: 5px;
   display: block;
   margin-left: auto;
   margin-right: auto;
- }
+}
