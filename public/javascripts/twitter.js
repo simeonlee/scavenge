@@ -110,6 +110,27 @@ var MODULE = (function (my) {
 
       var text = tweet.tweet;
 
+      // find the link in the text that starts with 'https://t.co/xxx'
+      var expression = /https?:\/\/t\.[a-z]{2,6}\/([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi;
+      var regex = new RegExp(expression);
+      
+      if (text.match(regex)) {
+        // set innerURL to that link in the text that links to some content
+        var innerURL = text.match(regex);
+        console.log(innerURL);
+      } else {
+        var innerURL = null;
+        console.log("No match");
+      }
+
+      var indexOfInnerURL = text.indexOf(innerURL);
+
+      // remove the inner URL from the text so we can do better things with the url
+      // ideally somehow show the contents of the webpage beyond the url in the card itself...
+      // for example, if it is a link to instagram just display the pic...
+      text = text.slice(0,indexOfInnerURL);
+      
+
       var user = tweet.user;
       var username = user.name;
       var screenname = user.screen_name;
@@ -186,6 +207,7 @@ var MODULE = (function (my) {
 
         '<div class="iw-body">'+
         '<div class="iw-tweet"><a href="'+tweetURL+'" target="_blank" >'+text+'</a></div>'+
+        '<div class="iw-tweet iw-inner-URL"><a href="'+innerURL+'" target="_blank" >'+innerURL+'</a></div>'+
         '<p class="iw-time">'+timeSince+'</p>'+        
         '</div>'+
 

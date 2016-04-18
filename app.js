@@ -88,7 +88,7 @@ var twitterSearch = function(){
     'geocode': '40.7308,-73.9973,1mi', 
 
     // search for this many results
-    'count': 30,
+    'count': 10,
 
     // bias towards recent tweets
     'result_type': 'recent'
