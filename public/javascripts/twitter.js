@@ -145,6 +145,8 @@ var MODULE = (function (my) {
         marker.setMap(map);
         // marker.setMap(null) to remove the marker
 
+
+
         
         
 
@@ -153,26 +155,65 @@ var MODULE = (function (my) {
         my.tweets[i].marker = marker;
 
 
-
+        // link to the tweeter's profile
         var userURL = 'https://www.twitter.com/'+screenname;
+        
+        // direct link to the tweet
         var tweetURL = 'https://www.twitter.com/'+screenname+'/status/'+tweetID;
+        
+        // twitter user object comes with a url to the image of the profile photo
         var profileImageURL = user.profile_image_url;
 
+        var scene1URL = '../images/scenes/scene1.png'; // change to actual related twitter pics
+        var scene2URL = '../images/scenes/scene2.png';
+        var scene3URL = '../images/scenes/scene3.png';
+        var scene4URL = '../images/scenes/scene4.png';
+
         var iwContent = '<div class="iw-container">'+
+        
         '<div class="iw-header">'+
+        
         '<a href="'+userURL+'" target="_blank" >'+
         '<img src="'+profileImageURL+'" alt="image" class="iw-profile-img">'+
         '</a>'+
+
         '<div class="iw-profile-names">'+
         '<div class="iw-username-div"><a href="'+userURL+'" target="_blank" class="iw-username">'+username+'</a></div>'+
         '<div class="iw-screenname-div"><a href="'+userURL+'" target="_blank" class="iw-screenname">@'+screenname+'</a></div>'+
         '</div>'+
+
         '</div>'+
+
         '<div class="iw-body">'+
         '<div class="iw-tweet"><a href="'+tweetURL+'" target="_blank" >'+text+'</a></div>'+
-        '<p class="iw-time">'+timeSince+'</p>'+
-        // '<div class="iw-bottom-gradient"></div>'+
+        '<p class="iw-time">'+timeSince+'</p>'+        
         '</div>'+
+
+        '<div class="iw-body-img-container">'+
+        '<img src="'+scene1URL+'" alt="image" class="iw-body-img">'+
+        '<img src="'+scene2URL+'" alt="image" class="iw-body-img">'+
+        '<img src="'+scene3URL+'" alt="image" class="iw-body-img">'+
+        '<img src="'+scene4URL+'" alt="image" class="iw-body-img">'+
+        '</div>'+
+
+        '<div class="iw-choices">'+
+        
+        '<a href="#" target="_blank" >'+
+        '<div class="iw-dislike">'+
+        '<img src="../images/dislike.png" alt="dislike" class="iw-dislike-img">'+
+        '</div>'+
+        '</a>'+
+
+        '<a href="#" target="_blank" >'+
+        '<div class="iw-like">'+
+        '<img src="../images/heart.png" alt="like" class="iw-like-img">'+
+        '</div>'+
+        '</a>'+
+
+        '</div>'+
+
+        // '<div class="iw-bottom-gradient"></div>'+
+
         '</div>'
 
         var infowindow = new google.maps.InfoWindow({
@@ -181,8 +222,13 @@ var MODULE = (function (my) {
         });
 
         // marker.addListener('mouseover', function() {  
-        infowindow.open(map, marker);
+          // infowindow.open(map, marker);
         // });
+
+        // setTimeout(function(){
+          infowindow.open(map, marker);
+        // },500);
+        
 
 
         /*
