@@ -21,6 +21,10 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
+// install socket
+
+var io = require('socket.io')(server);
+
 /**
  * Listen on provided port, on all network interfaces.
  */
@@ -34,15 +38,21 @@ server.on('listening', onListening);
 var world = 'text';
 
 
-// we use socket.io to move twitter API data from server to client
-// var io = require('socket.io')(server);
 
-// io.on('connection', function(socket) {
-//   socket.emit('news', { hello: world });
-//   socket.on('my other event', function (data) {
-//     console.log(data);
-//   });
-// });
+
+
+io.on('connection', function(socket) {
+
+  // socket.emit('news', { hello: world });
+
+  socket.on('my geolocation', function (data) {
+    console.log(data); // returns user's geolocation
+  });
+
+  // socket.on('disconnect', function() {
+  //   io.emit('user disconnected');
+  // });
+});
 
 
 

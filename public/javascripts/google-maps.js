@@ -177,6 +177,8 @@ var MODULE = (function (my) {
           lng: position.coords.longitude
         };
 
+        my.pos = pos;
+
        // mark user location - 'the nest'
         var marker = new google.maps.Marker({
           position: pos,
@@ -327,23 +329,23 @@ var MODULE = (function (my) {
       });
 
       // add empty cells to list for spacing
-      addEmptyLi();
+      // addEmptyLi();
 
       // automatically zooms out the map to show all the places found
       // map.fitBounds(bounds);
 
-    });   
+    });
   }
 
   
-  var addEmptyLi = function() {
+  var addEmptyLi = function() { // change this into a loading cell
     // add empty cell to list for spacing purposes
     var ul = document.getElementById("list-ul");
     var empty_li = document.createElement("li");
     empty_li.className = 'empty-li';
 
     // set the height of the last cell to a bigger width to clear the bottom scroll gradient
-    var vph = $(window).height()/2;
+    var vph = $(window).height()*0.45;
     setTimeout(function(){
       $('.empty-li').css({'height':vph+'px'});
     }, 1000);

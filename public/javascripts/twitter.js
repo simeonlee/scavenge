@@ -61,7 +61,7 @@ var MODULE = (function (my) {
     for (var i = 0; i < statuses.length; i++) {  
       var status = statuses[i];
 
-      var tweet = status.text;
+      var text = status.text;
       var coord = status.coordinates;
       var user = status.user;
       var timestamp = status.created_at;
@@ -81,8 +81,42 @@ var MODULE = (function (my) {
         var latLng = null;
       }
 
+      
+      
+
+
+      // find the link in the text that starts with 'https://t.co/xxx'
+      var expression = /https?:\/\/t\.[a-z]{2,6}\/([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi;
+      var regex = new RegExp(expression);
+      
+      if (text.match(regex)) {
+        // set innerURL to that link in the text that links to some content
+        var innerURL = text.match(regex);
+        console.log(innerURL);
+      } else {
+        var innerURL = null;
+        console.log("No match");
+      }
+
+      var indexOfInnerURL = text.indexOf(innerURL);
+
+      // remove the inner URL from the text so we can do better things with the url
+      // ideally somehow show the contents of the webpage beyond the url in the card itself...
+      // for example, if it is a link to instagram just display the pic...
+      text = text.slice(0,indexOfInnerURL);
+      
+
+
+
+
+
+
+
+
+
       my.tweets.push({
-        tweet: tweet,
+        text: text,
+        innerURL: innerURL,
         timestamp: timestamp,
         user: user,
         tweetID: tweetID,
@@ -108,32 +142,13 @@ var MODULE = (function (my) {
       
       var tweet = tweets[i];
 
-      var text = tweet.tweet;
+      var text = tweet.text;
+      var innerURL = tweet.innerURL;
 
-      // find the link in the text that starts with 'https://t.co/xxx'
-      var expression = /https?:\/\/t\.[a-z]{2,6}\/([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi;
-      var regex = new RegExp(expression);
-      
-      if (text.match(regex)) {
-        // set innerURL to that link in the text that links to some content
-        var innerURL = text.match(regex);
-        console.log(innerURL);
-      } else {
-        var innerURL = null;
-        console.log("No match");
-      }
-
-      var indexOfInnerURL = text.indexOf(innerURL);
-
-      // remove the inner URL from the text so we can do better things with the url
-      // ideally somehow show the contents of the webpage beyond the url in the card itself...
-      // for example, if it is a link to instagram just display the pic...
-      text = text.slice(0,indexOfInnerURL);
-      
 
       var user = tweet.user;
       var username = user.name;
-      var screenname = user.screen_name;
+      var handle = user.screen_name;
 
       var tweetID = tweet.tweetID;
 
@@ -177,10 +192,10 @@ var MODULE = (function (my) {
 
 
         // link to the tweeter's profile
-        var userURL = 'https://www.twitter.com/'+screenname;
+        var userURL = 'https://www.twitter.com/'+handle;
         
         // direct link to the tweet
-        var tweetURL = 'https://www.twitter.com/'+screenname+'/status/'+tweetID;
+        var tweetURL = 'https://www.twitter.com/'+handle+'/status/'+tweetID;
         
         // twitter user object comes with a url to the image of the profile photo
         var profileImageURL = user.profile_image_url;
@@ -200,7 +215,7 @@ var MODULE = (function (my) {
 
         '<div class="iw-profile-names">'+
         '<div class="iw-username-div"><a href="'+userURL+'" target="_blank" class="iw-username">'+username+'</a></div>'+
-        '<div class="iw-screenname-div"><a href="'+userURL+'" target="_blank" class="iw-screenname">@'+screenname+'</a></div>'+
+        '<div class="iw-handle-div"><a href="'+userURL+'" target="_blank" class="iw-handle">@'+handle+'</a></div>'+
         '</div>'+
 
         '</div>'+
@@ -208,15 +223,29 @@ var MODULE = (function (my) {
         '<div class="iw-body">'+
         '<div class="iw-tweet"><a href="'+tweetURL+'" target="_blank" >'+text+'</a></div>'+
         '<div class="iw-tweet iw-inner-URL"><a href="'+innerURL+'" target="_blank" >'+innerURL+'</a></div>'+
-        '<p class="iw-time">'+timeSince+'</p>'+        
+        '<img src="../images/twitterbird.png" class="iw-bird">'+
+        '<p class="iw-time">'+timeSince+'</p>'+
         '</div>'+
 
-        '<div class="iw-body-img-container">'+
-        '<img src="'+scene1URL+'" alt="image" class="iw-body-img">'+
-        '<img src="'+scene2URL+'" alt="image" class="iw-body-img">'+
-        '<img src="'+scene3URL+'" alt="image" class="iw-body-img">'+
-        '<img src="'+scene4URL+'" alt="image" class="iw-body-img">'+
-        '</div>'+
+        // '<div class="iw-body-img-container">'+
+        
+        // '<a href="#" target="_blank" >'+
+        // '<img src="'+scene1URL+'" alt="image" class="iw-body-img">'+
+        // '</a>'+
+
+        // '<a href="#" target="_blank" >'+
+        // '<img src="'+scene2URL+'" alt="image" class="iw-body-img">'+
+        // '</a>'+
+
+        // '<a href="#" target="_blank" >'+
+        // '<img src="'+scene3URL+'" alt="image" class="iw-body-img">'+
+        // '</a>'+
+
+        // '<a href="#" target="_blank" >'+
+        // '<img src="'+scene4URL+'" alt="image" class="iw-body-img">'+
+        // '</a>'+
+
+        // '</div>'+
 
         '<div class="iw-choices">'+
         
@@ -252,6 +281,8 @@ var MODULE = (function (my) {
         // },500);
         
 
+        // add tweet to left side scrolling list
+        addToList(tweet);
 
         /*
          * The google.maps.event.addListener() event waits for
@@ -276,14 +307,14 @@ var MODULE = (function (my) {
           // Remove the white background DIV
           iwBackground.children(':nth-child(4)').css({'display' : 'none'});
 
-          // Moves the infowindow 115px to the right.
-          // iwOuter.parent().parent().css({left: '115px'});
+          // Moves the infowindow to the right.
+          // iwOuter.parent().parent().css({left: '25px'});
 
           // Moves the shadow of the arrow 76px to the left margin 
-          // iwBackground.children(':nth-child(1)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
+          // iwBackground.children(':nth-child(1)').attr('style', function(i,s){ return s + 'left: -25px !important;'});
 
           // Moves the arrow 76px to the left margin 
-          // iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
+          // iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'left: -25px !important;'});
 
           // Changes the desired color for the tail outline.
           // The outline of the tail is composed of two descendants of div which contains the tail.
@@ -366,6 +397,14 @@ var MODULE = (function (my) {
 
     console.log(my.tweets);
 
+    // setTimeout(function(){
+    //   // document.getElementsByTagName('iw-bird').style.float='right';
+    //   $('.iw-bird').css('float','right');
+    //   setTimeout(function(){
+    //     $('.iw-time').css('float','right');
+    //   },3000);
+    // },3000);
+    
   }
 
   // // make the twitter logo bounce
@@ -434,6 +473,198 @@ var MODULE = (function (my) {
       }
       return since;
   };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  var addToList = function(tweet) { // pass place from google to this function
+
+    var user = tweet.user;
+    var profileImageURL = user.profile_image_url;
+    var username = user.name;
+    var handle = user.screen_name;
+    var text = tweet.text;
+    var innerURL = tweet.innerURL;
+    var timestamp = tweet.timestamp;
+    var timeSince = calculateSince(timestamp);
+    var tweetID = tweet.tweetID;
+
+    // link to the tweeter's profile
+    var userURL = 'https://www.twitter.com/'+handle;
+
+    // direct link to the tweet
+    var tweetURL = 'https://www.twitter.com/'+handle+'/status/'+tweetID;
+        
+    // twitter user object comes with a url to the image of the profile photo
+    var profileImageURL = user.profile_image_url;
+
+    // set profile image div
+    var tw_profileimage_img = document.createElement('img');
+    tw_profileimage_img.className = 'tw-profileimage-img';
+    tw_profileimage_img.setAttribute('src', profileImageURL);
+
+    // set profile image link wrapper to profile
+    var tw_profileimage_a = document.createElement('a');
+    tw_profileimage_a.className = 'tw-profileimage-a';
+    tw_profileimage_a.setAttribute('href', userURL);
+    tw_profileimage_a.setAttribute('target', '_blank');
+    tw_profileimage_a.appendChild(tw_profileimage_img);
+
+    // twitter user name link wrapper to profile
+    var tw_username_a = document.createElement('a');
+    tw_username_a.className = 'tw-a tw-username-a';
+    tw_username_a.setAttribute('href', userURL);
+    tw_username_a.setAttribute('target', '_blank');
+    
+    var tw_username = document.createTextNode(username);
+    tw_username_a.appendChild(tw_username);
+
+    // twitter user name div
+    var tw_username_div = document.createElement("div");
+    tw_username_div.className = "tw-username-div";
+    tw_username_div.appendChild(tw_username_a);
+
+    // @handle link wrapper to profile
+    var tw_handle_a = document.createElement('a');
+    tw_handle_a.className = 'tw-a tw-handle-a';
+    tw_handle_a.setAttribute('href', userURL);
+    tw_handle_a.setAttribute('target', '_blank');
+    
+    var tw_handle = document.createTextNode('@'+handle);
+    tw_handle_a.appendChild(tw_handle);
+
+    // @handle div
+    var tw_handle_div = document.createElement("div");
+    tw_handle_div.className = "tw-handle-div";
+    tw_handle_div.appendChild(tw_handle_a);
+
+    // tweet text link wrapper to tweet
+    var tw_text_a = document.createElement('a');
+    tw_text_a.className = 'tw-a tw-text-a';
+    tw_text_a.setAttribute('href', tweetURL);
+    tw_text_a.setAttribute('target', '_blank');
+    
+    var tw_text = document.createTextNode(text);
+    tw_text_a.appendChild(tw_text);
+
+    // tweet text div
+    var tw_text_div = document.createElement("div");
+    tw_text_div.className = "tw-text-div";
+    tw_text_div.appendChild(tw_text_a);
+
+
+
+    // tweet innerURL link wrapper to target url
+    var tw_innerURL_a = document.createElement('a');
+    tw_innerURL_a.className = 'tw-a tw-innerURL-a';
+    tw_innerURL_a.setAttribute('href', innerURL);
+    tw_innerURL_a.setAttribute('target', '_blank');
+    
+    var tw_innerURL = document.createTextNode(innerURL);
+    tw_innerURL_a.appendChild(tw_innerURL);
+
+    // tweet innerURL div
+    var tw_innerURL_div = document.createElement("div");
+    tw_innerURL_div.className = "tw-innerURL-div";
+    
+    tw_innerURL_div.appendChild(tw_innerURL_a);
+    
+    // timesince tweet
+    var tw_timesince_div = document.createElement("div");
+    tw_timesince_div.className = "tw-timesince-div";
+    
+
+
+    var tw_twitter_bird = document.createElement('img');
+    tw_twitter_bird.className = 'tw-twitter-bird';
+    tw_twitter_bird.setAttribute('src', '../images/twitterbird.png')
+    
+
+
+    // need to set a cb here later
+    // issue is that it takes a few ms for the dom to load the twitterbird
+    // so give it a sec to load before attaching to some element
+    setTimeout(function(){
+      tw_timesince_div.appendChild(tw_twitter_bird);
+    },1000); 
+    
+
+    // var tw_twitter_bird_div = document.createElement('div');
+    // tw_twitter_bird_div.className = 'tw-twitter-bird-div';
+    // tw_twitter_bird_div.appendChild(tw_twitter_bird);
+
+    
+    var tw_timesince_text = document.createElement('div');
+    tw_timesince_text.className = 'tw-timesince-text';
+
+    var tw_timesince = document.createTextNode(timeSince);
+    tw_timesince_text.appendChild(tw_timesince);
+
+
+    
+    tw_timesince_div.appendChild(tw_timesince_text);
+
+    var emptyheart = document.createElement('div');
+    // emptyheart.setAttribute('src','../images/emptyheart.png');
+    emptyheart.className = 'emptyheart';
+    
+    // tw_li.appendChild(tw_profileimage_a);
+    
+    var tw_div = document.createElement('div');
+    tw_div.className = ('tw-div');
+    tw_div.appendChild(tw_username_div);
+    tw_div.appendChild(tw_handle_div);
+    tw_div.appendChild(tw_text_div);
+    tw_div.appendChild(tw_innerURL_div);
+    tw_div.appendChild(tw_twitter_bird);
+    tw_div.appendChild(tw_timesince_div);
+    tw_div.appendChild(emptyheart);
+
+
+    // Create <li> item to hold all the <div>'s we just created
+    var tw_li = document.createElement("li");
+    tw_li.className = 'tw-li';
+    tw_li.appendChild(tw_div);
+
+
+    // find the <ul> in the document by its identifier and make <li> and
+    // all the <div>'s part of the document
+    var ul = document.getElementById("list-ul");             
+    ul.appendChild(tw_li);
+  
+    
+
+
+
+  }
+
 
 
 

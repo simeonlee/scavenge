@@ -9,80 +9,38 @@
 	  <title>Scavenge</title>
 	  <meta name="description" content="Forage Smarter">
 
-		<link rel="stylesheet" type="text/css" href="stylesheets/scavenge.css">
-
-		<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" id="jquery"></script> -->
-		<!-- <script src="/scripts/third_party/jquery.ba-bbq.js" type="text/javascript"></script> -->
-
 		<!-- Google CDN jquery for testing -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
 		<!-- Socket.io CDN -->
-		<!-- // <script src="https://cdn.socket.io/socket.io-1.0.0.js"></script> -->
-		<!-- // <script src="javascripts/socket.io.js"></script> -->
-		<!--<script>
-			var socket = io.connect();
-		  	socket.on('news', function (data) {
-		    	console.log(data);
-		    	socket.emit('my other event', { my: 'data' });
-		  	});
-		</script> -->
+		<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 
 		<script src="javascripts/google-maps.js"></script>
 		<script src="javascripts/twitter.js"></script>
+		<script src="javascripts/socket.js"></script>
 
-
-
-		<!-- uses browserify to enable require() in browser... for node/yelp functionality -->
-
-    <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATcsse4YhlcyBbTMIaPHmpZ-6M6rAdtxc&libraries=places&callback=initMap"></script> -->
-		<!--callback function embedded in URL call-->
-
-		<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script> -->
+		<link rel="stylesheet" type="text/css" href="stylesheets/scavenge.css">
 
 	</head>
 	<body>
-		<div id="nav">
-			<div id="nav-logo" class="logo">Scavenge.io</div>
-			<div id="enemy">Bread is the Enemy</div>
-			<div id="search">
-				<input class="nav-search" id="nav-search-bar" type="text" placeholder="Location">
-				<!-- <input class="nav-search" id="nav-search-button" type="button" value="Scavenge"> -->
-			</div>
-
-			<!-- <input id="pac-input" class="controls" type="text" placeholder="Scavenge"> -->
-		</div>
 		<div id="container">
-			<!-- <div id="places"> -->
-				<div id="list">
-					<ul id="list-ul">
-						<!-- 				
-						<li>
-				      	<div>[stars][review count]</div>
-				      	<div>[restaurant name]</div>
-				     	</li> for testing
-			     		-->
-				  	</ul>
-					<div class="scroll-bottom-gradient"></div>
+			<div id="nav">
+				<div id="nav-logo" class="logo"><img src='./images/scavengelogo.png' alt='scavenge'></div>
+				<!-- <div id="enemy"><img src='./images/breadistheenemy.png' alt='breadistheenemy'></div> -->
+				<div id="search">
+					<input class="nav-search" id="nav-search-bar" type="text" placeholder="Location">
+					<!-- <input class="nav-search" id="nav-search-button" type="button" value="Scavenge"> -->
 				</div>
 
-			<!-- </div> -->
-			
-			<div id="map"></div>
-			
-			<!--
-			<div id="yelp">
-				<div id="yelp-header">
-					<div id="yelp-stars">4 stars</div>			
-					<div id="yelp-count">1,253 reviews</div>
-				</div>
-				<div id="yelp-title"><h3>Scavenge</h3></div>
-				<div id="yelp-review"><p>This place sucks!</p></div>
-				<div id="select_div"><a href="#" id="select_link">Test</a></div>
-
+				<!-- <input id="pac-input" class="controls" type="text" placeholder="Scavenge"> -->
 			</div>
-			-->
-
-		</div>
+			<div id="list-map-container">
+				<div id="list">
+					<ul id="list-ul"></ul>
+					<!-- <div class="scroll-bottom-gradient"></div> -->
+				</div>
+				<div id="map"></div>
+			</div>
+		</div>	
 	</body>
 </html>
