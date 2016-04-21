@@ -177,7 +177,8 @@ var MODULE = (function (my) {
           lng: position.coords.longitude
         };
 
-        my.pos = pos;
+        var socket = io.connect('http://local.simeon86.com:3000');
+        socket.emit('my geolocation', pos);
 
        // mark user location - 'the nest'
         var marker = new google.maps.Marker({
