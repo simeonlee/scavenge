@@ -7,6 +7,8 @@ var MODULE = (function (my) {
   // to set unique identities for each tweet, we'll increment 'id'
   var id = 0;
 
+  // url of site
+  // var scavengeurl = 'http://local.simeon86.com:3000'
 
 
 
@@ -14,42 +16,44 @@ var MODULE = (function (my) {
   // 	console.log(data)
   // });
 
-  var request = new XMLHttpRequest();
-  request.open('GET', 'http://local.simeon86.com:3000/data', true);
+  // var request = new XMLHttpRequest();
+  // request.open('GET', scavengeurl+'/data', true);
+  // // request.open('GET', 'http://local.simeon86.com:3000/data');
 
-  request.onload = function() {
-    if (request.status >= 200 && request.status < 400) {
+  // // request.addEventListener("load", reqListener);
+
+  // request.onload = function() {
+  //   if (request.status >= 200 && request.status < 400) {
       
-      // success
-      var data = JSON.parse(request.responseText);
+  //     // success
+  //     var data = JSON.parse(request.responseText);
 
-      console.log(data);
+  //     // console.log(data);
 
-      // extract tweets and push to my.tweets
-      extractTweets(data);
-
-
-
-    } else {
-      // we reached target server but it returned an error
-    }
-  };
-
-  request.onerror = function() {
-    // connection error of some sort
-  };
-
-  request.send();
+  //     // extract tweets and push to my.tweets
+  //     // extractTweets(data);
 
 
 
+  //   } else {
+  //     // we reached target server but it returned an error
+  //   }
+  // };
+
+  // request.onerror = function() {
+  //   // connection error of some sort
+  // };
+
+  // request.send();
+
+  
 
 
 
+  
 
+  my.extractTweets = function(data) {
 
-  var extractTweets = function(data) {
-    
     // show what the query was that resulted in this tweet selection
     var query = data.search_metadata.query;
     query = decodeURIComponent(query);
@@ -92,10 +96,10 @@ var MODULE = (function (my) {
       if (text.match(regex)) {
         // set innerURL to that link in the text that links to some content
         var innerURL = text.match(regex);
-        console.log(innerURL);
+        // console.log(innerURL);
       } else {
         var innerURL = null;
-        console.log("No match");
+        // console.log("No match");
       }
 
       var indexOfInnerURL = text.indexOf(innerURL);
@@ -123,7 +127,11 @@ var MODULE = (function (my) {
         latLng: latLng,
         query: query
       })
+
+
     }
+
+    console.log(my.tweets);
   }
 
 
@@ -395,7 +403,7 @@ var MODULE = (function (my) {
       }
     }
 
-    console.log(my.tweets);
+    
 
     // setTimeout(function(){
     //   // document.getElementsByTagName('iw-bird').style.float='right';

@@ -6,9 +6,25 @@
  */ 
 var MODULE = (function (my) {
 
+  // url of site
+  // var scavengeurl = 'http://local.simeon86.com:3000'
+  var scavengeurl = 'http://localhost:3000'
+  
 
   // google map
   var map;
+
+  // user position
+  var pos;
+
+  // set to Washington Square Park... familiar restaurants for debugging
+  var defaultLocation = {
+    lat: 40.7308,
+    lng: -73.9973
+  }
+
+  // we increment index to create unique identifiers for each place found
+  var index = 0;
 
   // this will be the input 'restaurants' for google maps search
   var input;
@@ -24,57 +40,52 @@ var MODULE = (function (my) {
 
   // load upon HTML loaded
   document.addEventListener("DOMContentLoaded", function() {
-    console.log("Google Maps API JavaScript file loaded successfully");
+    
     setUpGoogleMap();
-    setTimeout(function(){
-      
-      // set google maps search to restaurants
-      input.value = 'restaurants'; 
-      
-      // focus on the google maps search input box
-      google.maps.event.trigger(input, 'focus'); 
-      
-      // programatically press enter to auto search a few secs after load
-      google.maps.event.trigger(input, 'keydown', {
-          keyCode: 13
-      });
-    },4000);
+    
+    
+
+
+    
   });
 
 
 
 
-  // Variables
-
-  // set to Washington Square Park... familiar restaurants for debugging
-  var defaultLocation = {
-    lat: 40.7308,
-    lng: -73.9973
-  }
-
-  // we increment index to create unique identifiers for each place found
-  var index = 0;
-
-
-
-
   // called upon document load, allows access to Google API
-  function setUpGoogleMap(){
+  var setUpGoogleMap = function() {
 
-    // stepping through
-    console.log("Setting Google Map up");
-
-    
     var script = document.createElement('script');
     
     script.type = 'text/javascript';
-    
+
+    // use MODULE instead of my because this is called from the HTML file    
     script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyATcsse4YhlcyBbTMIaPHmpZ-6M6rAdtxc&libraries=places&callback=MODULE%2EinitMap'; 
-    // using MODULE instead of my because this is called from the HTML file
 
     document.body.appendChild(script);
+
+
   }
 
+
+
+
+
+
+  var searchPlaces = function() {
+  
+    // set google maps search to restaurants
+    input.value = 'restaurants'; 
+    
+    // focus on the google maps search input box
+    google.maps.event.trigger(input, 'focus'); 
+    
+    // programatically press enter to auto search a few secs after load
+    google.maps.event.trigger(input, 'keydown', {
+        keyCode: 13
+    });
+
+  };
 
 
 
@@ -82,11 +93,13 @@ var MODULE = (function (my) {
   
   my.initMap = function() {
 
+    console.log('in initmap');
+
     // need to add my. to initMap() to have it accessible by the callback function in the url
     // of setUpGoogleMap() which calls the my.initMap method from the document body
 
     map = new google.maps.Map(document.getElementById('map'), {
-      
+
       // make center the default location until the geolocate finishes finding you
       center: defaultLocation,
       
@@ -101,6 +114,7 @@ var MODULE = (function (my) {
 
       // change the style of the map to futuristic white
       styles: [{"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}]
+    
     });
 
     // set the map as a property of my to make it and its functions accessible to other scripts
@@ -109,13 +123,33 @@ var MODULE = (function (my) {
     // to demonstrate that we can access our Google Maps functions in the Twitter API script file
     // my.loadMapIntoTwitterAPIScript();
 
+    console.log('getting out of googlemap');
+
+    // console.log(pos);
+
+
+    // assess user position
     initGeolocate(map);
-    // createMarker(map.getCenter(), map, "Welcome to Scavenge"); // create a marker upon map load
+
+    
+
+    // console.log(map);
+
+    
+
+    var socket = io.connect(scavengeurl);
+    socket.on('retrieved tweets', function (data) {
+      console.log(data);
+      my.extractTweets(data);
+    });
+
+    setTimeout(function(){
+      searchPlaces();
+    },4000);
+
     
     // add results to list
     initAutocomplete(map);
-
-    
 
     // mark locations of tweets
     my.markTweets(map);
@@ -167,20 +201,30 @@ var MODULE = (function (my) {
 
 
   function initGeolocate(map){
-    var infoWindow = new google.maps.InfoWindow({map: map});
+
+    var infowindow = new google.maps.InfoWindow({map: map});
+
+    console.log('in initgeolocate');
 
     // Try HTML5 geolocation
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
+      
+      navigator.geolocation.getCurrentPosition(function(position) {        
         var pos = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
 
-        var socket = io.connect('http://local.simeon86.com:3000');
-        socket.emit('my geolocation', pos);
+        console.log(pos);
 
-       // mark user location - 'the nest'
+        // set infowindow
+        infowindow.setPosition(pos);
+        infowindow.setContent('Here you are - time to scavenge!');
+        setTimeout(function(){
+          infowindow.close();
+        }, 10000);
+        
+        // mark user location - 'the nest'
         var marker = new google.maps.Marker({
           position: pos,
           icon: '../images/homestar.png',
@@ -188,31 +232,51 @@ var MODULE = (function (my) {
           title: 'you'
         });
 
-        // add the tweet marker to the map
-        marker.setMap(map);
+        // type of data to emit
+        var mygeo = 'my geolocation';
 
-        infoWindow.setPosition(pos);
-        infoWindow.setContent('Here you are - time to scavenge!');
-        
-        setTimeout(function(){
-          infoWindow.close();
-        }, 10000);
+        // call function to emit geolocation data to server
+        socketEmit(mygeo, pos);
 
+
+        // set map to center on position
         map.setCenter(pos);
+
       }, function() {
-        handleLocationError(true, infoWindow, map.getCenter());
+
+        handleLocationError(true, infowindow, map.getCenter());
+        console.log('error');
+
       });
+
     } else {
+
       // Browser doesn't support Geolocation
-      handleLocationError(false, infoWindow, map.getCenter());
+      handleLocationError(false, infowindow, map.getCenter());
+
     }
-  }
+
+  };
 
 
 
-  function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-    infoWindow.setPosition(pos);
-    infoWindow.setContent(browserHasGeolocation ?
+  var socketEmit = function(type, data) {
+    var socket = io.connect(scavengeurl);
+    socket.emit(type, data);
+  };
+
+
+
+
+
+ 
+
+
+
+
+  function handleLocationError(browserHasGeolocation, infowindow, pos) {
+    infowindow.setPosition(pos);
+    infowindow.setContent(browserHasGeolocation ?
       'The Geolocation service failed.' :
       'Your browser doesn\'t support geolocation.');
   }
@@ -221,13 +285,11 @@ var MODULE = (function (my) {
   // Search returns places and predicted search terms
   function initAutocomplete(map) {
 
-     // create the search box and link it to the UI element
+    // create the search box and link it to the UI element
     // want to make auto-search upon page load
     input = document.getElementById('nav-search-bar');
     searchBox = new google.maps.places.SearchBox(input);
 
-
- 
     // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
     // this previously pushed the search bar into the Google Maps pane...
     // I've left this here so I can delve later into how the controls work
@@ -288,7 +350,7 @@ var MODULE = (function (my) {
         var address = place.formatted_address;
         var comma = address.indexOf(",");
         var add = address.substring(0, comma);
-        console.log(add);
+        
         
         var arr = [];
 
@@ -339,19 +401,19 @@ var MODULE = (function (my) {
   }
 
   
-  var addEmptyLi = function() { // change this into a loading cell
-    // add empty cell to list for spacing purposes
-    var ul = document.getElementById("list-ul");
-    var empty_li = document.createElement("li");
-    empty_li.className = 'empty-li';
+  // var addEmptyLi = function() { // change this into a loading cell
+  //   // add empty cell to list for spacing purposes
+  //   var ul = document.getElementById("list-ul");
+  //   var empty_li = document.createElement("li");
+  //   empty_li.className = 'empty-li';
 
-    // set the height of the last cell to a bigger width to clear the bottom scroll gradient
-    var vph = $(window).height()*0.45;
-    setTimeout(function(){
-      $('.empty-li').css({'height':vph+'px'});
-    }, 1000);
-    ul.appendChild(empty_li);
-  }
+  //   // set the height of the last cell to a bigger width to clear the bottom scroll gradient
+  //   var vph = $(window).height()*0.45;
+  //   setTimeout(function(){
+  //     $('.empty-li').css({'height':vph+'px'});
+  //   }, 1000);
+  //   ul.appendChild(empty_li);
+  // }
 
 
 
@@ -432,7 +494,7 @@ var MODULE = (function (my) {
     var address = place.formatted_address;
     var comma = address.indexOf(",");
     var add = address.substring(0, comma);
-    console.log(add);
+    
 
     var add_div = document.createElement("div");
     add_div.className = "add-div";

@@ -16,18 +16,6 @@ var users = require('./routes/users');
 // create express server
 var app = express();
 
-
-
-
-
-
-
-
-
-
-
-
-
 var debug = require('debug')('twitter-test-1:server');
 var http = require('http');
 
@@ -42,22 +30,21 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-var world = 'text';
+// var world = 'text';
 
-io.on('connection', function(socket) {
+// io.on('connection', function(socket) {
 
-  // socket.emit('news', { hello: world });
+//   socket.on('my geolocation', function (userGeo) {
+  
+//   });
 
-  socket.on('my geolocation', function (userGeo) {
-    console.log(userGeo); // returns user's geolocation
-    twitterSearch(userGeo);
-  });
-
-  // socket.on('disconnect', function() {
-  //   io.emit('user disconnected');
-  // });
+io.sockets.on('my geolocation', function(userGeo) {
+  console.log(userGeo); // returns user's geolocation
+  console.log('this is geo');
+  twitterSearch(userGeo);
 });
 
+// })
 
 /**
  * Normalize a port into a number, string, or false.
@@ -133,7 +120,7 @@ function onListening() {
 // access Twitter API
 var Twitter = require('twitter-node-client').Twitter;
 
-var dataJSON = {test: 'test'};
+var dataJSON = {test: 'No twitter data yet'};
 
 var keyConfig = require('./config');
 
@@ -146,34 +133,7 @@ var config = {
     "callBackUrl": "http://local.simeon86.com:3000"
 }
 
-// http://local.simeon86.com:3000/authn/twitter/callback
-
 var twitter = new Twitter(config);
-
-// callback functions
-var error = function (err, response, body) {
-  console.log('ERROR [%s]', err);
-};
-var success = function (data) {
-  
-  // string
-  console.log(typeof data);
-
-  // turn string into a JSON object
-  // we want to send this data to the client DOM... meteor could be a good solution
-  // perhaps for now just inject JSON into HTML element and use jQuery or DOM manipulation to extract it
-  // slow and unnecessary processing but good for single-use application
-  dataJSON = JSON.parse(data);
-
-  // object
-  console.log(typeof dataJSON);
-
-  console.log(dataJSON);
-
-  var text = dataJSON.statuses[0].text;
-
-  console.log(text);
-};
 
 var twitterSearch = function(userGeo){
 
@@ -218,9 +178,31 @@ var twitterSearch = function(userGeo){
   }, error, success);
 }
 
-// twitterSearch();
 
-console.log('twitter test');
+
+
+
+
+// callback functions
+var error = function (err, response, body) {
+  console.log('ERROR [%s]', err);
+};
+var success = function (data) {
+
+  // turn string into a JSON object
+  // we want to send this data to the client DOM... meteor could be a good solution
+  // perhaps for now just inject JSON into HTML element and use jQuery or DOM manipulation to extract it
+  // slow and unnecessary processing but good for single-use application
+  dataJSON = JSON.parse(data);
+  console.log(dataJSON);
+
+  // send data to client
+  io.sockets.emit('retrieved tweets', dataJSON);
+
+  // print tweet
+  var text = dataJSON.statuses[0].text;
+  console.log(text);
+};
 
 
 
