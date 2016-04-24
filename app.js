@@ -34,7 +34,7 @@ server.on('listening', onListening);
 
 setTimeout(function(){
   io.on('connection', function(socket) {
-    socket.emit('test emit', 'test emit');
+    // socket.emit('test emit', 'test emit');
 
     socket.on('my geolocation', function(userGeo) {
       console.log(userGeo); // returns user's geolocation
@@ -132,17 +132,7 @@ var Twitter = require('twitter-node-client').Twitter;
 
 var dataJSON = {test: 'No twitter data yet'};
 
-// var keyConfig = require('./config');
-
 // to log into twitter api - secret
-// var config = {
-//     "consumerKey": keyConfig.twitter.consumerKey || process.env.TWITTER_CONSUMERKEY,
-//     "consumerSecret": keyConfig.twitter.consumerSecret || process.env.TWITTER_CONSUMERKEYSECRET,
-//     "accessToken": keyConfig.twitter.accessToken || process.env.TWITTER_ACCESSTOKEN,
-//     "accessTokenSecret": keyConfig.twitter.accessTokenSecret || process.env.TWITTER_ACCESSTOKENSECRET,
-//     "callBackUrl": "http://local.simeon86.com:3000"
-// }
-
 var config = {
   "consumerKey": process.env.TWITTER_CONSUMERKEY,
   "consumerSecret": process.env.TWITTER_CONSUMERSECRET,

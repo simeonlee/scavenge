@@ -134,6 +134,9 @@ var MODULE = (function (my) {
     }
 
     console.log(my.tweets);
+
+    // mark location of tweets
+    my.markTweets(my.google_map);
   }
 
 
@@ -145,6 +148,8 @@ var MODULE = (function (my) {
 
 
   my.markTweets = function(map) {
+
+    console.log('in marktweets function');
   
     var tweets = my.tweets;
   

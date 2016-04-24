@@ -146,8 +146,7 @@ var MODULE = (function (my) {
     // add results to list
     initAutocomplete(map);
 
-    // mark locations of tweets
-    my.markTweets(map);
+    
 
     map.addListener('click', function(event) { // event is object containing information regarding click
       // moveCenter(event.latLng, map);
@@ -536,11 +535,13 @@ var MODULE = (function (my) {
   socket.on('retrieved tweets', function (data) {
     console.log(data);
     my.extractTweets(data);
+    // mark locations of tweets
+    // my.markTweets(map);
   });
 
-  socket.on('test emit', function(data) {
-    console.log(data);
-  });
+  // socket.on('test emit', function(data) {
+  //   console.log(data);
+  // });
 
 
   return my;
