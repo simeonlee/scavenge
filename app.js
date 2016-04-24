@@ -134,12 +134,11 @@ var dataJSON = {test: 'No twitter data yet'};
 // }
 
 var config = {
-    "consumerKey": process.env.TWITTER_CONSUMERKEY,
-    "consumerSecret": process.env.TWITTER_CONSUMERKEYSECRET,
-    "accessToken": process.env.TWITTER_ACCESSTOKEN,
-    "accessTokenSecret": process.env.TWITTER_ACCESSTOKENSECRET,
-    "callBackUrl": "http://local.simeon86.com:3000"
-    // "callBackUrl": "https://infinite-inlet-93119.herokuapp.com/"
+  "consumerKey": process.env.TWITTER_CONSUMERKEY,
+  "consumerSecret": process.env.TWITTER_CONSUMERKEYSECRET,
+  "accessToken": process.env.TWITTER_ACCESSTOKEN,
+  "accessTokenSecret": process.env.TWITTER_ACCESSTOKENSECRET,
+  "callBackUrl": "https://infinite-inlet-93119.herokuapp.com/"
 }
 
 
