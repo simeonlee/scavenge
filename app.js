@@ -32,11 +32,9 @@ server.on('listening', onListening);
 
 // var world = 'text';
 
-// io.on('connection', function(socket) {
-
-//   socket.on('my geolocation', function (userGeo) {
-  
-//   });
+io.on('connection', function(socket) {
+  socket.emit('test emit', 'test emit');
+})
 
 io.sockets.on('my geolocation', function(userGeo) {
   console.log(userGeo); // returns user's geolocation
@@ -44,7 +42,7 @@ io.sockets.on('my geolocation', function(userGeo) {
   twitterSearch(userGeo);
 });
 
-// })
+
 
 /**
  * Normalize a port into a number, string, or false.
@@ -213,7 +211,7 @@ var success = function (data) {
   console.log(text);
 };
 
-io.sockets.emit('test emit', 'test emit');
+
 
 
 
