@@ -237,6 +237,10 @@ app.use(compression());
 // request the root route '/' and you'll get index.html automatically
 app.use(serveStatic(__dirname + '/public', { maxAge: oneDay }));
 
+app.get('*', function(req,res) {
+  res.redirect('https://scavenge.io'+req.url)
+});
+
 app.get('/data', function(req, res) {
   res.send(dataJSON);
 });
