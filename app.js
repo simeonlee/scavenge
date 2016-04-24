@@ -237,21 +237,21 @@ app.use(compression());
 // request the root route '/' and you'll get index.html automatically
 app.use(serveStatic(__dirname + '/public', { maxAge: oneDay }));
 
-app.all('*', function(req, res, next) {
-  // if (/^http$/.test(req.protocol)) {
-  //   var host = req.headers.host.replace(/:[0-9]+$/g, ""); // strip the port # if any
-  //   if ((HTTPS_PORT != null) && HTTPS_PORT !== 443) {
-  //     return res.redirect("https://" + host + ":" + HTTPS_PORT + req.url, 301);
-  //   } else {
-  //     return res.redirect("https://" + host + req.url, 301);
-  //   }
+// app.all('*', function(req, res, next) {
+//   // if (/^http$/.test(req.protocol)) {
+//   //   var host = req.headers.host.replace(/:[0-9]+$/g, ""); // strip the port # if any
+//   //   if ((HTTPS_PORT != null) && HTTPS_PORT !== 443) {
+//   //     return res.redirect("https://" + host + ":" + HTTPS_PORT + req.url, 301);
+//   //   } else {
+//   //     return res.redirect("https://" + host + req.url, 301);
+//   //   }
 
-  if(req.headers['x-forwarded-proto']!='https')
-    return res.redirect('https://www.scavenge.io'+req.url)
-  } else {
-    return next();
-  }
-});
+//   if(req.headers['x-forwarded-proto']!='https')
+//     res.redirect('https://www.scavenge.io'+req.url)
+//   } else {
+//     return next();
+//   }
+// });
 
 app.get('/data', function(req, res) {
   res.send(dataJSON);
