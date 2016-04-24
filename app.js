@@ -126,10 +126,10 @@ var keyConfig = require('./config');
 
 // to log into twitter api - secret
 var config = {
-    "consumerKey": keyConfig.twitter.consumerKey,
-    "consumerSecret": keyConfig.twitter.consumerSecret,
-    "accessToken": keyConfig.twitter.accessToken,
-    "accessTokenSecret": keyConfig.twitter.accessTokenSecret,
+    "consumerKey": keyConfig.twitter.consumerKey || process.env.TWITTER_CONSUMERKEY,
+    "consumerSecret": keyConfig.twitter.consumerSecret || process.env.TWITTER_CONSUMERKEYSECRET,
+    "accessToken": keyConfig.twitter.accessToken || process.env.TWITTER_ACCESSTOKEN,
+    "accessTokenSecret": keyConfig.twitter.accessTokenSecret || process.env.TWITTER_ACCESSTOKENSECRET,
     "callBackUrl": "http://local.simeon86.com:3000"
 }
 
