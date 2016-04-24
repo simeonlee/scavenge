@@ -122,24 +122,25 @@ var Twitter = require('twitter-node-client').Twitter;
 
 var dataJSON = {test: 'No twitter data yet'};
 
-var keyConfig = require('./config');
+// var keyConfig = require('./config');
 
 // to log into twitter api - secret
-var config = {
-    "consumerKey": keyConfig.twitter.consumerKey || process.env.TWITTER_CONSUMERKEY,
-    "consumerSecret": keyConfig.twitter.consumerSecret || process.env.TWITTER_CONSUMERKEYSECRET,
-    "accessToken": keyConfig.twitter.accessToken || process.env.TWITTER_ACCESSTOKEN,
-    "accessTokenSecret": keyConfig.twitter.accessTokenSecret || process.env.TWITTER_ACCESSTOKENSECRET,
-    "callBackUrl": "http://local.simeon86.com:3000"
-}
-
 // var config = {
-//     "consumerKey": process.env.TWITTER_CONSUMERKEY,
-//     "consumerSecret": process.env.TWITTER_CONSUMERKEYSECRET,
-//     "accessToken": process.env.TWITTER_ACCESSTOKEN,
-//     "accessTokenSecret": process.env.TWITTER_ACCESSTOKENSECRET,
-//     "callBackUrl": "https://infinite-inlet-93119.herokuapp.com/"
+//     "consumerKey": keyConfig.twitter.consumerKey || process.env.TWITTER_CONSUMERKEY,
+//     "consumerSecret": keyConfig.twitter.consumerSecret || process.env.TWITTER_CONSUMERKEYSECRET,
+//     "accessToken": keyConfig.twitter.accessToken || process.env.TWITTER_ACCESSTOKEN,
+//     "accessTokenSecret": keyConfig.twitter.accessTokenSecret || process.env.TWITTER_ACCESSTOKENSECRET,
+//     "callBackUrl": "http://local.simeon86.com:3000"
 // }
+
+var config = {
+    "consumerKey": process.env.TWITTER_CONSUMERKEY,
+    "consumerSecret": process.env.TWITTER_CONSUMERKEYSECRET,
+    "accessToken": process.env.TWITTER_ACCESSTOKEN,
+    "accessTokenSecret": process.env.TWITTER_ACCESSTOKENSECRET,
+    "callBackUrl": "http://local.simeon86.com:3000"
+    // "callBackUrl": "https://infinite-inlet-93119.herokuapp.com/"
+}
 
 
 var twitter = new Twitter(config);
