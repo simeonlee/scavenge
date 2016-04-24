@@ -8,7 +8,7 @@ var MODULE = (function (my) {
 
   // url of site
   // var scavengeurl = 'http://local.simeon86.com:3000'
-  var scavengeurl = 'http://localhost:3000'
+  var scavengeurl = 'https://infinite-inlet-93119.herokuapp.com/'
   
 
   // google map
