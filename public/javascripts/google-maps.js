@@ -137,11 +137,6 @@ var MODULE = (function (my) {
 
     
 
-    var socket = io.connect(scavengeurl);
-    socket.on('retrieved tweets', function (data) {
-      console.log(data);
-      my.extractTweets(data);
-    });
 
     setTimeout(function(){
       searchPlaces();
@@ -537,6 +532,11 @@ var MODULE = (function (my) {
 
   
     
+  var socket = io.connect(scavengeurl);
+  socket.on('retrieved tweets', function (data) {
+    console.log(data);
+    my.extractTweets(data);
+  });
 
 
   return my;
