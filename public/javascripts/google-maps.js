@@ -538,6 +538,10 @@ var MODULE = (function (my) {
     my.extractTweets(data);
   });
 
+  socket.on('test emit', function(data) {
+    console.log(data);
+  });
+
 
   return my;
 }(MODULE || {}));

@@ -213,7 +213,7 @@ var success = function (data) {
   console.log(text);
 };
 
-
+io.sockets.emit('test emit', 'test emit');
 
 
 
