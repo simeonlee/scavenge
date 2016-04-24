@@ -247,7 +247,7 @@ app.all('/*', function(req, res, next) {
   //   }
 
   if(req.headers['x-forwarded-proto']!='https')
-    res.redirect('https://mypreferreddomain.com'+req.url)
+    res.redirect('https://www.scavenge.io'+req.url)
   } else {
     return next();
   }
