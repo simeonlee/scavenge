@@ -204,8 +204,10 @@ var twitterSearch = function(userGeo){
 
 // callback functions
 var error = function (err, response, body) {
+  err = JSON.parse(err);
   console.log('ERROR [%s]', err);
 };
+
 var success = function (data) {
 
   // turn string into a JSON object
