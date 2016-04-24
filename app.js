@@ -32,16 +32,27 @@ server.on('listening', onListening);
 
 // var world = 'text';
 
-// io.on('connection', function(socket) {
-  
-// })
-io.sockets.emit('test emit', 'test emit');
+setTimeout(function(){
+  io.on('connection', function(socket) {
+    socket.emit('test emit', 'test emit');
 
-io.sockets.on('my geolocation', function(userGeo) {
-  console.log(userGeo); // returns user's geolocation
-  console.log('this is geo');
-  twitterSearch(userGeo);
-});
+    socket.on('my geolocation', function(userGeo) {
+      console.log(userGeo); // returns user's geolocation
+      console.log('this is geo');
+      twitterSearch(userGeo);
+    });
+
+
+
+  });
+},5000);
+
+
+// io.sockets.on('my geolocation', function(userGeo) {
+//   console.log(userGeo); // returns user's geolocation
+//   console.log('this is geo');
+//   twitterSearch(userGeo);
+// });
 
 
 
