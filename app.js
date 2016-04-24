@@ -122,15 +122,23 @@ var Twitter = require('twitter-node-client').Twitter;
 
 var dataJSON = {test: 'No twitter data yet'};
 
-var keyConfig = require('./config');
+// var keyConfig = require('./config');
 
 // to log into twitter api - secret
+// var config = {
+//     "consumerKey": keyConfig.twitter.consumerKey || process.env.TWITTER_CONSUMERKEY,
+//     "consumerSecret": keyConfig.twitter.consumerSecret || process.env.TWITTER_CONSUMERKEYSECRET,
+//     "accessToken": keyConfig.twitter.accessToken || process.env.TWITTER_ACCESSTOKEN,
+//     "accessTokenSecret": keyConfig.twitter.accessTokenSecret || process.env.TWITTER_ACCESSTOKENSECRET,
+//     "callBackUrl": "http://local.simeon86.com:3000"
+// }
+
 var config = {
-    "consumerKey": keyConfig.twitter.consumerKey || process.env.TWITTER_CONSUMERKEY,
-    "consumerSecret": keyConfig.twitter.consumerSecret || process.env.TWITTER_CONSUMERKEYSECRET,
-    "accessToken": keyConfig.twitter.accessToken || process.env.TWITTER_ACCESSTOKEN,
-    "accessTokenSecret": keyConfig.twitter.accessTokenSecret || process.env.TWITTER_ACCESSTOKENSECRET,
-    "callBackUrl": "http://local.simeon86.com:3000"
+    "consumerKey": process.env.TWITTER_CONSUMERKEY,
+    "consumerSecret": process.env.TWITTER_CONSUMERKEYSECRET,
+    "accessToken": process.env.TWITTER_ACCESSTOKEN,
+    "accessTokenSecret": process.env.TWITTER_ACCESSTOKENSECRET,
+    "callBackUrl": "https://infinite-inlet-93119.herokuapp.com/"
 }
 
 var twitter = new Twitter(config);
@@ -255,7 +263,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
