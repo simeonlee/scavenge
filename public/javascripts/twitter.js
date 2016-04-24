@@ -54,6 +54,8 @@ var MODULE = (function (my) {
 
   my.extractTweets = function(data) {
 
+    console.log('in extracttweets function');
+
     // show what the query was that resulted in this tweet selection
     var query = data.search_metadata.query;
     query = decodeURIComponent(query);
