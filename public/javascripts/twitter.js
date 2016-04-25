@@ -238,9 +238,12 @@ var MODULE = (function (my) {
         '<div class="iw-body">'+
         '<div class="iw-tweet"><a href="'+tweetURL+'" target="_blank" >'+text+'</a></div>'+
         '<div class="iw-tweet iw-inner-URL"><a href="'+innerURL+'" target="_blank" >'+innerURL+'</a></div>'+
-        '<img src="../images/twitterbird.png" class="iw-bird">'+
         '<p class="iw-time">'+timeSince+'</p>'+
+        '<img src="../images/twitterbird.png" class="iw-bird">'+
         '</div>'+
+
+        // unsure why we need to attach twitterbird logo AFTER <p>
+        // to get the twitter bird to show before...
 
         // '<div class="iw-body-img-container">'+
         
@@ -517,7 +520,8 @@ var MODULE = (function (my) {
 
 
 
-
+  var listIndex = 0;
+  var listArr = [];
 
   var addToList = function(tweet) { // pass place from google to this function
 
@@ -530,6 +534,7 @@ var MODULE = (function (my) {
     var timestamp = tweet.timestamp;
     var timeSince = calculateSince(timestamp);
     var tweetID = tweet.tweetID;
+    var latLng = tweet.latLng;
 
     // link to the tweeter's profile
     var userURL = 'https://www.twitter.com/'+handle;
@@ -619,16 +624,14 @@ var MODULE = (function (my) {
 
     var tw_twitter_bird = document.createElement('img');
     tw_twitter_bird.className = 'tw-twitter-bird';
-    tw_twitter_bird.setAttribute('src', '../images/twitterbird.png')
-    
-
+    tw_twitter_bird.setAttribute('src', '../images/twitterbird.png');
 
     // need to set a cb here later
     // issue is that it takes a few ms for the dom to load the twitterbird
     // so give it a sec to load before attaching to some element
     setTimeout(function(){
       tw_timesince_div.appendChild(tw_twitter_bird);
-    },1000); 
+    },1000);
     
 
     // var tw_twitter_bird_div = document.createElement('div');
@@ -668,15 +671,21 @@ var MODULE = (function (my) {
     tw_li.className = 'tw-li';
     tw_li.appendChild(tw_div);
 
-
     // find the <ul> in the document by its identifier and make <li> and
     // all the <div>'s part of the document
     var ul = document.getElementById("list-ul");             
     ul.appendChild(tw_li);
-  
-    
 
+    // create virtual list of tweet divs for better manipulation and assign unique IDs
+    tw_div.id = 'list-div-no-'+listIndex;
+    listIndex++;
+    listArr.push(tw_div);
 
+    document.getElementById(tw_div.id).onmousedown = function(){
+      console.log('User clicked on tweet '+tweetID);
+      console.log('Tweet located at ' + latLng.lat + ', ' +latLng.lng);
+      my.google_map.setCenter(latLng);
+    };
 
   }
 

@@ -43,10 +43,6 @@ var MODULE = (function (my) {
     
     setUpGoogleMap();
     
-    
-
-
-    
   });
 
 
@@ -123,35 +119,21 @@ var MODULE = (function (my) {
     // to demonstrate that we can access our Google Maps functions in the Twitter API script file
     // my.loadMapIntoTwitterAPIScript();
 
-    console.log('getting out of googlemap');
-
-    // console.log(pos);
-
-
     // assess user position
     initGeolocate(map);
 
-    
-
-    // console.log(map);
-
-    
-
-
     setTimeout(function(){
-      searchPlaces();
+      // searchPlaces();
     },4000);
-
     
     // add results to list
-    initAutocomplete(map);
-
-    
+    // initAutocomplete(map);
 
     map.addListener('click', function(event) { // event is object containing information regarding click
       // moveCenter(event.latLng, map);
       map.panTo(event.latLng);
     });
+    
   }
 
 
@@ -209,22 +191,24 @@ var MODULE = (function (my) {
           lng: position.coords.longitude
         };
 
-        console.log(pos);
+        console.log('Client communicating ' + pos.lat + ', ' + pos.lng);
 
         // set infowindow
-        infowindow.setPosition(pos);
-        infowindow.setContent('Here you are - time to scavenge!');
-        setTimeout(function(){
-          infowindow.close();
-        }, 10000);
+        // infowindow.setPosition(pos);
+        // infowindow.setContent('Here you are - time to scavenge!');
+        // setTimeout(function(){
+        //   infowindow.close();
+        // }, 10000);
         
         // mark user location - 'the nest'
         var marker = new google.maps.Marker({
           position: pos,
-          icon: '../images/homestar.png',
+          icon: '../images/homeicon.png',
           animation: google.maps.Animation.DROP,
           title: 'you'
         });
+
+        marker.setMap(map);
 
         // type of data to emit
         var mygeo = 'my geolocation';

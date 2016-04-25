@@ -10,8 +10,8 @@ var bodyParser = require('body-parser');
 // create a new middleware function to serve files from within a given root directory
 var serveStatic = require('serve-static');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+// var routes = require('./routes/index');
+// var users = require('./routes/users');
 
 // create express server
 var app = express();
@@ -215,6 +215,7 @@ var success = function (data) {
 
 
 
+// need to enforce SSL / https to allow geolocation in latest chrome
 
 // app.all('*', function(req, res, next) {
 //   if (/^http$/.test(req.protocol)) {
@@ -288,8 +289,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
+// app.use('/', routes);
+// app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
