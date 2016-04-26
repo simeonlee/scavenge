@@ -451,9 +451,9 @@ var addInstaImgURL = function(dataJSON) {
     console.log(status.instaImgURL);
 
   }
-  setTimeout(function(){
+  // setTimeout(function(){
     return dataJSON;
-  },2000);
+  // },1000);
 }
 
 
