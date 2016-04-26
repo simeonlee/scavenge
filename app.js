@@ -39,10 +39,9 @@ setTimeout(function(){
     socket.on('my geolocation', function(userGeo) {
       console.log(userGeo); // returns user's geolocation
       console.log('this is geo');
-      twitterSearch(userGeo);
+      var twitterQueryTerms = ['paleo','healthy','keto','ketogenic','avocado','juice','chia','salad'];
+      twitterSearch(userGeo, twitterQueryTerms);
     });
-
-
 
   });
 },5000);
@@ -120,13 +119,6 @@ function onListening() {
 
 
 
-
-
-
-
-// set up http server for use with socket.io
-// var server = require('http').Server(app);
-
 // access Twitter API
 var Twitter = require('twitter-node-client').Twitter;
 
@@ -143,36 +135,22 @@ var config = {
 
 var twitter = new Twitter(config);
 
-var twitterSearch = function(userGeo){
+
+
+var twitterSearch = function(userGeo, twitterQueryTerms){
 
   if (userGeo) {
     var lat = userGeo.lat;
     var lng = userGeo.lng;
   } else {
-    var lat = 40.7308;  
+    var lat = 40.7308;
     var lng = -73.9973;
   }
-  
-  
 
   return twitter.getSearch({
     
-    // bread is the enemy query terms
-    'q': 'paleo'+
-    ' OR '+
-    'healthy'+
-    ' OR '+
-    'keto'+
-    ' OR '+
-    'ketogenic'+
-    ' OR '+
-    'avocado'+
-    ' OR '+
-    'juice'+
-    ' OR '+
-    'chia'+
-    ' OR '+
-    'salad',
+    // twitter query search terms
+    'q': twitterQueryTerms.join(' OR '),
 
     // 'latitude,longitude,radius'
     'geocode': lat+','+lng+',1mi',
@@ -184,12 +162,8 @@ var twitterSearch = function(userGeo){
     'result_type': 'recent'
 
   }, error, success);
+
 }
-
-
-
-
-
 
 // callback functions
 var error = function (err, response, body) {
