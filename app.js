@@ -38,7 +38,7 @@ setTimeout(function() {
       
       var clientData = JSON.parse(clientToServer);
 
-      var pos = clientToServer.pos
+      var pos = clientData.pos
       var lat = pos.lat;
       var lng = pos.lng;
 
