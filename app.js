@@ -202,7 +202,7 @@ var success = function (data) {
   setTimeout(function(){
     // send data to client
     io.sockets.emit('retrieved tweets', dataJSONplusInsta);
-  },1000);
+  },10000);
 
   // print tweet
   var text = dataJSON.statuses[0].text;
