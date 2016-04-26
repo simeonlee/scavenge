@@ -36,19 +36,20 @@ setTimeout(function() {
 
     socket.on('my geolocation', function(clientToServer) {
       
-      // var clientData = JSON.parse(clientToServer);
+      var clientData = JSON.parse(clientToServer);
 
-      var lat = clientToServer.lat;
-      var lng = clientToServer.lng;
+      var pos = clientToServer.pos
+      var lat = pos.lat;
+      var lng = pos.lng;
 
-      var twitterQueryTerms = ['paleo','healthy','keto','ketogenic','avocado','juice','chia','salad'];
-      // var twitterQueryTerms = clientData.twitterQueryTerms;
+      // var twitterQueryTerms = ['paleo','healthy','keto','ketogenic','avocado','juice','chia','salad'];
+      var twitterQueryTerms = clientData.twitterQueryTerms;
 
       // print client's geolocation
       console.log('Client geolocation: '+lat+','+lng);
 
       
-      twitterSearch(clientToServer, twitterQueryTerms);
+      twitterSearch(pos, twitterQueryTerms);
     });
 
   });

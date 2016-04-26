@@ -229,16 +229,16 @@ var MODULE = (function (my) {
         });
 
 
-        // var clientToServer = {
-        //   pos: pos,
-        //   twitterQueryTerms: ['paleo','healthy','keto','ketogenic','avocado','juice','chia','salad']
-        // };
+        var clientToServer = {
+          pos: pos,
+          twitterQueryTerms: ['paleo','healthy','keto','ketogenic','avocado','juice','chia','salad']
+        };
 
         // type of data to emit
         var mygeo = 'my geolocation';
 
         // call function to emit geolocation data to server
-        socketEmit(mygeo, pos);
+        socketEmit(mygeo, clientToServer);
 
         // set map to center on position
         map.setCenter(pos);
@@ -264,7 +264,9 @@ var MODULE = (function (my) {
   var socketEmit = function(type, data) {
     var socket = io.connect(scavengeurl);
     
-    socket.emit(type, data);
+    // socket prefers json over objects
+    var jsonData = JSON.stringify(data);
+    socket.emit(type, jsonData);
   };
 
 
