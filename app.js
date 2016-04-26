@@ -443,11 +443,17 @@ var addInstaImgURL = function(dataJSON) {
     // extract text of tweet including t.co url
     var tweetText = status.text;
 
+
+
     // add instagram thumbnail url to datajson object before transmittal to client
     status.instaImgURL = returnInstaImgURL(tweetText);
 
+    console.log(status.instaImgURL);
+
   }
-  return dataJSON;
+  setTimeout(function(){
+    return dataJSON;
+  },2000);
 }
 
 
