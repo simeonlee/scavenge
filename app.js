@@ -409,7 +409,8 @@ var set_parameters = {
 }
 
 var yelpCallback = function(error, response, body) {
-  console.log(body);
+  var parsedData = JSON.parse(body);
+  console.log(parsedData);
 }
 
 setTimeout(function(){
