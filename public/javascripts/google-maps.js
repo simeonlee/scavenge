@@ -17,6 +17,8 @@ var MODULE = (function (my) {
   // user position
   var pos;
 
+  my.twitterQueryTerms = ['paleo','healthy','keto','ketogenic','avocado','juice','chia','salad'];
+
   // set to Washington Square Park... familiar restaurants for debugging
   var defaultLocation = {
     lat: 40.7308,
@@ -186,7 +188,7 @@ var MODULE = (function (my) {
     if (navigator.geolocation) {
       
       navigator.geolocation.getCurrentPosition(function(position) {        
-        var pos = {
+        pos = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
@@ -231,7 +233,7 @@ var MODULE = (function (my) {
 
         var clientToServer = {
           pos: pos,
-          twitterQueryTerms: ['paleo','healthy','keto','ketogenic','avocado','juice','chia','salad']
+          twitterQueryTerms: my.twitterQueryTerms
         };
 
         // type of data to emit

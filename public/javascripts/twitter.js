@@ -5,6 +5,7 @@ var MODULE = (function (my) {
   var map = my.google_map;
 
   
+  
   // to set unique identities for each tweet, we'll increment 'id'
   var id = 0;
 
@@ -47,8 +48,18 @@ var MODULE = (function (my) {
 
   // request.send();
 
-  
+   
 
+  function addTwitterQueryTerm(term) {
+    // my.twitterQueryTerms = ['paleo', ...]; 
+    my.twitterQueryTerms.push(term);
+  }
+
+  function removeTwitterQueryTerm(term) {
+    // my.twitterQueryTerms = ['paleo', ...];
+    var termIndex = my.twitterQueryTerms.indexOf(term);
+    my.twitterQueryTerms.splice(termIndex,1)
+  }
 
 
   
