@@ -30,17 +30,25 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-// var world = 'text';
-
-setTimeout(function(){
+setTimeout(function() {
   io.on('connection', function(socket) {
     // socket.emit('test emit', 'test emit');
 
-    socket.on('my geolocation', function(userGeo) {
-      console.log(userGeo); // returns user's geolocation
-      console.log('this is geo');
+    socket.on('my geolocation', function(clientToServer) {
+      
+      // var clientData = JSON.parse(clientToServer);
+
+      var lat = clientToServer.lat;
+      var lng = clientToServer.lng;
+
       var twitterQueryTerms = ['paleo','healthy','keto','ketogenic','avocado','juice','chia','salad'];
-      twitterSearch(userGeo, twitterQueryTerms);
+      // var twitterQueryTerms = clientData.twitterQueryTerms;
+
+      // print client's geolocation
+      console.log('Client geolocation: '+lat+','+lng);
+
+      
+      twitterSearch(clientToServer, twitterQueryTerms);
     });
 
   });

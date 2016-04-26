@@ -2,6 +2,7 @@ var MODULE = (function (my) {
 
   my.tweets = [];
   var tweetMarkers = [];
+  var map = my.google_map;
 
   
   // to set unique identities for each tweet, we'll increment 'id'
@@ -189,13 +190,12 @@ var MODULE = (function (my) {
         });
 
 
-     
-     
+
+
 
         // add the tweet marker to the map
         marker.setMap(map);
         // marker.setMap(null) to remove the marker
-
 
 
         
@@ -298,6 +298,22 @@ var MODULE = (function (my) {
           infowindow.open(map, marker);
         // },500);
         
+
+        marker.addListener('click', function() {
+          
+          // my.google_map.setZoom(16);
+          
+          my.google_map.setCenter(marker.getPosition());
+          
+          infowindow.open(map, marker);
+
+          if (marker.getAnimation() !== null) {
+            marker.setAnimation(null);
+          } else {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+          }
+          
+        });
 
         // add tweet to left side scrolling list
         addToList(tweet);

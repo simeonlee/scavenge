@@ -208,14 +208,37 @@ var MODULE = (function (my) {
           title: 'you'
         });
 
+
+
         marker.setMap(map);
+
+        marker.addListener('click', function() {
+          
+          // reset the zoom to starting 16
+          map.setZoom(16);
+
+          // set the position to be center of map
+          map.setCenter(marker.getPosition());
+
+          // bounce (on/off)
+          if (marker.getAnimation() !== null) {
+            marker.setAnimation(null);
+          } else {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+          }
+        });
+
+
+        // var clientToServer = {
+        //   pos: pos,
+        //   twitterQueryTerms: ['paleo','healthy','keto','ketogenic','avocado','juice','chia','salad']
+        // };
 
         // type of data to emit
         var mygeo = 'my geolocation';
 
         // call function to emit geolocation data to server
         socketEmit(mygeo, pos);
-
 
         // set map to center on position
         map.setCenter(pos);
@@ -240,6 +263,7 @@ var MODULE = (function (my) {
 
   var socketEmit = function(type, data) {
     var socket = io.connect(scavengeurl);
+    
     socket.emit(type, data);
   };
 
