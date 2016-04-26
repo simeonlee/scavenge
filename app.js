@@ -195,7 +195,7 @@ var success = function (data) {
   console.log(dataJSON);
 
   var dataJSONplusInsta = addInstaImgURL(dataJSON);
-
+  console.log(dataJSONplusInsta);
   
 
 
