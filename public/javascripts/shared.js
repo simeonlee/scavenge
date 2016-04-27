@@ -65,7 +65,7 @@ var MODULE = (function (my) {
 my.expandT_coURL = function(innerURL,extractInstaURL) {
   $.ajax({
     type: 'GET',
-    url: 'http://www.linkexpander.com/?url='+innerURL,
+    url: 'https://www.linkexpander.com/?url='+innerURL,
     cache: false,
     dataType: 'json',
     jsonp: false,
@@ -93,7 +93,7 @@ my.extractInstaURL = function(expandedURL) {
   // extract instagram pic from twitter shortlink
   $.ajax({
     type: 'GET',
-    url: 'http://api.instagram.com/oembed?callback=&url='+expandedURL,
+    url: 'https://api.instagram.com/oembed?callback=&url='+expandedURL,
     cache: false,
     dataType: 'json',
     jsonp: false,
