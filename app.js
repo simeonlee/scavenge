@@ -505,7 +505,9 @@ var expandT_coURL = function(innerURL,extractInstaURL) {
     success: function (data) {
       try {
         var expandedURL = data;
+        console.log(expandedURL);
         var instaURL = extractInstaURL(expandedURL);
+        console.log(instaURL);
         return instaURL;
       } catch (err) {
         console.log(err);
