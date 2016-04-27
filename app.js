@@ -198,21 +198,12 @@ var success = function (data) {
 
   // addInstaImgURL();
 
-
   // var dataJSONplusInsta = addInstaImgURL(dataJSON);
   // console.log(dataJSONplusInsta);
-  
-
-
-
-
-
 
   // var addInstaImgURL = function() {
     
   for (var i = 0; i < dataJSON.length; i++) {
-
-
 
     // extract individual tweet status object
     var status = dataJSON.statuses[i];
@@ -220,13 +211,8 @@ var success = function (data) {
     // extract text of tweet including t.co url
     var tweetText = status.text;
 
-
-
     // add instagram thumbnail url to datajson object before transmittal to client
     // status.instaImgURL = returnInstaImgURL(tweetText);
-
-
-
 
     // var returnInstaImgURL = function(text) {
 
@@ -235,16 +221,9 @@ var success = function (data) {
     var regex = new RegExp(expression);
     
     if (text.match(regex)) {
-      
+
       // set innerURL to that link in the text that links to some content
       var innerURL = text.match(regex);
-    
-      // var innerURL is now a t.co url - need to transform using ajax call to 
-      // www.linkexpander.com/?url=https://t.co/xxx to find instagram url
-      // var instaURL = expandT_coURL(innerURL,extractInstaURL);
-      // console.log(instaURL);
-
-
 
       $.ajax({
         type: 'GET',
@@ -254,8 +233,6 @@ var success = function (data) {
         jsonp: false,
         success: function (expandedURL) {
           try {
-            
-
 
             $.ajax({
               type: 'GET',
@@ -277,75 +254,26 @@ var success = function (data) {
 
                 } catch (err) {
                   console.log(err);
-                  // return null;
+                  
                 }
               }
             });
 
-
-
-            
-            
-            
-            
-            // return instaURL;
           } catch (err) {
             console.log(err);
-            // return null;
+
           }
         }
 
       })
 
-
-
-
-
-      // return instaURL;
-
     } else {
       var innerURL = null;
       var instaURL = 'instaURL not found';
       status.instaImgURL = instaURL;
-      // return null;
-
     }
     
-  // }
-
-
-  // var expandT_coURL = function(innerURL,extractInstaURL) {
-   
-  // }
-
-
-
-
-  // var extractInstaURL = function(expandedURL) {
-  //   // extract instagram pic from twitter shortlink
- 
-  // }
-
-
-
-
-
-
-
-    
   } // end for loop
-  // }
-
-
-
-
-
-
-
-
-
-
-
 
   setTimeout(function(){
     // send data to client
