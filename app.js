@@ -288,8 +288,8 @@ var success = function (data) {
   },10000);
 
   // print tweet
-  var text = dataJSON.statuses[0].text;
-  console.log(text);
+  var firstText = dataJSON.statuses[0].text;
+  console.log(firstText);
 };
 
 
