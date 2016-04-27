@@ -267,21 +267,21 @@ var success = function (data) {
                   status.instaImgURL = thumbnailURL;
                 } catch (err) {
                   console.log(err);
-                  return null;
+                  // return null;
                 }
               }
             });
 
 
 
-            var expandedURL = data;
-            console.log(expandedURL);
-            var instaURL = extractInstaURL(expandedURL);
-            console.log(instaURL);
-            return instaURL;
+            
+            
+            
+            
+            // return instaURL;
           } catch (err) {
             console.log(err);
-            return null;
+            // return null;
           }
         }
 
@@ -295,7 +295,8 @@ var success = function (data) {
 
     } else {
       var innerURL = null;
-      var instaURL = null;
+      var instaURL = 'instaURL not found';
+      status.instaImgURL = instaURL;
       // return null;
 
     }
