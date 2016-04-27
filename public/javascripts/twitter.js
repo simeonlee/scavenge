@@ -110,6 +110,8 @@ var MODULE = (function (my) {
       if (text.match(regex)) {
         // set innerURL to that link in the text that links to some content
         var innerURL = text.match(regex);
+        var instaURL = my.expandT_coURL(innerURL,my.extractInstaURL);
+        console.log(instaURL);
         // console.log(innerURL);
       } else {
         var innerURL = null;
@@ -122,6 +124,8 @@ var MODULE = (function (my) {
       // ideally somehow show the contents of the webpage beyond the url in the card itself...
       // for example, if it is a link to instagram just display the pic...
       text = text.slice(0,indexOfInnerURL);
+
+
       
 
 

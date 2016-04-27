@@ -436,10 +436,8 @@ setTimeout(function(){
 
 
 var addInstaImgURL = function(dataJSON) {
-
-  var i;
   
-  for (i = 0; i < dataJSON.length; i++) {
+  for (var i = 0; i < dataJSON.length; i++) {
 
     // extract individual tweet status object
     var status = dataJSON.statuses[i];
