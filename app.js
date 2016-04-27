@@ -456,16 +456,13 @@ var addInstaImgURL = function(dataJSON) {
 
   }
 
-  dataJSON.statuses.id = 'this is insta edited';
   return dataJSON;
-
-
 }
 
 
 
 
-var returnInstaImgURL = function() {
+var returnInstaImgURL = function(text) {
 
     // find the link in the text that starts with 'https://t.co/xxx'
     var expression = /https?:\/\/t\.[a-z]{2,6}\/([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi;
