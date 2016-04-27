@@ -271,6 +271,7 @@ var success = function (data) {
       var innerURL = null;
       var instaURL = 'instaURL not found';
       status.instaImgURL = instaURL;
+      instaURLArr.push(instaURL);
     }
     
   } // end for loop
