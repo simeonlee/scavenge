@@ -110,9 +110,6 @@ var MODULE = (function (my) {
       if (text.match(regex)) {
         // set innerURL to that link in the text that links to some content
         var innerURL = text.match(regex);
-        var instaURL = my.expandT_coURL(innerURL,my.extractInstaURL);
-        console.log(instaURL);
-        // console.log(innerURL);
       } else {
         var innerURL = null;
         // console.log("No match");
