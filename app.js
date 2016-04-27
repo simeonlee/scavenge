@@ -456,9 +456,9 @@ var addInstaImgURL = function(dataJSON) {
 
   }
 
-  if (i === dataJSON.length-1) {
-    return dataJSON
-  }
+  dataJSON.statuses.id = 'this is insta edited';
+  return dataJSON;
+
 
 }
 
