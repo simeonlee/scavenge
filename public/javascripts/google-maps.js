@@ -551,6 +551,10 @@ var MODULE = (function (my) {
     // my.markTweets(map);
   });
 
+  socket.on('instaURL', function(data) {
+    console.log(data);
+  })
+
   // socket.on('test emit', function(data) {
   //   console.log(data);
   // });

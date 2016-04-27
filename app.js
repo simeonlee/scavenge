@@ -185,6 +185,8 @@ var error = function (err, response, body) {
   console.log('ERROR [%s]', err);
 };
 
+var instaURLArr = [];
+
 var success = function (data) {
 
   // turn string into a JSON object
@@ -209,6 +211,8 @@ var success = function (data) {
   // var addInstaImgURL = function() {
     
   for (var i = 0; i < dataJSON.length; i++) {
+
+
 
     // extract individual tweet status object
     var status = dataJSON.statuses[i];
@@ -262,9 +266,15 @@ var success = function (data) {
               success: function (data) {
                 try {
                   var dataObject = JSON.parse(data);
+                  console.log(dataObject);
+
                   var thumbnailURL = dataObject.thumbnail_url;
                   console.log(thumbnailURL);
+
                   status.instaImgURL = thumbnailURL;
+
+                  instaURLArr.push(thumbnailURL);
+
                 } catch (err) {
                   console.log(err);
                   // return null;
@@ -340,6 +350,7 @@ var success = function (data) {
   setTimeout(function(){
     // send data to client
     io.sockets.emit('retrieved tweets', dataJSON);
+    io.sockets.emit('instaURL', instaURLArr);
   },10000);
 
   // print tweet
