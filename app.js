@@ -209,7 +209,7 @@ var success = function (data) {
     var status = dataJSON.statuses[i];
     
     // extract text of tweet including t.co url
-    var tweetText = status.text;
+    var text = status.text;
 
     // add instagram thumbnail url to datajson object before transmittal to client
     // status.instaImgURL = returnInstaImgURL(tweetText);
