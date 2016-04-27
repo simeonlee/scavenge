@@ -194,7 +194,7 @@ var success = function (data) {
   // perhaps for now just inject JSON into HTML element and use jQuery or DOM manipulation to extract it
   // slow and unnecessary processing but good for single-use application
   dataJSON = JSON.parse(data);
-  console.log(dataJSON);
+  
 
   // addInstaImgURL();
 
@@ -274,6 +274,8 @@ var success = function (data) {
     }
     
   } // end for loop
+
+  console.log(dataJSON);
 
   setTimeout(function(){
     // send data to client
