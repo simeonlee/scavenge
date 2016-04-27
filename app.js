@@ -452,7 +452,9 @@ var addInstaImgURL = function(dataJSON) {
       console.log(status.instaImgURL);
 
     }
-  }, return dataJSON)();
+  }, function(){
+    return dataJSON
+  })();
 
 }
 
