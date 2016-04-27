@@ -194,7 +194,7 @@ var success = function (data) {
   // perhaps for now just inject JSON into HTML element and use jQuery or DOM manipulation to extract it
   // slow and unnecessary processing but good for single-use application
   dataJSON = JSON.parse(data);
-  
+  var statuses = dataJSON.statuses;
 
   // addInstaImgURL();
 
@@ -202,11 +202,12 @@ var success = function (data) {
   // console.log(dataJSONplusInsta);
 
   // var addInstaImgURL = function() {
-    
-  for (var i = 0; i < dataJSON.length; i++) {
+  
+
+  for (var i = 0; i < statuses.length; i++) {
 
     // extract individual tweet status object
-    var status = dataJSON.statuses[i];
+    var status = statuses[i];
     
     // extract text of tweet including t.co url
     var text = status.text;
