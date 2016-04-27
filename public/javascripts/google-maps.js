@@ -553,6 +553,7 @@ var MODULE = (function (my) {
 
   socket.on('instaURL', function(data) {
     console.log(data);
+    console.log('trying to detect insta url');
   })
 
   // socket.on('test emit', function(data) {
