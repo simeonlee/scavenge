@@ -211,6 +211,8 @@ var success = function (data) {
 
 
 
+
+
 // need to enforce SSL / https to allow geolocation in latest chrome
 
 // app.all('*', function(req, res, next) {
@@ -435,26 +437,28 @@ setTimeout(function(){
 
 var addInstaImgURL = function(dataJSON) {
 
-  (function(){
-    for (var i = 0; i < dataJSON.length; i++) {
+  var i;
+  
+  for (i = 0; i < dataJSON.length; i++) {
 
-      // extract individual tweet status object
-      var status = dataJSON.statuses[i];
-      
-      // extract text of tweet including t.co url
-      var tweetText = status.text;
+    // extract individual tweet status object
+    var status = dataJSON.statuses[i];
+    
+    // extract text of tweet including t.co url
+    var tweetText = status.text;
 
 
 
-      // add instagram thumbnail url to datajson object before transmittal to client
-      status.instaImgURL = returnInstaImgURL(tweetText);
+    // add instagram thumbnail url to datajson object before transmittal to client
+    status.instaImgURL = returnInstaImgURL(tweetText);
 
-      console.log(status.instaImgURL);
+    console.log(status.instaImgURL);
 
-    }
-  }, function(){
+  }
+
+  if (i === dataJSON.length-1) {
     return dataJSON
-  })();
+  }
 
 }
 
