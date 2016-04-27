@@ -322,7 +322,7 @@ var success = function (data) {
 
 
     
-  }
+  } // end for loop
   // }
 
 
@@ -338,7 +338,7 @@ var success = function (data) {
 
   setTimeout(function(){
     // send data to client
-    io.sockets.emit('retrieved tweets', dataJSONplusInsta);
+    io.sockets.emit('retrieved tweets', dataJSON);
   },10000);
 
   // print tweet
