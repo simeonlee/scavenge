@@ -194,8 +194,9 @@ var success = function (data) {
   dataJSON = JSON.parse(data);
   console.log(dataJSON);
 
-  var dataJSONplusInsta = addInstaImgURL(dataJSON);
-  console.log(dataJSONplusInsta);
+  addInstaImgURL();
+  // var dataJSONplusInsta = addInstaImgURL(dataJSON);
+  // console.log(dataJSONplusInsta);
   
 
 
@@ -435,7 +436,7 @@ setTimeout(function(){
 
 
 
-var addInstaImgURL = function(dataJSON) {
+var addInstaImgURL = function() {
   
   for (var i = 0; i < dataJSON.length; i++) {
 
@@ -454,7 +455,7 @@ var addInstaImgURL = function(dataJSON) {
 
   }
 
-  return dataJSON;
+  // return dataJSON;
 }
 
 
