@@ -254,14 +254,14 @@ var success = function (data) {
 
                 } catch (err) {
                   console.log(err);
-                  
+                  instaURLArr.push('instaURL not found');
                 }
               }
             });
 
           } catch (err) {
             console.log(err);
-
+            instaURLArr.push('innerURL not found');
           }
         }
 
@@ -271,7 +271,7 @@ var success = function (data) {
       var innerURL = null;
       var instaURL = 'instaURL not found';
       status.instaImgURL = instaURL;
-      instaURLArr.push(instaURL);
+      instaURLArr.push('instaURL not found');
     }
     
   } // end for loop
