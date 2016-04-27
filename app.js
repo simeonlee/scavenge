@@ -210,6 +210,7 @@ var success = function (data) {
     
     // extract text of tweet including t.co url
     var text = status.text;
+    console.log(text);
 
     // add instagram thumbnail url to datajson object before transmittal to client
     // status.instaImgURL = returnInstaImgURL(tweetText);
@@ -234,30 +235,32 @@ var success = function (data) {
         success: function (expandedURL) {
           try {
 
-            $.ajax({
-              type: 'GET',
-              url: 'https://api.instagram.com/oembed?callback=&url='+expandedURL,
-              cache: false,
-              dataType: 'json',
-              jsonp: false,
-              success: function (data) {
-                try {
-                  var dataObject = JSON.parse(data);
-                  console.log(dataObject);
+            console.log(expandedURL);
 
-                  var thumbnailURL = dataObject.thumbnail_url;
-                  console.log(thumbnailURL);
+            // $.ajax({
+            //   type: 'GET',
+            //   url: 'https://api.instagram.com/oembed?callback=&url='+expandedURL,
+            //   cache: false,
+            //   dataType: 'json',
+            //   jsonp: false,
+            //   success: function (data) {
+            //     try {
+            //       var dataObject = JSON.parse(data);
+            //       console.log(dataObject);
 
-                  status.instaImgURL = thumbnailURL;
+            //       var thumbnailURL = dataObject.thumbnail_url;
+            //       console.log(thumbnailURL);
 
-                  instaURLArr.push(thumbnailURL);
+            //       status.instaImgURL = thumbnailURL;
 
-                } catch (err) {
-                  console.log(err);
-                  instaURLArr.push('instaURL not found');
-                }
-              }
-            });
+            //       instaURLArr.push(thumbnailURL);
+
+            //     } catch (err) {
+            //       console.log(err);
+            //       instaURLArr.push('instaURL not found');
+            //     }
+            //   }
+            // });
 
           } catch (err) {
             console.log(err);
@@ -276,7 +279,7 @@ var success = function (data) {
     
   } // end for loop
 
-  console.log(dataJSON);
+  // console.log(dataJSON);
 
   setTimeout(function(){
     // send data to client
