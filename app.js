@@ -227,49 +227,77 @@ var success = function (data) {
       // set innerURL to that link in the text that links to some content
       var innerURL = text.match(regex);
 
-      $.ajax({
-        type: 'GET',
-        url: 'https://www.linkexpander.com/?url='+innerURL,
-        cache: false,
-        dataType: 'json',
-        jsonp: false,
-        success: function (expandedURL) {
-          try {
+      // ajax call w/o jquery to linkexpander.com to retrieve expanded
+      // t.co url as an instagram url or whatever else
+      var request = new XMLHttpRequest();
+      request.open('GET', 'https://www.linkexpander.com/?url='+innerURL, true);
 
-            console.log(expandedURL);
+      request.onload = function() {
+        if (request.status >= 200 && request.status < 400) {
+          
+          // success
+          var expandedURL = request.responseText;
+          console.log(expandedURL);
 
-            // $.ajax({
-            //   type: 'GET',
-            //   url: 'https://api.instagram.com/oembed?callback=&url='+expandedURL,
-            //   cache: false,
-            //   dataType: 'json',
-            //   jsonp: false,
-            //   success: function (data) {
-            //     try {
-            //       var dataObject = JSON.parse(data);
-            //       console.log(dataObject);
-
-            //       var thumbnailURL = dataObject.thumbnail_url;
-            //       console.log(thumbnailURL);
-
-            //       status.instaImgURL = thumbnailURL;
-
-            //       instaURLArr.push(thumbnailURL);
-
-            //     } catch (err) {
-            //       console.log(err);
-            //       instaURLArr.push('instaURL not found');
-            //     }
-            //   }
-            // });
-
-          } catch (err) {
-            console.log(err);
-            instaURLArr.push('innerURL not found');
-          }
+        } else {
+          // we reached target server but it returned an error
         }
+      };
 
-      })
+      request.onerror = function() {
+        // connection error of some sort
+      };
+
+      request.send();
+
+
+
+
+
+
+      // $.ajax({
+      //   type: 'GET',
+      //   url: 'https://www.linkexpander.com/?url='+innerURL,
+      //   cache: false,
+      //   dataType: 'json',
+      //   jsonp: false,
+      //   success: function (expandedURL) {
+      //     try {
+
+      //       console.log(expandedURL);
+
+      //       // $.ajax({
+      //       //   type: 'GET',
+      //       //   url: 'https://api.instagram.com/oembed?callback=&url='+expandedURL,
+      //       //   cache: false,
+      //       //   dataType: 'json',
+      //       //   jsonp: false,
+      //       //   success: function (data) {
+      //       //     try {
+      //       //       var dataObject = JSON.parse(data);
+      //       //       console.log(dataObject);
+
+      //       //       var thumbnailURL = dataObject.thumbnail_url;
+      //       //       console.log(thumbnailURL);
+
+      //       //       status.instaImgURL = thumbnailURL;
+
+      //       //       instaURLArr.push(thumbnailURL);
+
+      //       //     } catch (err) {
+      //       //       console.log(err);
+      //       //       instaURLArr.push('instaURL not found');
+      //       //     }
+      //       //   }
+      //       // });
+
+      //     } catch (err) {
+      //       console.log(err);
+      //       instaURLArr.push('innerURL not found');
+      //     }
+      //   }
+
+      // })
 
     } else {
       var innerURL = null;
