@@ -240,16 +240,21 @@ var success = function (data) {
         var expandedURL = body;
         console.log(expandedURL);
 
-        var instaAPIURL = 'https://api.instagram.com/oembed?callback=&url='+expandedURL;
-        // request(instaAPIURL, function(err, resp, body) {
+        if (expandedURL.indexOf('instagram') > -1){
           
-        //   body = JSON.parse(body);
+          var instaAPIURL = 'https://api.instagram.com/oembed?callback=&url='+expandedURL;
           
-        //   var thumbnailURL = body.thumbnail_url;
-        //   console.log(thumbnailURL);
-          
-        // });
+          request(instaAPIURL, function(err, resp, body) {
+            
+            body = JSON.parse(body);
+            
+            var thumbnailURL = body.thumbnail_url;
+            console.log(thumbnailURL);
 
+          });
+
+        };
+        
       });
 
       // // ajax call w/o jquery to linkexpander.com to retrieve expanded
