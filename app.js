@@ -241,14 +241,14 @@ var success = function (data) {
         console.log(expandedURL);
 
         var instaAPIURL = 'https://api.instagram.com/oembed?callback=&url='+expandedURL;
-        request(instaAPIURL, function(err, resp, body) {
+        // request(instaAPIURL, function(err, resp, body) {
           
-          body = JSON.parse(body);
+        //   body = JSON.parse(body);
           
-          var thumbnailURL = body.thumbnail_url;
-          console.log(thumbnailURL);
+        //   var thumbnailURL = body.thumbnail_url;
+        //   console.log(thumbnailURL);
           
-        });
+        // });
 
       });
 
