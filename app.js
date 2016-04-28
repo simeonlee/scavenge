@@ -239,6 +239,17 @@ var success = function (data) {
       request(linkexpanderURL, function(err, resp, body) {
         var expandedURL = body;
         console.log(expandedURL);
+
+        var instaAPIURL = 'https://api.instagram.com/oembed?callback=&url='+expandedURL;
+        request(instaAPIURL, function(err, resp, body) {
+          
+          body = JSON.parse(body);
+          
+          var thumbnailURL = body.thumbnail_url;
+          console.log(thumbnailURL);
+          
+        });
+
       });
 
       // // ajax call w/o jquery to linkexpander.com to retrieve expanded
@@ -291,8 +302,7 @@ var success = function (data) {
       //       //       var dataObject = JSON.parse(data);
       //       //       console.log(dataObject);
 
-      //       //       var thumbnailURL = dataObject.thumbnail_url;
-      //       //       console.log(thumbnailURL);
+                  
 
       //       //       status.instaImgURL = thumbnailURL;
 
