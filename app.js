@@ -239,7 +239,7 @@ var success = function (data) {
       request(linkexpanderURL, function(err, resp, body) {
         var expandedURL = body;
         console.log(expandedURL);
-      }
+      });
 
       // // ajax call w/o jquery to linkexpander.com to retrieve expanded
       // // t.co url as an instagram url or whatever else
