@@ -265,7 +265,7 @@ var success = function (data) {
             console.log(thumbnailURL);
 
             // attach the thumbnail URL to the twitter status object
-            dataJSON.statuses[i].thumbnailURL = thumbnailURL;
+            dataJSON.statuses[i]['thumbnailURL'] = thumbnailURL;
 
             // create a separate array of just thumbnail urls to be sent to client
             thumbnailURLArr.push(thumbnailURL);
