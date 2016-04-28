@@ -193,7 +193,7 @@ var error = function (err, response, body) {
   console.log('ERROR [%s]', err);
 };
 
-var instaURLArr = [];
+var thumbnailURLArr = [];
 
 var success = function (data) {
 
@@ -237,102 +237,50 @@ var success = function (data) {
       var linkexpanderURL = 'https://www.linkexpander.com/?url='+t_coURL;
 
       request(linkexpanderURL, function(err, resp, body) {
+      
+        // set the returned www.instagram.com url to 'expandedURL'
+        // can also be a link to something else like a personal blog or something
+        // so we need an if statement next to check if it's an instagram link
         var expandedURL = body;
         console.log(expandedURL);
 
-        if (expandedURL.indexOf('instagram') > -1){
+        // attach the expanded URL to the twitter status object
+        status.expandedURL = expandedURL;
+
+        // check if it's an instagram link
+        if (expandedURL.indexOf('instagram') > -1) {
           
+          // instagram api link that returns some media data
           var instaAPIURL = 'https://api.instagram.com/oembed?callback=&url='+expandedURL;
           
           request(instaAPIURL, function(err, resp, body) {
             
+            // parse media data
             body = JSON.parse(body);
             
+            // get the thumbnail direct link from the media data
             var thumbnailURL = body.thumbnail_url;
+
+            // print for debugging
             console.log(thumbnailURL);
+
+            // attach the thumbnail URL to the twitter status object
+            status.thumbnailURL = thumbnailURL;
+
+            // create a separate array of just thumbnail urls to be sent to client
+            thumbnailURLArr.push(thumbnailURL);
 
           });
 
         };
-        
+
       });
-
-      // // ajax call w/o jquery to linkexpander.com to retrieve expanded
-      // // t.co url as an instagram url or whatever else
-      // var request = new XMLHttpRequest();
-      // request.open('GET', 'https://www.linkexpander.com/?url='+innerURL, true);
-
-      // request.onload = function() {
-      //   if (request.status >= 200 && request.status < 400) {
-          
-      //     // success
-      //     var expandedURL = request.responseText;
-      //     console.log(expandedURL);
-
-      //   } else {
-      //     // we reached target server but it returned an error
-      //   }
-      // };
-
-      // request.onerror = function() {
-      //   // connection error of some sort
-      // };
-
-      // request.send();
-
-
-
-
-
-
-      // $.ajax({
-      //   type: 'GET',
-      //   url: 'https://www.linkexpander.com/?url='+innerURL,
-      //   cache: false,
-      //   dataType: 'json',
-      //   jsonp: false,
-      //   success: function (expandedURL) {
-      //     try {
-
-      //       console.log(expandedURL);
-
-      //       // $.ajax({
-      //       //   type: 'GET',
-      //       //   url: 'https://api.instagram.com/oembed?callback=&url='+expandedURL,
-      //       //   cache: false,
-      //       //   dataType: 'json',
-      //       //   jsonp: false,
-      //       //   success: function (data) {
-      //       //     try {
-      //       //       var dataObject = JSON.parse(data);
-      //       //       console.log(dataObject);
-
-                  
-
-      //       //       status.instaImgURL = thumbnailURL;
-
-      //       //       instaURLArr.push(thumbnailURL);
-
-      //       //     } catch (err) {
-      //       //       console.log(err);
-      //       //       instaURLArr.push('instaURL not found');
-      //       //     }
-      //       //   }
-      //       // });
-
-      //     } catch (err) {
-      //       console.log(err);
-      //       instaURLArr.push('innerURL not found');
-      //     }
-      //   }
-
-      // })
 
     } else {
       var innerURL = null;
       var instaURL = 'instaURL not found';
       status.instaImgURL = instaURL;
-      instaURLArr.push('instaURL not found');
+      thumbnailURLArr.push('instaURL not found');
     }
     
   } // end for loop
@@ -342,7 +290,7 @@ var success = function (data) {
   setTimeout(function(){
     // send data to client
     io.sockets.emit('retrieved tweets', dataJSON);
-    io.sockets.emit('instaURL', instaURLArr);
+    io.sockets.emit('thumbnail urls', thumbnailURLArr);
   },10000);
 
   // print tweet

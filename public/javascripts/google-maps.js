@@ -551,9 +551,8 @@ var MODULE = (function (my) {
     // my.markTweets(map);
   });
 
-  socket.on('instaURL', function(data) {
+  socket.on('thumbnail urls', function(data) {
     console.log(data);
-    console.log('trying to detect insta url');
   })
 
   // socket.on('test emit', function(data) {
