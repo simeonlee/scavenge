@@ -277,10 +277,11 @@ var success = function (data) {
       });
 
     } else {
-      var innerURL = null;
-      var instaURL = 'instaURL not found';
-      status.instaImgURL = instaURL;
-      thumbnailURLArr.push('instaURL not found');
+      // attach filler to status object
+      status.thumbnailURL = 'Not Available';
+
+      // push filler to array
+      thumbnailURLArr.push('Not Available');
     }
     
   } // end for loop
