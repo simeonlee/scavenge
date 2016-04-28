@@ -1,3 +1,5 @@
+
+/* require the modules needed */
 var compression = require('compression');
 
 var express = require('express');
@@ -25,6 +27,12 @@ app.set('port', port);
 var server = http.createServer(app);
 
 var io = require('socket.io')(server);
+
+var oauthSignature = require('oauth-signature');
+var n = require('nonce')();
+var request = require('request');
+var qs = require('querystring');
+var _ = require('lodash');
 
 // hold {lat:x,lng:y} of client
 var pos = {
@@ -225,30 +233,36 @@ var success = function (data) {
     if (text.match(regex)) {
 
       // set innerURL to that link in the text that links to some content
-      var innerURL = text.match(regex);
+      var t_coURL = text.match(regex);
+      var linkexpanderURL = 'https://www.linkexpander.com/?url='+t_coURL;
 
-      // ajax call w/o jquery to linkexpander.com to retrieve expanded
-      // t.co url as an instagram url or whatever else
-      var request = new XMLHttpRequest();
-      request.open('GET', 'https://www.linkexpander.com/?url='+innerURL, true);
+      request(linkexpanderURL, function(err, resp, body) {
+        var expandedURL = body;
+        console.log(expandedURL);
+      }
 
-      request.onload = function() {
-        if (request.status >= 200 && request.status < 400) {
+      // // ajax call w/o jquery to linkexpander.com to retrieve expanded
+      // // t.co url as an instagram url or whatever else
+      // var request = new XMLHttpRequest();
+      // request.open('GET', 'https://www.linkexpander.com/?url='+innerURL, true);
+
+      // request.onload = function() {
+      //   if (request.status >= 200 && request.status < 400) {
           
-          // success
-          var expandedURL = request.responseText;
-          console.log(expandedURL);
+      //     // success
+      //     var expandedURL = request.responseText;
+      //     console.log(expandedURL);
 
-        } else {
-          // we reached target server but it returned an error
-        }
-      };
+      //   } else {
+      //     // we reached target server but it returned an error
+      //   }
+      // };
 
-      request.onerror = function() {
-        // connection error of some sort
-      };
+      // request.onerror = function() {
+      //   // connection error of some sort
+      // };
 
-      request.send();
+      // request.send();
 
 
 
@@ -452,13 +466,6 @@ app.use(function(err, req, res, next) {
 
 
 // START YELP CODE
-
-/* require the modules needed */
-var oauthSignature = require('oauth-signature');  
-var n = require('nonce')();  
-var request = require('request');  
-var qs = require('querystring');  
-var _ = require('lodash');
 
 /* Function for yelp call
  * ------------------------
