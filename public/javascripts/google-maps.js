@@ -9,7 +9,6 @@ var MODULE = (function (my) {
   // url of site
   // var scavengeurl = 'http://local.simeon86.com:3000'
   var scavengeurl = 'https://infinite-inlet-93119.herokuapp.com/'
-  
 
   // google map
   var map;
@@ -220,7 +219,7 @@ var MODULE = (function (my) {
           map.setZoom(16);
 
           // set the position to be center of map
-          map.setCenter(marker.getPosition());
+          // map.setCenter(marker.getPosition());
 
           // bounce (on/off)
           if (marker.getAnimation() !== null) {

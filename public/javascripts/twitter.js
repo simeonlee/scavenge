@@ -315,7 +315,7 @@ var MODULE = (function (my) {
           
           // my.google_map.setZoom(16);
           
-          my.google_map.setCenter(marker.getPosition());
+          // my.google_map.setCenter(marker.getPosition());
           
           infowindow.open(map, marker);
 
@@ -654,13 +654,11 @@ var MODULE = (function (my) {
     tw_twitter_bird.className = 'tw-twitter-bird';
     tw_twitter_bird.setAttribute('src', '../images/twitterbird.png');
 
-    // need to set a cb here later
-    // issue is that it takes a few ms for the dom to load the twitterbird
-    // so give it a sec to load before attaching to some element
+    
+    // make twitter bird appear next to timesince text
     setTimeout(function(){
       tw_timesince_div.appendChild(tw_twitter_bird);
-    },1000);
-    
+    },500);
 
     // var tw_twitter_bird_div = document.createElement('div');
     // tw_twitter_bird_div.className = 'tw-twitter-bird-div';

@@ -44,7 +44,7 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-setTimeout(function() {
+// setTimeout(function() {
   io.on('connection', function(socket) {
     // socket.emit('test emit', 'test emit');
 
@@ -52,7 +52,7 @@ setTimeout(function() {
       
       var clientData = JSON.parse(clientToServer);
 
-      pos = clientData.pos
+      pos = clientData.pos;
       var lat = pos.lat;
       var lng = pos.lng;
 
@@ -67,7 +67,7 @@ setTimeout(function() {
     });
 
   });
-},5000);
+// },2500);
 
 
 // io.sockets.on('my geolocation', function(userGeo) {
@@ -211,6 +211,13 @@ var success = function (data) {
 
   // var addInstaImgURL = function() {
   
+  // clear array of any existing elements  
+  thumbnailURLArr = [];
+
+  // show what the query was that resulted in this tweet selection
+  var query = data.search_metadata.query;
+  query = decodeURIComponent(query);
+  console.log(query);
 
   for (var i = 0; i < statuses.length; i++) {
 
@@ -220,6 +227,25 @@ var success = function (data) {
     // extract text of tweet including t.co url
     var text = status.text;
     console.log(text);
+
+    // define variables for each tweet's elements
+    var text = status.text;
+    var coord = status.coordinates;
+    var user = status.user;
+    var timestamp = status.created_at;
+    var tweetID = status.id_str;
+
+    if (coord) {
+      var ll = coord.coordinates;
+      var lat = ll[1];
+      var lng = ll[0];
+      var latLng = {
+        lat: lat,
+        lng: lng
+      }
+    } else {
+      var latLng = null;
+    }
 
     // add instagram thumbnail url to datajson object before transmittal to client
     // status.instaImgURL = returnInstaImgURL(tweetText);
@@ -268,7 +294,16 @@ var success = function (data) {
             status.thumbnailURL = thumbnailURL;
 
             // create a separate array of just thumbnail urls to be sent to client
-            thumbnailURLArr.push(thumbnailURL);
+            thumbnailURLArr.push({
+              text: text,
+              innerURL: expandedURL,
+              thumbnailURL: thumbnailURL,
+              timestamp: timestamp,
+              user: user,
+              tweetID: tweetID,
+              latLng: latLng,
+              query: query
+            });
 
           });
 
@@ -292,7 +327,7 @@ var success = function (data) {
     // send data to client
     io.sockets.emit('retrieved tweets', dataJSON);
     io.sockets.emit('thumbnail urls', thumbnailURLArr);
-  },10000);
+  },5000);
 
   // print tweet
   var firstText = dataJSON.statuses[0].text;
@@ -518,107 +553,107 @@ setTimeout(function(){
 
 
 
-var addInstaImgURL = function() {
+// var addInstaImgURL = function() {
   
-  for (var i = 0; i < dataJSON.length; i++) {
+//   for (var i = 0; i < dataJSON.length; i++) {
 
-    // extract individual tweet status object
-    var status = dataJSON.statuses[i];
+//     // extract individual tweet status object
+//     var status = dataJSON.statuses[i];
     
-    // extract text of tweet including t.co url
-    var tweetText = status.text;
+//     // extract text of tweet including t.co url
+//     var tweetText = status.text;
 
 
 
-    // add instagram thumbnail url to datajson object before transmittal to client
-    status.instaImgURL = returnInstaImgURL(tweetText);
+//     // add instagram thumbnail url to datajson object before transmittal to client
+//     status.instaImgURL = returnInstaImgURL(tweetText);
 
-    console.log(status.instaImgURL);
+//     console.log(status.instaImgURL);
 
-  }
-}
-
-
+//   }
+// }
 
 
-var returnInstaImgURL = function(text) {
 
-  // find the link in the text that starts with 'https://t.co/xxx'
-  var expression = /https?:\/\/t\.[a-z]{2,6}\/([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi;
-  var regex = new RegExp(expression);
+
+// var returnInstaImgURL = function(text) {
+
+//   // find the link in the text that starts with 'https://t.co/xxx'
+//   var expression = /https?:\/\/t\.[a-z]{2,6}\/([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi;
+//   var regex = new RegExp(expression);
   
-  if (text.match(regex)) {
+//   if (text.match(regex)) {
     
-    // set innerURL to that link in the text that links to some content
-    var innerURL = text.match(regex);
+//     // set innerURL to that link in the text that links to some content
+//     var innerURL = text.match(regex);
   
-    // var innerURL is now a t.co url - need to transform using ajax call to 
-    // www.linkexpander.com/?url=https://t.co/xxx to find instagram url
-    var instaURL = expandT_coURL(innerURL,extractInstaURL);
-    console.log(instaURL);
+//     // var innerURL is now a t.co url - need to transform using ajax call to 
+//     // www.linkexpander.com/?url=https://t.co/xxx to find instagram url
+//     var instaURL = expandT_coURL(innerURL,extractInstaURL);
+//     console.log(instaURL);
 
-    return instaURL;
+//     return instaURL;
 
-  } else {
+//   } else {
     
-    var innerURL = null;
+//     var innerURL = null;
     
-    var instaURL = null;
-    return null;
+//     var instaURL = null;
+//     return null;
 
-  }
+//   }
   
-}
+// }
 
 
-var expandT_coURL = function(innerURL,extractInstaURL) {
-  $.ajax({
-    type: 'GET',
-    url: 'https://www.linkexpander.com/?url='+innerURL,
-    cache: false,
-    dataType: 'json',
-    jsonp: false,
-    success: function (data) {
-      try {
-        var expandedURL = data;
-        console.log(expandedURL);
-        var instaURL = extractInstaURL(expandedURL);
-        console.log(instaURL);
-        return instaURL;
-      } catch (err) {
-        console.log(err);
-        return null;
-      }
-    }
+// var expandT_coURL = function(innerURL,extractInstaURL) {
+//   $.ajax({
+//     type: 'GET',
+//     url: 'https://www.linkexpander.com/?url='+innerURL,
+//     cache: false,
+//     dataType: 'json',
+//     jsonp: false,
+//     success: function (data) {
+//       try {
+//         var expandedURL = data;
+//         console.log(expandedURL);
+//         var instaURL = extractInstaURL(expandedURL);
+//         console.log(instaURL);
+//         return instaURL;
+//       } catch (err) {
+//         console.log(err);
+//         return null;
+//       }
+//     }
 
-  })
+//   })
 
-}
-
-
+// }
 
 
-var extractInstaURL = function(expandedURL) {
-  // extract instagram pic from twitter shortlink
-  $.ajax({
-    type: 'GET',
-    url: 'https://api.instagram.com/oembed?callback=&url='+expandedURL,
-    cache: false,
-    dataType: 'json',
-    jsonp: false,
-    success: function (data) {
-      try {
-          var dataObject = JSON.parse(data);
-          var thumbnailURL = dataObject.thumbnail_url;
-          console.log(thumbnailURL);
-          return thumbnailURL;
-      } catch (err) {
-          console.log(err);
-          return null;
-      }
-    }
-  });
-}
+
+
+// var extractInstaURL = function(expandedURL) {
+//   // extract instagram pic from twitter shortlink
+//   $.ajax({
+//     type: 'GET',
+//     url: 'https://api.instagram.com/oembed?callback=&url='+expandedURL,
+//     cache: false,
+//     dataType: 'json',
+//     jsonp: false,
+//     success: function (data) {
+//       try {
+//           var dataObject = JSON.parse(data);
+//           var thumbnailURL = dataObject.thumbnail_url;
+//           console.log(thumbnailURL);
+//           return thumbnailURL;
+//       } catch (err) {
+//           console.log(err);
+//           return null;
+//       }
+//     }
+//   });
+// }
 
 
 
