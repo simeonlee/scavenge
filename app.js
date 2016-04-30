@@ -215,7 +215,7 @@ var success = function (data) {
   thumbnailURLArr = [];
 
   // show what the query was that resulted in this tweet selection
-  var query = data.search_metadata.query;
+  var query = dataJSON.search_metadata.query;
   query = decodeURIComponent(query);
   console.log(query);
 
