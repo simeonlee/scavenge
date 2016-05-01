@@ -197,6 +197,8 @@ var scavenge_tweets = [];
 
 var success = function (data) {
 
+  console.log('We are in the success handler function of the twitter API caller');
+
   twitter_API_data = JSON.parse(data);
   var statuses = twitter_API_data.statuses;
   
@@ -307,7 +309,7 @@ var expandURL = function(status, getInstagramData) {
           scavenge_tweet.external_link = expandedURL;
           
           getInstagramData(scavenge_tweet, expandedURL).then(function(response) {
-            console.log('Success!');
+            console.log('Success! We are about to socket emit the scavenged tweets');
             for (var i = 0; i < scavenge_tweets.length; i++) {
               
               // find out if this is the last scavenge_tweet in scavenge_tweets
@@ -344,6 +346,7 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
 
   return new Promise(function(resolve, reject) {
 
+    console.log('');
     console.log('In getInstagramData function');
     console.log(scavenge_tweet.text);
     console.log(expandedURL);
@@ -369,7 +372,7 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
         catch(err) {
           var instagram_data = body;
           console.log(scavenge_tweet.text);
-          console.log('Cannot parse body');
+          console.log('Cannot parse instagram_data');
         }
 
         scavenge_tweet.instagram_data = instagram_data;
