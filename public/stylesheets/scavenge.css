@@ -621,7 +621,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 }
 
 .iw-body {
-  margin: 16px 10px 0px;
+  margin: 16px 10px 4px;
 }
 
 .iw-tweet {
@@ -695,7 +695,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   font-style: italic;
   font-size: 10px;
   float: right;
-  margin: 4px 10px 4px 0px;
+  margin: 4px 6px 4px 0px;
   padding: 0;
 }
 
