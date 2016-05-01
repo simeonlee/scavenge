@@ -51,6 +51,8 @@ var MODULE = (function (my) {
   // including getting direct link to instagram photo and getting expanded url
   socket.on('scavenge tweets', function(data) {
 
+    console.log('scavenge tweets socket is on')
+
     // select data from twitter api
     my.tweets = data;
 

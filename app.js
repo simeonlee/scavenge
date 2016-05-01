@@ -317,7 +317,7 @@ var expandURL = function(status, getInstagramData) {
                 
                   // send data to client
                   io.sockets.emit('scavenge tweets', scavenge_tweets);
-                  
+
                 // },10000);
 
               }
@@ -344,6 +344,8 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
 
   return new Promise(function(resolve, reject) {
 
+    console.log('In getInstagramData function');
+    console.log(scavenge_tweet.text);
     console.log(expandedURL);
 
     // check if it's an instagram link
@@ -352,14 +354,22 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
       // instagram api link that returns some media data
       var instaAPIURL = 'https://api.instagram.com/oembed?callback=&url='+expandedURL;
       
-      request(instaAPIURL, function(err, resp, body) {      
+      request(instaAPIURL, function(err, resp, body) {
+
+        console.log('In getInstagramData\'s request function for instagram API data');
+        console.log(scavenge_tweet.text);
+        console.log(instaAPIURL);
 
         // parse and set instagram data
         try {
           var instagram_data = JSON.parse(body);
+          console.log(scavenge_tweet.text);
+          console.log(instagram_data.thumbnail_url);
         }
         catch(err) {
           var instagram_data = body;
+          console.log(scavenge_tweet.text);
+          console.log('Cannot parse body');
         }
 
         scavenge_tweet.instagram_data = instagram_data;
