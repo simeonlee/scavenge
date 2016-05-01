@@ -197,27 +197,16 @@ var scavenge_tweets = [];
 
 var success = function (data) {
 
-  // turn string into a JSON object
-  // we want to send this data to the client DOM... meteor could be a good solution
-  // perhaps for now just inject JSON into HTML element and use jQuery or DOM manipulation to extract it
-  // slow and unnecessary processing but good for single-use application
   twitter_API_data = JSON.parse(data);
+  console.log(twitter_API_data);
   var statuses = twitter_API_data.statuses;
-
-  // addInstaImgURL();
-
-  // var twitter_API_data_plus_insta = addInstaImgURL(twitter_API_data);
-  // console.log(twitter_API_data_plus_insta);
-
-  // var addInstaImgURL = function() {
   
-  // clear array of any existing elements  
-  scavenge_tweets = [];
-
   // show what the query was that resulted in this tweet selection
   var query = twitter_API_data.search_metadata.query;
   query = decodeURIComponent(query);
-  console.log(query);
+
+  // clear array of any existing elements  
+  scavenge_tweets = [];
 
   for (var i = 0; i < statuses.length; i++) {
 
@@ -253,10 +242,7 @@ var success = function (data) {
       var latLng = null;
     }
 
-    // add instagram thumbnail url to twitter_API_data object before transmittal to client
-    // status.instaImgURL = returnInstaImgURL(tweetText);
 
-    // var returnInstaImgURL = function(text) {
 
     // find the link in the text that starts with 'https://t.co/xxx'
     var expression = /https?:\/\/t\.[a-z]{2,6}\/([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi;
@@ -287,48 +273,51 @@ var success = function (data) {
           
           request(instaAPIURL, function(err, resp, body) {
             
-            // parse media data
-            body = JSON.parse(body);
-
-            // create a separate array of just thumbnail urls to be sent to client
-            scavenge_tweets.push({
-              text: text,
-              external_link: expandedURL,
-              instagram_data: body,
-              timestamp: timestamp,
-              user: user,
-              tweetID: tweetID,
-              latLng: latLng,
-              source: source,
-              query: query,
-              hashtags: hashtags,
-              favorite_count: favorite_count,
-              retweet_count: retweet_count,
-              truncated: truncated,
-              sensitive: sensitive
-            });
+            // parse and set instagram data
+            var instagram_data = JSON.parse(body);
 
           });
 
-        };
+        } else {
+
+          var instagram_data = 'Not Available';
+
+        }
 
       });
 
     } else {
-      // attach filler to status object
-      twitter_API_data.statuses[i].thumbnailURL = 'Not Available';
 
-      // push filler to array
-      scavenge_tweets.push('Not Available');
+      var expandedURL = 'Not Available'
+      var instagram_data = 'Not Available';
+
     }
+
+    // create a new array of select data to be sent to client
+    scavenge_tweets.push({
+      text: text,
+      external_link: expandedURL,
+      instagram_data: instagram_data,
+      timestamp: timestamp,
+      user: user,
+      tweetID: tweetID,
+      latLng: latLng,
+      source: source,
+      query: query,
+      hashtags: hashtags,
+      favorite_count: favorite_count,
+      retweet_count: retweet_count,
+      truncated: truncated,
+      sensitive: sensitive
+    });
     
   } // end for loop
 
   setTimeout(function(){
     // send data to client
-    // io.sockets.emit('retrieved tweets', twitter_API_data);
     io.sockets.emit('scavenge tweets', scavenge_tweets);
   },5000);
+
 };
 
 
@@ -518,9 +507,9 @@ var yelpCallback = function(error, response, body) {
   console.log(parsedData);
 }
 
-setTimeout(function(){
-  request_yelp(set_parameters, pos, yelpCallback);
-},6000);
+// setTimeout(function(){
+  // request_yelp(set_parameters, pos, yelpCallback);
+// },6000);
 
 
 
