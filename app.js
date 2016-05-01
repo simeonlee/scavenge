@@ -195,9 +195,11 @@ var error = function (err, response, body) {
 
 var scavenge_tweets = [];
 
-var debugindex = 0;
+var debugindex;
 
 var success = function (data) {
+
+  debugindex = 0;
 
   console.log('We are in the success handler function of the twitter API caller');
 
@@ -274,6 +276,8 @@ var success = function (data) {
 
 
 var expandURL = function(status, getInstagramData) {
+
+  
 
   var text = status.text;
   var tweetID = status.id_str;  
@@ -355,6 +359,7 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
 
     console.log(debugindex);
     console.log(debugindex + '  ' + 'In getInstagramData function');
+    console.log(debugindex + '  ' + scavenge_tweet.user);
     console.log(debugindex + '  ' + scavenge_tweet.text);
     console.log(debugindex + '  ' + expandedURL);
 
