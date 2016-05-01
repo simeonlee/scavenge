@@ -314,11 +314,14 @@ var expandURL = function(status, getInstagramData) {
 
 var getInstagramData = function(scavenge_tweet, expandedURL) {
 
+  console.log(expandedURL);
+
   // check if it's an instagram link
   if (expandedURL.indexOf('instagram') > -1) {
     
     // instagram api link that returns some media data
     var instaAPIURL = 'https://api.instagram.com/oembed?callback=&url='+expandedURL;
+    console.log(instaAPIURL);
     
     request(instaAPIURL, function(err, resp, body) {
       
