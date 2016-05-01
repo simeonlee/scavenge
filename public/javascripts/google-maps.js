@@ -49,7 +49,7 @@ var MODULE = (function (my) {
 
   // get the tweets from the server after some operations have been completed
   // including getting direct link to instagram photo and getting expanded url
-  socket.on('thumbnail urls', function(data) {
+  socket.on('scavenge tweets', function(data) {
 
     // select data from twitter api
     my.tweets = data;

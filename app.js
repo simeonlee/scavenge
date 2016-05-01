@@ -193,7 +193,7 @@ var error = function (err, response, body) {
   console.log('ERROR [%s]', err);
 };
 
-var thumbnailURLArr = [];
+var scavenge_tweets = [];
 
 var success = function (data) {
 
@@ -212,7 +212,7 @@ var success = function (data) {
   // var addInstaImgURL = function() {
   
   // clear array of any existing elements  
-  thumbnailURLArr = [];
+  scavenge_tweets = [];
 
   // show what the query was that resulted in this tweet selection
   var query = twitter_API_data.search_metadata.query;
@@ -289,22 +289,12 @@ var success = function (data) {
             
             // parse media data
             body = JSON.parse(body);
-            
-            // get the thumbnail direct link from the media data
-            var thumbnailURL = body.thumbnail_url;
-
-            // print for debugging
-            console.log(thumbnailURL);
-
-            // attach the thumbnail URL to the twitter status object
-            status.thumbnailURL = thumbnailURL;
 
             // create a separate array of just thumbnail urls to be sent to client
-            thumbnailURLArr.push({
+            scavenge_tweets.push({
               text: text,
               external_link: expandedURL,
               instagram_data: body,
-              // thumbnailURL: thumbnailURL,
               timestamp: timestamp,
               user: user,
               tweetID: tweetID,
@@ -329,17 +319,15 @@ var success = function (data) {
       twitter_API_data.statuses[i].thumbnailURL = 'Not Available';
 
       // push filler to array
-      thumbnailURLArr.push('Not Available');
+      scavenge_tweets.push('Not Available');
     }
     
   } // end for loop
 
-  // console.log(twitter_API_data);
-
   setTimeout(function(){
     // send data to client
-    io.sockets.emit('retrieved tweets', twitter_API_data);
-    io.sockets.emit('thumbnail urls', thumbnailURLArr);
+    // io.sockets.emit('retrieved tweets', twitter_API_data);
+    io.sockets.emit('scavenge tweets', scavenge_tweets);
   },5000);
 };
 
