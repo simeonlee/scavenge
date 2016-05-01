@@ -167,9 +167,21 @@ var MODULE = (function (my) {
       
       var latLng = tweet.latLng;
 
+      // try..catch used as lazy way to filter for tweets with instagram links
+      // and extract instagram thumbnail
+      try {
+        var thumbnail_url = tweet.instagram_data.thumbnail_url;
+      }
+      catch(err) {
+        console.log(err);
+      }
+
       var query = tweet.query;
       var queryArr = query.split('+OR+');
-      var firstLetter = queryMatch(text, queryArr);
+      
+      // extract first letter of query type for map markers
+      // used in scavenge v1.0
+      // var firstLetter = queryMatch(text, queryArr);
       
       // add a marker for each tweet with a geotag
       if (latLng){
@@ -229,7 +241,14 @@ var MODULE = (function (my) {
 
         '<div class="iw-body">'+
         '<div class="iw-tweet"><a href="'+tweetURL+'" target="_blank" >'+text+'</a></div>'+
-        '<div class="iw-tweet iw-external-link"><a href="'+external_link+'" target="_blank" >'+external_link+'</a></div>'+
+        // '<div class="iw-tweet iw-external-link"><a href="'+external_link+'" target="_blank" >'+external_link+'</a></div>'+
+
+        '<div class="iw-tweet iw-external-img-div">'+
+        '<a href="'+external_link+'" target="_blank" >'+
+        '<img src="'+thumbnail_url+'" alt="'+external_link+'" class="iw-external-img">'+
+        '</a>'+
+        '</div>'+
+
         '<p class="iw-time">'+timeSince+'</p>'+
         '<img src="../images/twitterbird.png" class="iw-bird">'+
         '</div>'+
