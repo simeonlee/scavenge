@@ -284,6 +284,13 @@ var expandURL = function(status, getInstagramData) {
     var t_coURL = text.match(regex);
     var linkexpanderURL = 'https://www.linkexpander.com/?url='+t_coURL;
 
+    var t_coURL_index = text.indexOf(innerURL);
+
+    // remove the inner URL from the text so we can do better things with the url
+    // ideally somehow show the contents of the webpage beyond the url in the card itself...
+    // for example, if it is a link to instagram just display the pic...
+    text = text.slice(0,t_coURL_index);
+
     request(linkexpanderURL, function(err, resp, body) {
     
       // set the returned www.instagram.com url to 'expandedURL'
@@ -298,6 +305,7 @@ var expandURL = function(status, getInstagramData) {
         
         if (scavenge_tweet.tweetID === tweetID) {
 
+          scavenge_tweet.text = text;
           scavenge_tweet.external_link = expandedURL;
           
           getInstagramData(scavenge_tweet, expandedURL);
