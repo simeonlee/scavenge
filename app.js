@@ -310,30 +310,31 @@ var expandURL = function(status, getInstagramData) {
           scavenge_tweet.text = text;
           scavenge_tweet.external_link = expandedURL;
           
-          getInstagramData(scavenge_tweet, expandedURL).then(function(response) {
+          getInstagramData(scavenge_tweet, expandedURL)
+            .then(function(response) {
             
-            console.log(debugindex + '  ' + 'Success! We are about to socket emit the scavenged tweets');
-            
-            for (var i = 0; i < scavenge_tweets.length; i++) {
+              console.log(debugindex + '  ' + 'Success! We are about to socket emit the scavenged tweets');
               
-              // find out if this is the last scavenge_tweet in scavenge_tweets
-              if (scavenge_tweets[i].tweetID === scavenge_tweet.tweetID && scavenge_tweets[i+1] == undefined) {
-
-                // setTimeout(function() {
+              for (var i = 0; i < scavenge_tweets.length; i++) {
                 
-                  // send data to client
-                  io.sockets.emit('scavenge tweets', scavenge_tweets);
+                // find out if this is the last scavenge_tweet in scavenge_tweets
+                if (scavenge_tweets[i].tweetID === scavenge_tweet.tweetID && scavenge_tweets[i+1] == undefined) {
 
-                  debugindex++;
+                  // setTimeout(function() {
+                  
+                    // send data to client
+                    io.sockets.emit('scavenge tweets', scavenge_tweets);
 
-                // },10000);
+                    
+
+                  // },10000);
+
+                }
 
               }
-
-            }
-          }, function(error) {
-            console.log(debugindex + '  ' + 'Failed!');
-          });
+            }, function(error) {
+              console.log(debugindex + '  ' + 'Failed!');
+            });
 
         }
 
@@ -386,6 +387,8 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
       });
 
     }
+
+    debugindex++;
 
   });
 
