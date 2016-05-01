@@ -276,10 +276,10 @@ var success = function (data) {
 
   var getInstagramData = function(text) {
 
-    var expandedURL = expandURL(text);
+    // var expandedURL = expandURL(text);
 
     // check if it's an instagram link
-    if (expandedURL.indexOf('instagram') > -1) {
+    if (expandURL(text).indexOf('instagram') > -1) {
       
       // instagram api link that returns some media data
       var instaAPIURL = 'https://api.instagram.com/oembed?callback=&url='+expandedURL;
