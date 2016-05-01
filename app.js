@@ -302,12 +302,8 @@ var expandURL = function(status, getInstagramData) {
         if (scavenge_tweet.tweetID === tweetID) {
 
           scavenge_tweet.external_link = expandedURL;
-          scavenge_tweet.instagram_data = getInstagramData(expandedURL);
-
-          // setTimeout(function(){
-            // send data to client
-            io.sockets.emit('scavenge tweets', scavenge_tweets);
-          // },10000);
+          
+          getInstagramData(scavenge_tweet);
 
         }
 
@@ -319,7 +315,9 @@ var expandURL = function(status, getInstagramData) {
 
 }
 
-var getInstagramData = function(expandedURL) {
+var getInstagramData = function(scavenge_tweet) {
+
+  var expandedURL = scavenge_tweet.external_link;
 
   // check if it's an instagram link
   if (expandedURL.indexOf('instagram') > -1) {
@@ -332,14 +330,22 @@ var getInstagramData = function(expandedURL) {
       // parse and set instagram data
       var instagram_data = JSON.parse(body);
 
-      // return to expandURL function to be attached to scavenge_tweet
-      return instagram_data;
+      scavenge_tweet.instagram_data = instagram_data;
+
+      
+      for (var i = 0; i < scavenge_tweets.length; i++) {
+        
+        // find out if this is the last scavenge_tweet in scavenge_tweets
+        if (scavenge_tweets[i].tweetID === scavenge_tweet.tweetID && scavenge_tweets[i+1] == undefined) {
+
+          // send data to client
+          io.sockets.emit('scavenge tweets', scavenge_tweets);
+
+        }
+
+      }
 
     });
-
-  } else {
-
-    return 'Not Available';
 
   }
 
