@@ -328,7 +328,7 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
       if (body) {
 
         // parse and set instagram data
-        var instagram_data = JSON.parse(body);
+        var instagram_data = body;
         console.log(instagram_data);
 
         scavenge_tweet.instagram_data = instagram_data;
