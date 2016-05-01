@@ -244,62 +244,6 @@ var success = function (data) {
 
 
 
-  var expandURL = function(text) {
-
-    // find the link in the text that starts with 'https://t.co/xxx'
-    var expression = /https?:\/\/t\.[a-z]{2,6}\/([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi;
-    var regex = new RegExp(expression);
-    
-    if (text.match(regex)) {
-
-      // set external link to that link in the text that links to some content
-      var t_coURL = text.match(regex);
-      var linkexpanderURL = 'https://www.linkexpander.com/?url='+t_coURL;
-
-      request(linkexpanderURL, function(err, resp, body) {
-      
-        // set the returned www.instagram.com url to 'expandedURL'
-        // can also be a link to something else like a personal blog or something
-        // so we need an if statement next to check if it's an instagram link
-        var expandedURL = body;
-        return expandedURL;
-
-      });
-
-    } else {
-
-      return 'Not Available'
-      
-    }
-  }
-
-
-  var getInstagramData = function(text) {
-
-    // var expandedURL = expandURL(text);
-
-    // check if it's an instagram link
-    if (expandURL(text).indexOf('instagram') > -1) {
-      
-      // instagram api link that returns some media data
-      var instaAPIURL = 'https://api.instagram.com/oembed?callback=&url='+expandedURL;
-      
-      request(instaAPIURL, function(err, resp, body) {
-        
-        // parse and set instagram data
-        var instagram_data = JSON.parse(body);
-        return instagram_data;
-
-      });
-
-    } else {
-
-      return 'Not Available';
-
-    }
-
-  }
-
 
 
     // create a new array of select data to be sent to client
@@ -328,6 +272,69 @@ var success = function (data) {
   },5000);
 
 };
+
+
+
+
+
+
+
+var expandURL = function(text) {
+
+  // find the link in the text that starts with 'https://t.co/xxx'
+  var expression = /https?:\/\/t\.[a-z]{2,6}\/([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi;
+  var regex = new RegExp(expression);
+  
+  if (text.match(regex)) {
+
+    // set external link to that link in the text that links to some content
+    var t_coURL = text.match(regex);
+    var linkexpanderURL = 'https://www.linkexpander.com/?url='+t_coURL;
+
+    request(linkexpanderURL, function(err, resp, body) {
+    
+      // set the returned www.instagram.com url to 'expandedURL'
+      // can also be a link to something else like a personal blog or something
+      // so we need an if statement next to check if it's an instagram link
+      var expandedURL = body;
+      return expandedURL;
+
+    });
+
+  } else {
+
+    return 'Not Available'
+    
+  }
+}
+
+
+var getInstagramData = function(text) {
+
+  var expandedURL = expandURL(text);
+
+  // check if it's an instagram link
+  if (expandedURL.indexOf('instagram') > -1) {
+    
+    // instagram api link that returns some media data
+    var instaAPIURL = 'https://api.instagram.com/oembed?callback=&url='+expandedURL;
+    
+    request(instaAPIURL, function(err, resp, body) {
+      
+      // parse and set instagram data
+      var instagram_data = JSON.parse(body);
+      return instagram_data;
+
+    });
+
+  } else {
+
+    return 'Not Available';
+
+  }
+
+}
+
 
 
 
