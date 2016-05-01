@@ -107,7 +107,7 @@ var MODULE = (function (my) {
   
   my.initMap = function() {
 
-    console.log('in initmap');
+    console.log('In my.initMap function');
 
     // need to add my. to initMap() to have it accessible by the callback function in the url
     // of setUpGoogleMap() which calls the my.initMap method from the document body
@@ -198,7 +198,7 @@ var MODULE = (function (my) {
 
     var infowindow = new google.maps.InfoWindow({map: map});
 
-    console.log('in initgeolocate');
+    console.log('In my.initGeolocate function');
 
     // Try HTML5 geolocation
     if (navigator.geolocation) {
@@ -209,7 +209,7 @@ var MODULE = (function (my) {
           lng: position.coords.longitude
         };
 
-        console.log('Client communicating ' + pos.lat + ', ' + pos.lng);
+        console.log('User located at ' + pos.lat + ', ' + pos.lng);
 
         // set infowindow
         // infowindow.setPosition(pos);

@@ -145,8 +145,6 @@ var MODULE = (function (my) {
 
 
   my.markTweets = function(map) {
-
-    console.log('in marktweets function');
   
     var tweets = my.tweets;
   
