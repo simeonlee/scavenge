@@ -242,7 +242,7 @@ var success = function (data) {
     }
 
     var expandedURL = expandURL(text);
-    var instagram_data = getInstagramData(expandedURL);
+    var instagram_data = expandURL(text, getInstagramData);
 
 
 
@@ -279,7 +279,7 @@ var success = function (data) {
 
 
 
-var expandURL = function(text) {
+var expandURL = function(text, getInstagramData) {
 
   // find the link in the text that starts with 'https://t.co/xxx'
   var expression = /https?:\/\/t\.[a-z]{2,6}\/([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi;
@@ -297,8 +297,16 @@ var expandURL = function(text) {
       // can also be a link to something else like a personal blog or something
       // so we need an if statement next to check if it's an instagram link
       var expandedURL = body;
-      return expandedURL;
+      
+      if (!getInstagramData) {
+        
+        return expandedURL;
 
+      } else {
+        
+        return getInstagramData(expandedURL);
+
+      }
     });
 
   } else {
@@ -307,6 +315,9 @@ var expandURL = function(text) {
     
   }
 }
+
+
+
 
 
 var getInstagramData = function(expandedURL) {
