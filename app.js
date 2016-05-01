@@ -198,7 +198,6 @@ var scavenge_tweets = [];
 var success = function (data) {
 
   twitter_API_data = JSON.parse(data);
-  console.log(twitter_API_data);
   var statuses = twitter_API_data.statuses;
   
   // show what the query was that resulted in this tweet selection
