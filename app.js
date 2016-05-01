@@ -306,7 +306,26 @@ var expandURL = function(status, getInstagramData) {
           scavenge_tweet.text = text;
           scavenge_tweet.external_link = expandedURL;
           
-          getInstagramData(scavenge_tweet, expandedURL);
+          getInstagramData(scavenge_tweet, expandedURL).then(function(response) {
+            console.log('Success!');
+            for (var i = 0; i < scavenge_tweets.length; i++) {
+              
+              // find out if this is the last scavenge_tweet in scavenge_tweets
+              if (scavenge_tweets[i].tweetID === scavenge_tweet.tweetID && scavenge_tweets[i+1] == undefined) {
+
+                // setTimeout(function() {
+                
+                  // send data to client
+                  io.sockets.emit('scavenge tweets', scavenge_tweets);
+                  
+                // },10000);
+
+              }
+
+            }
+          }, function(error) {
+            console.log('Failed!');
+          });
 
         }
 
@@ -317,48 +336,90 @@ var expandURL = function(status, getInstagramData) {
   }
 
 }
+
+
+
 
 var getInstagramData = function(scavenge_tweet, expandedURL) {
 
-  console.log(expandedURL);
+  return new Promise(function(resolve, reject) {
 
-  // check if it's an instagram link
-  if (expandedURL.indexOf('instagram') > -1) {
-    
-    // instagram api link that returns some media data
-    var instaAPIURL = 'https://api.instagram.com/oembed?callback=&url='+expandedURL;
-    
-    request(instaAPIURL, function(err, resp, body) {      
+    console.log(expandedURL);
 
-      // parse and set instagram data
-      try {
-        var instagram_data = JSON.parse(body);
-      }
-      catch(err) {
-        var instagram_data = body;
-      }
+    // check if it's an instagram link
+    if (expandedURL.indexOf('instagram') > -1) {
+      
+      // instagram api link that returns some media data
+      var instaAPIURL = 'https://api.instagram.com/oembed?callback=&url='+expandedURL;
+      
+      request(instaAPIURL, function(err, resp, body) {      
 
-      scavenge_tweet.instagram_data = instagram_data;
-
-      for (var i = 0; i < scavenge_tweets.length; i++) {
-        
-        // find out if this is the last scavenge_tweet in scavenge_tweets
-        if (scavenge_tweets[i].tweetID === scavenge_tweet.tweetID && scavenge_tweets[i+1] == undefined) {
-
-        setTimeout(function() {
-          // send data to client
-          io.sockets.emit('scavenge tweets', scavenge_tweets);
-        },10000);
-
+        // parse and set instagram data
+        try {
+          var instagram_data = JSON.parse(body);
+        }
+        catch(err) {
+          var instagram_data = body;
         }
 
-      }
-      
-    });
+        scavenge_tweet.instagram_data = instagram_data;
+        
+      });
 
-  }
+    }
+
+  });
 
 }
+
+
+
+
+
+
+
+
+// var getInstagramData = function(scavenge_tweet, expandedURL) {
+
+//   console.log(expandedURL);
+
+//   // check if it's an instagram link
+//   if (expandedURL.indexOf('instagram') > -1) {
+    
+//     // instagram api link that returns some media data
+//     var instaAPIURL = 'https://api.instagram.com/oembed?callback=&url='+expandedURL;
+    
+//     request(instaAPIURL, function(err, resp, body) {      
+
+//       // parse and set instagram data
+//       try {
+//         var instagram_data = JSON.parse(body);
+//       }
+//       catch(err) {
+//         var instagram_data = body;
+//       }
+
+//       scavenge_tweet.instagram_data = instagram_data;
+
+//       for (var i = 0; i < scavenge_tweets.length; i++) {
+        
+//         // find out if this is the last scavenge_tweet in scavenge_tweets
+//         if (scavenge_tweets[i].tweetID === scavenge_tweet.tweetID && scavenge_tweets[i+1] == undefined) {
+
+//         setTimeout(function() {
+//           // send data to client
+//           io.sockets.emit('scavenge tweets', scavenge_tweets);
+//         },10000);
+
+//         }
+
+//       }
+      
+//     });
+
+//   }
+
+// }
 
 
 
