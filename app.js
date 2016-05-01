@@ -328,7 +328,6 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
     
     // instagram api link that returns some media data
     var instaAPIURL = 'https://api.instagram.com/oembed?callback=&url='+expandedURL;
-    console.log(instaAPIURL);
     
     request(instaAPIURL, function(err, resp, body) {      
 
@@ -339,8 +338,6 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
       catch(err) {
         var instagram_data = body;
       }
-
-      console.log(instagram_data);
 
       scavenge_tweet.instagram_data = instagram_data;
 
