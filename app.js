@@ -263,14 +263,14 @@ var success = function (data) {
         truncated: truncated,
         sensitive: sensitive
       });
-    },2000);
+    },5000);
     
   } // end for loop
 
   setTimeout(function(){
     // send data to client
     io.sockets.emit('scavenge tweets', scavenge_tweets);
-  },5000);
+  },10000);
 
 };
 
