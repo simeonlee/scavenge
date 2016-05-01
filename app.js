@@ -299,7 +299,7 @@ var expandURL = function(status, getInstagramData) {
 
           scavenge_tweet.external_link = expandedURL;
           
-          getInstagramData(status);
+          getInstagramData(scavenge_tweet, expandedURL);
 
         }
 
@@ -311,9 +311,7 @@ var expandURL = function(status, getInstagramData) {
 
 }
 
-var getInstagramData = function(scavenge_tweet) {
-
-  var expandedURL = scavenge_tweet.external_link;
+var getInstagramData = function(scavenge_tweet, expandedURL) {
 
   // check if it's an instagram link
   if (expandedURL.indexOf('instagram') > -1) {
@@ -333,10 +331,10 @@ var getInstagramData = function(scavenge_tweet) {
         // find out if this is the last scavenge_tweet in scavenge_tweets
         if (scavenge_tweets[i].tweetID === scavenge_tweet.tweetID && scavenge_tweets[i+1] == undefined) {
 
-        setTimeout(function() {
+        // setTimeout(function() {
           // send data to client
           io.sockets.emit('scavenge tweets', scavenge_tweets);
-        },5000);
+        // },5000);
 
         }
 
