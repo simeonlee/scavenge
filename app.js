@@ -240,30 +240,26 @@ var success = function (data) {
     } else {
       var latLng = null;
     }
+   
+    // create a new array of select data to be sent to client
+    scavenge_tweets.push({
+      tweetID: tweetID,
+      user: user,
+      text: text,
+      hashtags: hashtags,
+      latLng: latLng,
+      timestamp: timestamp,
+      source: source,
+      favorite_count: favorite_count,
+      retweet_count: retweet_count,
+      truncated: truncated,
+      sensitive: sensitive,
+      query: query
+    });
+    
+    expandURL(status, getInstagramData);
 
-    var expandedURL = expandURL(text);
-    var instagram_data = expandURL(text, getInstagramData);
-
-
-    setTimeout(function(){
-      // create a new array of select data to be sent to client
-      scavenge_tweets.push({
-        text: text,
-        external_link: expandedURL,
-        instagram_data: instagram_data,
-        timestamp: timestamp,
-        user: user,
-        tweetID: tweetID,
-        latLng: latLng,
-        source: source,
-        query: query,
-        hashtags: hashtags,
-        favorite_count: favorite_count,
-        retweet_count: retweet_count,
-        truncated: truncated,
-        sensitive: sensitive
-      });
-    },5000);
+    
     
   } // end for loop
 
@@ -280,7 +276,10 @@ var success = function (data) {
 
 
 
-var expandURL = function(text, getInstagramData) {
+var expandURL = function(status, getInstagramData) {
+
+  var text = status.text;
+  var tweetID = status.id_str;  
 
   // find the link in the text that starts with 'https://t.co/xxx'
   var expression = /https?:\/\/t\.[a-z]{2,6}\/([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi;
@@ -299,22 +298,23 @@ var expandURL = function(text, getInstagramData) {
       // so we need an if statement next to check if it's an instagram link
       var expandedURL = body;
       
-      if (!getInstagramData) {
+      for (var i = 0; i < scavenge_tweets.length; i++) {
+      
+        var scavenge_tweet = scavenge_tweets[i];
         
-        return expandedURL;
-
-      } else {
-        
-        return getInstagramData(expandedURL);
+        if (scavenge_tweet.tweetID === tweetID) {
+                
+          scavenge_tweet.external_link = expandedURL;
+          scavenge_tweet.instagram_data = getInstagramData(expandedURL);
+            
+        }
 
       }
+
     });
 
-  } else {
-
-    return 'Not Available'
-    
   }
+
 }
 
 
@@ -333,6 +333,8 @@ var getInstagramData = function(expandedURL) {
       
       // parse and set instagram data
       var instagram_data = JSON.parse(body);
+
+      // return to expandURL function to be attached to scavenge_tweet
       return instagram_data;
 
     });
