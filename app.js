@@ -243,6 +243,9 @@ var success = function (data) {
 
 
 
+
+  var expandURL = function(text) {
+
     // find the link in the text that starts with 'https://t.co/xxx'
     var expression = /https?:\/\/t\.[a-z]{2,6}\/([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi;
     var regex = new RegExp(expression);
@@ -259,44 +262,51 @@ var success = function (data) {
         // can also be a link to something else like a personal blog or something
         // so we need an if statement next to check if it's an instagram link
         var expandedURL = body;
-        console.log(expandedURL);
-
-        // attach the expanded URL to the twitter status object
-        status.expandedURL = expandedURL;
-
-        // check if it's an instagram link
-        if (expandedURL.indexOf('instagram') > -1) {
-          
-          // instagram api link that returns some media data
-          var instaAPIURL = 'https://api.instagram.com/oembed?callback=&url='+expandedURL;
-          
-          request(instaAPIURL, function(err, resp, body) {
-            
-            // parse and set instagram data
-            var instagram_data = JSON.parse(body);
-
-          });
-
-        } else {
-
-          var instagram_data = 'Not Available';
-
-        }
+        return expandedURL;
 
       });
 
     } else {
 
-      var expandedURL = 'Not Available'
-      var instagram_data = 'Not Available';
+      return 'Not Available'
+      
+    }
+  }
+
+
+  var getInstagramData = function(text) {
+
+    var expandedURL = expandURL(text);
+
+    // check if it's an instagram link
+    if (expandedURL.indexOf('instagram') > -1) {
+      
+      // instagram api link that returns some media data
+      var instaAPIURL = 'https://api.instagram.com/oembed?callback=&url='+expandedURL;
+      
+      request(instaAPIURL, function(err, resp, body) {
+        
+        // parse and set instagram data
+        var instagram_data = JSON.parse(body);
+        return instagram_data;
+
+      });
+
+    } else {
+
+      return 'Not Available';
 
     }
+
+  }
+
+
 
     // create a new array of select data to be sent to client
     scavenge_tweets.push({
       text: text,
-      external_link: expandedURL,
-      instagram_data: instagram_data,
+      external_link: expandURL(text),
+      instagram_data: getInstagramData(text),
       timestamp: timestamp,
       user: user,
       tweetID: tweetID,
