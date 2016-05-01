@@ -296,7 +296,6 @@ var expandURL = function(status, getInstagramData) {
       // can also be a link to something else like a personal blog or something
       // so we need an if statement next to check if it's an instagram link
       var expandedURL = body;
-      console.log(expandedURL);
       
       for (var i = 0; i < scavenge_tweets.length; i++) {
       
