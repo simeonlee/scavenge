@@ -234,6 +234,12 @@ var success = function (data) {
     var user = status.user;
     var timestamp = status.created_at;
     var tweetID = status.id_str;
+    var source = status.source;
+    var hashtags = status.entities.hashtags;
+    var favorite_count = status.favorite_count;
+    var retweet_count = status.retweet_count;
+    var truncated = status.truncated;
+    var sensitive = status.possibly_sensitive;
 
     if (coord) {
       var ll = coord.coordinates;
@@ -302,7 +308,13 @@ var success = function (data) {
               user: user,
               tweetID: tweetID,
               latLng: latLng,
-              query: query
+              source: source,
+              query: query,
+              hashtags: hashtags,
+              favorite_count: favorite_count,
+              retweet_count: retweet_count,
+              truncated: truncated,
+              sensitive: sensitive
             });
 
           });
