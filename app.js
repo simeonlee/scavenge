@@ -241,16 +241,16 @@ var success = function (data) {
       var latLng = null;
     }
 
-
-
+    var expandedURL = expandURL(text);
+    var instagram_data = getInstagramData(expandedURL);
 
 
 
     // create a new array of select data to be sent to client
     scavenge_tweets.push({
       text: text,
-      external_link: expandURL(text),
-      instagram_data: getInstagramData(text),
+      external_link: expandedURL,
+      instagram_data: instagram_data,
       timestamp: timestamp,
       user: user,
       tweetID: tweetID,
@@ -309,12 +309,10 @@ var expandURL = function(text) {
 }
 
 
-var getInstagramData = function(text) {
-
-  var expandedURL = expandURL(text);
+var getInstagramData = function(expandedURL) {
 
   // check if it's an instagram link
-  if (expandedURL != undefined && expandedURL.indexOf('instagram') > -1) {
+  if (expandedURL.indexOf('instagram') > -1) {
     
     // instagram api link that returns some media data
     var instaAPIURL = 'https://api.instagram.com/oembed?callback=&url='+expandedURL;
