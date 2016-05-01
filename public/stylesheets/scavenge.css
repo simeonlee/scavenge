@@ -682,6 +682,14 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   color: rgba(0,128,0,0.8);
 }
 
+.iw-external-img-div {
+
+}
+
+.iw-external-img {
+  width: 175px;
+}
+
 .iw-time {
   color: gray;
   font-style: italic;

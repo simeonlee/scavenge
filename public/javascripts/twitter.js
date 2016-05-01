@@ -241,6 +241,8 @@ var MODULE = (function (my) {
 
         '<div class="iw-body">'+
         '<div class="iw-tweet"><a href="'+tweetURL+'" target="_blank" >'+text+'</a></div>'+
+        '</div>'+
+        
         // '<div class="iw-tweet iw-external-link"><a href="'+external_link+'" target="_blank" >'+external_link+'</a></div>'+
 
         '<div class="iw-tweet iw-external-img-div">'+
@@ -251,7 +253,7 @@ var MODULE = (function (my) {
 
         '<p class="iw-time">'+timeSince+'</p>'+
         '<img src="../images/twitterbird.png" class="iw-bird">'+
-        '</div>'+
+        
 
         // unsure why we need to attach twitterbird logo AFTER <p>
         // to get the twitter bird to show before...
