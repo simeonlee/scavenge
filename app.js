@@ -304,7 +304,7 @@ var success = function (data) {
               text: text,
               innerURL: expandedURL,
               instagram_data: body,
-              thumbnailURL: thumbnailURL,
+              // thumbnailURL: thumbnailURL,
               timestamp: timestamp,
               user: user,
               tweetID: tweetID,

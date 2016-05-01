@@ -44,22 +44,19 @@ var MODULE = (function (my) {
   socket.on('retrieved tweets', function (data) {
   
     console.log(data);
-  
-    my.extractTweets(data);
-  
-    // mark locations of tweets
-    // my.markTweets(map);
+
   });
 
   // get the tweets from the server after some operations have been completed
   // including getting direct link to instagram photo and getting expanded url
   socket.on('thumbnail urls', function(data) {
 
-    // data that contains instagram image thumbnail urls
+    // data that contains instagram data
     console.log(data);
 
-  })
+    my.extractTweets(data);
 
+  })
 
   // load upon HTML loaded
   document.addEventListener("DOMContentLoaded", function() {
@@ -67,7 +64,6 @@ var MODULE = (function (my) {
     setUpGoogleMap();
     
   });
-
 
 
 
@@ -83,11 +79,7 @@ var MODULE = (function (my) {
 
     document.body.appendChild(script);
 
-
   }
-
-
-
 
 
 
