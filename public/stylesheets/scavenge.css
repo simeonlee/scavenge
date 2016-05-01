@@ -695,14 +695,14 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   font-style: italic;
   font-size: 10px;
   float: right;
-  margin: 4px 6px 4px 0px;
+  margin: 4px 6px 8px 0px;
   padding: 0;
 }
 
 .iw-bird {
   height: 10px;
   float: right;
-  margin: 4px 0;
+  margin: 4px 0 8px;
 }
 
 .iw-bottom-gradient {
