@@ -263,10 +263,7 @@ var success = function (data) {
     
   } // end for loop
 
-  setTimeout(function(){
-    // send data to client
-    io.sockets.emit('scavenge tweets', scavenge_tweets);
-  },10000);
+
 
 };
 
@@ -303,10 +300,15 @@ var expandURL = function(status, getInstagramData) {
         var scavenge_tweet = scavenge_tweets[i];
         
         if (scavenge_tweet.tweetID === tweetID) {
-                
+
           scavenge_tweet.external_link = expandedURL;
           scavenge_tweet.instagram_data = getInstagramData(expandedURL);
-            
+
+          // setTimeout(function(){
+            // send data to client
+            io.sockets.emit('scavenge tweets', scavenge_tweets);
+          // },10000);
+
         }
 
       }
@@ -316,10 +318,6 @@ var expandURL = function(status, getInstagramData) {
   }
 
 }
-
-
-
-
 
 var getInstagramData = function(expandedURL) {
 
