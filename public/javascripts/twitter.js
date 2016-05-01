@@ -143,10 +143,7 @@ var MODULE = (function (my) {
         query: query
       })
 
-
     }
-
-    console.log(my.tweets);
 
     // mark location of tweets
     my.markTweets(my.google_map);

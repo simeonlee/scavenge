@@ -145,7 +145,7 @@ function onListening() {
 // access Twitter API
 var Twitter = require('twitter-node-client').Twitter;
 
-var dataJSON = {test: 'No twitter data yet'};
+var twitter_API_data = {test: 'No twitter data yet'};
 
 // to log into twitter api - secret
 var config = {
@@ -201,13 +201,13 @@ var success = function (data) {
   // we want to send this data to the client DOM... meteor could be a good solution
   // perhaps for now just inject JSON into HTML element and use jQuery or DOM manipulation to extract it
   // slow and unnecessary processing but good for single-use application
-  dataJSON = JSON.parse(data);
-  var statuses = dataJSON.statuses;
+  twitter_API_data = JSON.parse(data);
+  var statuses = twitter_API_data.statuses;
 
   // addInstaImgURL();
 
-  // var dataJSONplusInsta = addInstaImgURL(dataJSON);
-  // console.log(dataJSONplusInsta);
+  // var twitter_API_data_plus_insta = addInstaImgURL(twitter_API_data);
+  // console.log(twitter_API_data_plus_insta);
 
   // var addInstaImgURL = function() {
   
@@ -215,7 +215,7 @@ var success = function (data) {
   thumbnailURLArr = [];
 
   // show what the query was that resulted in this tweet selection
-  var query = dataJSON.search_metadata.query;
+  var query = twitter_API_data.search_metadata.query;
   query = decodeURIComponent(query);
   console.log(query);
 
@@ -253,7 +253,7 @@ var success = function (data) {
       var latLng = null;
     }
 
-    // add instagram thumbnail url to datajson object before transmittal to client
+    // add instagram thumbnail url to twitter_API_data object before transmittal to client
     // status.instaImgURL = returnInstaImgURL(tweetText);
 
     // var returnInstaImgURL = function(text) {
@@ -326,7 +326,7 @@ var success = function (data) {
 
     } else {
       // attach filler to status object
-      dataJSON.statuses[i].thumbnailURL = 'Not Available';
+      twitter_API_data.statuses[i].thumbnailURL = 'Not Available';
 
       // push filler to array
       thumbnailURLArr.push('Not Available');
@@ -334,17 +334,13 @@ var success = function (data) {
     
   } // end for loop
 
-  // console.log(dataJSON);
+  // console.log(twitter_API_data);
 
   setTimeout(function(){
     // send data to client
-    io.sockets.emit('retrieved tweets', dataJSON);
+    io.sockets.emit('retrieved tweets', twitter_API_data);
     io.sockets.emit('thumbnail urls', thumbnailURLArr);
   },5000);
-
-  // print tweet
-  var firstText = dataJSON.statuses[0].text;
-  console.log(firstText);
 };
 
 
@@ -391,32 +387,9 @@ app.use(serveStatic(__dirname + '/public', { maxAge: oneDay }));
 
 
 app.get('/data', function(req, res) {
-  res.send(dataJSON);
+  res.send(twitter_API_data);
 });
 
-
-// app.use(function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "X-Requested-With");
-//   res.header("Access-Control-Allow-Headers", "Content-Type");
-//   res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
-//   next();
-// });
-
-
-
-
-// server.listen(3000);
-
-
-
-
-
-// view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'jade');
-
-// uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 app.use(logger('dev'));
@@ -424,6 +397,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// view engine setup
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'jade');
 
 // app.use('/', routes);
 // app.use('/users', users);
@@ -566,110 +543,11 @@ setTimeout(function(){
 
 
 
-// var addInstaImgURL = function() {
-  
-//   for (var i = 0; i < dataJSON.length; i++) {
-
-//     // extract individual tweet status object
-//     var status = dataJSON.statuses[i];
-    
-//     // extract text of tweet including t.co url
-//     var tweetText = status.text;
-
-
-
-//     // add instagram thumbnail url to datajson object before transmittal to client
-//     status.instaImgURL = returnInstaImgURL(tweetText);
-
-//     console.log(status.instaImgURL);
-
-//   }
-// }
-
-
-
-
-// var returnInstaImgURL = function(text) {
-
-//   // find the link in the text that starts with 'https://t.co/xxx'
-//   var expression = /https?:\/\/t\.[a-z]{2,6}\/([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi;
-//   var regex = new RegExp(expression);
-  
-//   if (text.match(regex)) {
-    
-//     // set innerURL to that link in the text that links to some content
-//     var innerURL = text.match(regex);
-  
-//     // var innerURL is now a t.co url - need to transform using ajax call to 
-//     // www.linkexpander.com/?url=https://t.co/xxx to find instagram url
-//     var instaURL = expandT_coURL(innerURL,extractInstaURL);
-//     console.log(instaURL);
-
-//     return instaURL;
-
-//   } else {
-    
-//     var innerURL = null;
-    
-//     var instaURL = null;
-//     return null;
-
-//   }
-  
-// }
-
-
-// var expandT_coURL = function(innerURL,extractInstaURL) {
-//   $.ajax({
-//     type: 'GET',
-//     url: 'https://www.linkexpander.com/?url='+innerURL,
-//     cache: false,
-//     dataType: 'json',
-//     jsonp: false,
-//     success: function (data) {
-//       try {
-//         var expandedURL = data;
-//         console.log(expandedURL);
-//         var instaURL = extractInstaURL(expandedURL);
-//         console.log(instaURL);
-//         return instaURL;
-//       } catch (err) {
-//         console.log(err);
-//         return null;
-//       }
-//     }
-
-//   })
-
-// }
-
-
-
-
-// var extractInstaURL = function(expandedURL) {
-//   // extract instagram pic from twitter shortlink
-//   $.ajax({
-//     type: 'GET',
-//     url: 'https://api.instagram.com/oembed?callback=&url='+expandedURL,
-//     cache: false,
-//     dataType: 'json',
-//     jsonp: false,
-//     success: function (data) {
-//       try {
-//           var dataObject = JSON.parse(data);
-//           var thumbnailURL = dataObject.thumbnail_url;
-//           console.log(thumbnailURL);
-//           return thumbnailURL;
-//       } catch (err) {
-//           console.log(err);
-//           return null;
-//       }
-//     }
-//   });
-// }
-
-
-
 
 
 module.exports = app;
+
+
+
+
+

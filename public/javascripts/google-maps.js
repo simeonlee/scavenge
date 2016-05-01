@@ -41,11 +41,11 @@ var MODULE = (function (my) {
   
   // get the tweets from the server as soon as they are retrieved by the
   // server from twitter API
-  socket.on('retrieved tweets', function (data) {
+  // socket.on('retrieved tweets', function (data) {
   
-    console.log(data);
+  //   console.log(data);
 
-  });
+  // });
 
   // get the tweets from the server after some operations have been completed
   // including getting direct link to instagram photo and getting expanded url
