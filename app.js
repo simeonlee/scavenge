@@ -303,6 +303,7 @@ var success = function (data) {
             thumbnailURLArr.push({
               text: text,
               innerURL: expandedURL,
+              instagram_data: body,
               thumbnailURL: thumbnailURL,
               timestamp: timestamp,
               user: user,

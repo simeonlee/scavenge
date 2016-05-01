@@ -36,7 +36,29 @@ var MODULE = (function (my) {
   // put restaurant markers here
   var markers = [];
 
+  // socket used to communicate back and forth with server
+  var socket = io.connect(scavengeurl);  
+  
+  // get the tweets from the server as soon as they are retrieved by the
+  // server from twitter API
+  socket.on('retrieved tweets', function (data) {
+  
+    console.log(data);
+  
+    my.extractTweets(data);
+  
+    // mark locations of tweets
+    // my.markTweets(map);
+  });
 
+  // get the tweets from the server after some operations have been completed
+  // including getting direct link to instagram photo and getting expanded url
+  socket.on('thumbnail urls', function(data) {
+
+    // data that contains instagram image thumbnail urls
+    console.log(data);
+
+  })
 
 
   // load upon HTML loaded
@@ -538,26 +560,8 @@ var MODULE = (function (my) {
 
     // wasted two hours until I figured out... add +"px" to the end!!
     document.getElementById(id).style.width=size+"px";
-  }
-
   
-    
-  var socket = io.connect(scavengeurl);
-  socket.on('retrieved tweets', function (data) {
-    console.log(data);
-    my.extractTweets(data);
-    // mark locations of tweets
-    // my.markTweets(map);
-  });
-
-  socket.on('thumbnail urls', function(data) {
-    console.log(data);
-  })
-
-  // socket.on('test emit', function(data) {
-  //   console.log(data);
-  // });
-
+  }
 
   return my;
 }(MODULE || {}));
