@@ -277,7 +277,7 @@ var success = function (data) {
 
 var expandURL = function(status, getInstagramData) {
 
-  
+
 
   var text = status.text;
   var tweetID = status.id_str;  
@@ -359,7 +359,7 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
 
     console.log(debugindex);
     console.log(debugindex + '  ' + 'In getInstagramData function');
-    console.log(debugindex + '  ' + scavenge_tweet.user);
+    console.log(debugindex + '  ' + scavenge_tweet.user.name);
     console.log(debugindex + '  ' + scavenge_tweet.text);
     console.log(debugindex + '  ' + expandedURL);
 
