@@ -258,12 +258,8 @@ var success = function (data) {
     });
     
     expandURL(status, getInstagramData);
-
     
-    
-  } // end for loop
-
-
+  }
 
 };
 
@@ -332,14 +328,15 @@ var getInstagramData = function(scavenge_tweet) {
 
       scavenge_tweet.instagram_data = instagram_data;
 
-      
       for (var i = 0; i < scavenge_tweets.length; i++) {
         
         // find out if this is the last scavenge_tweet in scavenge_tweets
         if (scavenge_tweets[i].tweetID === scavenge_tweet.tweetID && scavenge_tweets[i+1] == undefined) {
 
+        setTimeout(function(){
           // send data to client
           io.sockets.emit('scavenge tweets', scavenge_tweets);
+        },5000);
 
         }
 
