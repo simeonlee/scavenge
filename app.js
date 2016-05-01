@@ -325,24 +325,28 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
     
     request(instaAPIURL, function(err, resp, body) {
       
-      // parse and set instagram data
-      var instagram_data = JSON.parse(body);
-      console.log(instagram_data);
+      if (body) {
 
-      scavenge_tweet.instagram_data = instagram_data;
+        // parse and set instagram data
+        var instagram_data = JSON.parse(body);
+        console.log(instagram_data);
 
-      for (var i = 0; i < scavenge_tweets.length; i++) {
-        
-        // find out if this is the last scavenge_tweet in scavenge_tweets
-        if (scavenge_tweets[i].tweetID === scavenge_tweet.tweetID && scavenge_tweets[i+1] == undefined) {
+        scavenge_tweet.instagram_data = instagram_data;
 
-        setTimeout(function() {
-          // send data to client
-          io.sockets.emit('scavenge tweets', scavenge_tweets);
-        },5000);
+        for (var i = 0; i < scavenge_tweets.length; i++) {
+          
+          // find out if this is the last scavenge_tweet in scavenge_tweets
+          if (scavenge_tweets[i].tweetID === scavenge_tweet.tweetID && scavenge_tweets[i+1] == undefined) {
+
+          setTimeout(function() {
+            // send data to client
+            io.sockets.emit('scavenge tweets', scavenge_tweets);
+          },5000);
+
+          }
 
         }
-
+      
       }
 
     });
