@@ -245,24 +245,25 @@ var success = function (data) {
     var instagram_data = expandURL(text, getInstagramData);
 
 
-
-    // create a new array of select data to be sent to client
-    scavenge_tweets.push({
-      text: text,
-      external_link: expandedURL,
-      instagram_data: instagram_data,
-      timestamp: timestamp,
-      user: user,
-      tweetID: tweetID,
-      latLng: latLng,
-      source: source,
-      query: query,
-      hashtags: hashtags,
-      favorite_count: favorite_count,
-      retweet_count: retweet_count,
-      truncated: truncated,
-      sensitive: sensitive
-    });
+    setTimeout(function(){
+      // create a new array of select data to be sent to client
+      scavenge_tweets.push({
+        text: text,
+        external_link: expandedURL,
+        instagram_data: instagram_data,
+        timestamp: timestamp,
+        user: user,
+        tweetID: tweetID,
+        latLng: latLng,
+        source: source,
+        query: query,
+        hashtags: hashtags,
+        favorite_count: favorite_count,
+        retweet_count: retweet_count,
+        truncated: truncated,
+        sensitive: sensitive
+      });
+    },2000);
     
   } // end for loop
 
