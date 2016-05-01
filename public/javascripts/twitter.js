@@ -119,7 +119,7 @@ var MODULE = (function (my) {
       // ideally somehow show the contents of the webpage beyond the url in the card itself...
       // for example, if it is a link to instagram just display the pic...
       text = text.slice(0,indexOfInnerURL);
-      
+
       my.tweets.push({
         text: text,
         innerURL: innerURL,
@@ -155,7 +155,7 @@ var MODULE = (function (my) {
       var tweet = tweets[i];
 
       var text = tweet.text;
-      var innerURL = tweet.innerURL;
+      var external_link = tweet.external_link;
 
 
       var user = tweet.user;
@@ -180,9 +180,7 @@ var MODULE = (function (my) {
         var marker = new google.maps.Marker({
           position: latLng,
           icon: '../images/twitterbird.png',
-          // label: firstLetter, // for example, 'P' for #paleo
-          animation: google.maps.Animation.DROP,
-          title: 'hot tip'
+          animation: google.maps.Animation.DROP
         });
 
 
@@ -233,7 +231,7 @@ var MODULE = (function (my) {
 
         '<div class="iw-body">'+
         '<div class="iw-tweet"><a href="'+tweetURL+'" target="_blank" >'+text+'</a></div>'+
-        '<div class="iw-tweet iw-inner-URL"><a href="'+innerURL+'" target="_blank" >'+innerURL+'</a></div>'+
+        '<div class="iw-tweet iw-external-link"><a href="'+external_link+'" target="_blank" >'+external_link+'</a></div>'+
         '<p class="iw-time">'+timeSince+'</p>'+
         '<img src="../images/twitterbird.png" class="iw-bird">'+
         '</div>'+
@@ -542,7 +540,7 @@ var MODULE = (function (my) {
     var username = user.name;
     var handle = user.screen_name;
     var text = tweet.text;
-    var innerURL = tweet.innerURL;
+    var external_link = tweet.external_link;
     var timestamp = tweet.timestamp;
     var timeSince = calculateSince(timestamp);
     var tweetID = tweet.tweetID;
@@ -613,20 +611,20 @@ var MODULE = (function (my) {
 
 
 
-    // tweet innerURL link wrapper to target url
-    var tw_innerURL_a = document.createElement('a');
-    tw_innerURL_a.className = 'tw-a tw-innerURL-a';
-    tw_innerURL_a.setAttribute('href', innerURL);
-    tw_innerURL_a.setAttribute('target', '_blank');
+    // tweet external_link link wrapper to target url
+    var tw_external_link_a = document.createElement('a');
+    tw_external_link_a.className = 'tw-a tw-external-link-a';
+    tw_external_link_a.setAttribute('href', external_link);
+    tw_external_link_a.setAttribute('target', '_blank');
     
-    var tw_innerURL = document.createTextNode(innerURL);
-    tw_innerURL_a.appendChild(tw_innerURL);
+    var tw_external_link = document.createTextNode(external_link);
+    tw_external_link_a.appendChild(tw_external_link);
 
-    // tweet innerURL div
-    var tw_innerURL_div = document.createElement("div");
-    tw_innerURL_div.className = "tw-innerURL-div";
+    // tweet external_link div
+    var tw_external_link_div = document.createElement("div");
+    tw_external_link_div.className = "tw-external-link-div";
     
-    tw_innerURL_div.appendChild(tw_innerURL_a);
+    tw_external_link_div.appendChild(tw_external_link_a);
     
     // timesince tweet
     var tw_timesince_div = document.createElement("div");
@@ -670,7 +668,7 @@ var MODULE = (function (my) {
     tw_div.appendChild(tw_username_div);
     tw_div.appendChild(tw_handle_div);
     tw_div.appendChild(tw_text_div);
-    tw_div.appendChild(tw_innerURL_div);
+    tw_div.appendChild(tw_external_link_div);
     tw_div.appendChild(tw_twitter_bird);
     tw_div.appendChild(tw_timesince_div);
     tw_div.appendChild(emptyheart);

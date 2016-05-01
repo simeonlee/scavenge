@@ -264,7 +264,7 @@ var success = function (data) {
     
     if (text.match(regex)) {
 
-      // set innerURL to that link in the text that links to some content
+      // set external link to that link in the text that links to some content
       var t_coURL = text.match(regex);
       var linkexpanderURL = 'https://www.linkexpander.com/?url='+t_coURL;
 
@@ -302,7 +302,7 @@ var success = function (data) {
             // create a separate array of just thumbnail urls to be sent to client
             thumbnailURLArr.push({
               text: text,
-              innerURL: expandedURL,
+              external_link: expandedURL,
               instagram_data: body,
               // thumbnailURL: thumbnailURL,
               timestamp: timestamp,

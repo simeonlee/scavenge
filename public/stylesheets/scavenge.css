@@ -300,24 +300,24 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   text-decoration: underline;
 }
 
-.tw-innerURL-div {
+.tw-external-link-div {
   position: relative;
   top: -8px;
 }
 
-.tw-innerURL-a {
+.tw-external-link-a {
   font-size: 12px;
   font-weight: 300;
   text-decoration: none;
   color: rgba(0,128,0,0.8);
 }
 
-.tw-innerURL-a:hover {
+.tw-external-link-a:hover {
   text-decoration: underline;
   /*color: rgba(0,128,0,0.8);*/
 }
 
-.tw-innerURL-div:active {
+.tw-external-link-div:active {
   /*color: rgba(0,128,0,0.8);*/
 }
 
@@ -654,7 +654,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
     text-decoration: none;
 }
 
-.iw-inner-URL {
+.iw-external-link {
   font-size: 12px;
   margin: 0;
   padding: 0;
@@ -663,22 +663,22 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 
 
 /* unvisited link */
-.iw-inner-URL a:link {
+.iw-external-link a:link {
   color: rgba(0,128,0,0.8);
 }
 
 /* visited link */
-.iw-inner-URL a:visited {
+.iw-external-link a:visited {
   color: rgba(0,128,0,0.8);
 }
 
 /* mouse over link */
-.iw-inner-URL a:hover {
+.iw-external-link a:hover {
   color: rgba(0,128,0,0.8);
 }
 
 /* selected link */
-.iw-inner-URL a:active {
+.iw-external-link a:active {
   color: rgba(0,128,0,0.8);
 }
 
