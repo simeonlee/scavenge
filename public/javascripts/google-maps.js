@@ -51,10 +51,13 @@ var MODULE = (function (my) {
   // including getting direct link to instagram photo and getting expanded url
   socket.on('thumbnail urls', function(data) {
 
-    // data that contains instagram data
-    console.log(data);
+    // select data from twitter api
+    my.tweets = data;
 
-    my.extractTweets(data);
+    // data that contains instagram data
+    console.log(my.tweets);
+
+    my.markTweets(map);
 
   })
 

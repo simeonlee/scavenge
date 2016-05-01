@@ -63,10 +63,8 @@ var MODULE = (function (my) {
 
 
   
-
+  // currently NOT BEING CALLED - moved this functionality to the server
   my.extractTweets = function(data) {
-
-    console.log('in extracttweets function');
 
     // show what the query was that resulted in this tweet selection
     var query = data.search_metadata.query;
@@ -76,7 +74,7 @@ var MODULE = (function (my) {
     var statuses = data.statuses;
     console.log(statuses);
 
-    for (var i = 0; i < statuses.length; i++) {  
+    for (var i = 0; i < statuses.length; i++) {
       var status = statuses[i];
 
       var text = status.text;
@@ -121,18 +119,7 @@ var MODULE = (function (my) {
       // ideally somehow show the contents of the webpage beyond the url in the card itself...
       // for example, if it is a link to instagram just display the pic...
       text = text.slice(0,indexOfInnerURL);
-
-
       
-
-
-
-
-
-
-
-
-
       my.tweets.push({
         text: text,
         innerURL: innerURL,
