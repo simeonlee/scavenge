@@ -316,7 +316,7 @@ var expandURL = function(status, getInstagramData) {
 
 
     debugindex1++;
-    
+
 
 
     request(linkexpanderURL, function(err, resp, body) {
@@ -326,6 +326,7 @@ var expandURL = function(status, getInstagramData) {
       // so we need an if statement next to check if it's an instagram link
       var expandedURL = body;
 
+      console.log(debugindex2);
       console.log(debugindex2 + '  NEWS:  We\'ve received the expanded url from the API and it looks like'+
         'it took awhile to get here');
       console.log(debugindex2 + '  ACTION:  Now starting the secondary for loop to locate the correct tweet'+
