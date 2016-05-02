@@ -219,6 +219,8 @@ var success = function (data) {
 
   for (var i = 0; i < statuses.length; i++) {
 
+    debugindex++;
+
     // need debug index to tell us where we are in array
     console.log(debugindex);
 
@@ -288,7 +290,7 @@ var success = function (data) {
 
 var expandURL = function(status, getInstagramData) {
   
-  console.log(debugindex + 'LOCATION:  In expandURL function');
+  console.log(debugindex + '  LOCATION:  In expandURL function');
 
   var text = status.text;
   var tweetID = status.id_str;  
@@ -399,7 +401,7 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
 
     }
 
-    debugindex++;
+    
 
   });
 
