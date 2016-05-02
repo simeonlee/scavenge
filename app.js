@@ -431,29 +431,27 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
 
 
 
-        // console.log(debugindex3 + '  ACTION:  Starting the for loop that identifies the last tweet in the array'+
-        //   ' so that we can open the socket and send our data')
+        console.log(debugindex3 + '  ACTION:  Starting the for loop that identifies the last tweet in the array'+
+          ' so that we can open the socket and send our data');
 
-        // for (var i = 0; i < scavenge_tweets.length; i++) {
+        for (var i = 0; i < scavenge_tweets.length; i++) {
           
           // find out if this is the last scavenge_tweet in scavenge_tweets
-          // if (scavenge_tweets[i].tweetID === scavenge_tweet.tweetID) {
+          if (scavenge_tweets[i].tweetID === scavenge_tweet.tweetID && scavenge_tweets[i+1] == undefined) {
 
-            // console.log(debugindex3 + '  NEWS:  Arrived at the last tweet in the array! Time to open the socket'+
-              // ' and send data to the client!')
+            console.log(debugindex3 + '  NEWS:  Arrived at the last tweet in the array! Time to open the socket'+
+              ' and send data to the client!');
 
-        console.log(debugindex3 + '  NEWS:  Opening the socket and sending data to the client!')
+            setTimeout(function() {
+            
+              // send data to client
+              io.sockets.emit('scavenge tweets', scavenge_tweets);
 
-        setTimeout(function() {
-        
-          // send data to client
-          io.sockets.emit('scavenge tweets', scavenge_tweets);
+            },10000);
 
-        },10000);
+          }
 
-          // }
-
-        // }
+        }
 
 
 
