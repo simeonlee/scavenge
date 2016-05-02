@@ -223,10 +223,14 @@ var success = function (data) {
 
   for (var i = 0; i < statuses.length; i++) {
 
-    
 
-    // need debug index to tell us where we are in array
-    console.log(debugindex1);
+    console.log(' ');
+    console.log(debugindex1 + '  ACTION:  Setting and attaching main variables to the scavenge_tweets array')
+    console.log(debugindex1 + '  text:  ' + text);
+
+
+
+    
 
     // extract individual tweet status object
     var status = statuses[i];
@@ -234,9 +238,7 @@ var success = function (data) {
     // extract text of tweet including t.co url
     var text = status.text;
 
-    console.log(debugindex1 + '  ACTION:  Setting and attaching main variables to the scavenge_tweets array')
-    console.log(debugindex1 + '  text:  ' + text);
-
+    
     // define variables for each tweet's elements
     var text = status.text;
     var coord = status.coordinates;
@@ -328,7 +330,7 @@ var expandURL = function(status, getInstagramData) {
       // so we need an if statement next to check if it's an instagram link
       var expandedURL = body;
 
-      console.log(debugindex2);
+      console.log(' ');
       console.log(debugindex2 + '  NEWS:  We\'ve received the expanded url from the API and it looks like'+
         'it took awhile to get here');
       console.log(debugindex2 + '  ACTION:  Now starting the secondary for loop to locate the correct tweet'+
@@ -404,7 +406,6 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
       request(instaAPIURL, function(err, resp, body) {
 
         console.log(' ');
-        console.log(debugindex3);
         console.log(debugindex3 + '  ACTION:  Requesting data from the Instagram API');
 
         // console.log(debugindex2 + '  ' + 'In getInstagramData\'s request function for instagram API data');
