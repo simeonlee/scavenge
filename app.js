@@ -195,11 +195,13 @@ var error = function (err, response, body) {
 
 var scavenge_tweets = [];
 
-var debugindex;
+var debugindex1;
+var debugindex2;
 
 var success = function (data) {
 
-  debugindex = 0;
+  debugindex1 = 0;
+  debugindex2 = 0;
 
   console.log('LOCATION:  We are in the success handler function of the twitter API caller');
   console.log('');
@@ -219,10 +221,10 @@ var success = function (data) {
 
   for (var i = 0; i < statuses.length; i++) {
 
-    debugindex++;
+    debugindex1++;
 
     // need debug index to tell us where we are in array
-    console.log(debugindex);
+    console.log(debugindex1);
 
     // extract individual tweet status object
     var status = statuses[i];
@@ -230,8 +232,8 @@ var success = function (data) {
     // extract text of tweet including t.co url
     var text = status.text;
 
-    console.log(debugindex + '  ACTION:  Setting and attaching main variables to the scavenge_tweets array')
-    console.log(debugindex + '  text:  ' + text);
+    console.log(debugindex1 + '  ACTION:  Setting and attaching main variables to the scavenge_tweets array')
+    console.log(debugindex1 + '  text:  ' + text);
 
     // define variables for each tweet's elements
     var text = status.text;
@@ -274,7 +276,7 @@ var success = function (data) {
       query: query
     });
     
-    console.log(debugindex + '  ACTION:  Calling expandURL function now');
+    console.log(debugindex1 + '  ACTION:  Calling expandURL function now');
 
     expandURL(status, getInstagramData);
     
@@ -290,7 +292,7 @@ var success = function (data) {
 
 var expandURL = function(status, getInstagramData) {
   
-  console.log(debugindex + '  LOCATION:  In expandURL function');
+  console.log(debugindex1 + '  LOCATION:  In expandURL function');
 
   var text = status.text;
   var tweetID = status.id_str;  
@@ -330,7 +332,7 @@ var expandURL = function(status, getInstagramData) {
           getInstagramData(scavenge_tweet, expandedURL)
             .then(function(response) {
             
-              console.log(debugindex + '  NEWS:  Promise was successful! We are about to socket emit the scavenged tweets');
+              console.log(debugindex1 + '  NEWS:  Promise was successful! We are about to socket emit the scavenged tweets');
               
               for (var i = 0; i < scavenge_tweets.length; i++) {
                 
@@ -350,7 +352,7 @@ var expandURL = function(status, getInstagramData) {
 
               }
             }, function(error) {
-              console.log(debugindex + '  NEWS:  Promise failed!');
+              console.log(debugindex1 + '  NEWS:  Promise failed!');
             });
 
         }
@@ -370,9 +372,9 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
 
   return new Promise(function(resolve, reject) {
 
-    console.log(debugindex + '  LOCATION:  In getInstagramData function');
-    console.log(debugindex + '  user:  ' + scavenge_tweet.user.name);
-    console.log(debugindex + '  expandedurl:  ' + expandedURL);
+    console.log(debugindex1 + '  LOCATION:  In getInstagramData function');
+    console.log(debugindex1 + '  user:  ' + scavenge_tweet.user.name);
+    console.log(debugindex1 + '  expandedurl:  ' + expandedURL);
 
     // check if it's an instagram link
     if (expandedURL.indexOf('instagram') > -1) {
@@ -382,17 +384,17 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
       
       request(instaAPIURL, function(err, resp, body) {
 
-        // console.log(debugindex + '  ' + 'In getInstagramData\'s request function for instagram API data');
-        console.log(debugindex + '  instaAPIurl:  ' + instaAPIURL);
+        // console.log(debugindex1 + '  ' + 'In getInstagramData\'s request function for instagram API data');
+        console.log(debugindex1 + '  instaAPIurl:  ' + instaAPIURL);
 
         // parse and set instagram data
         try {
           var instagram_data = JSON.parse(body);
-          console.log(debugindex + '  thumbnailurl:  ' + instagram_data.thumbnail_url);
+          console.log(debugindex1 + '  thumbnailurl:  ' + instagram_data.thumbnail_url);
         }
         catch(err) {
           var instagram_data = body;
-          console.log(debugindex + '  ERROR:  Cannot parse instagram_data');
+          console.log(debugindex1 + '  ERROR:  Cannot parse instagram_data');
         }
 
         scavenge_tweet.instagram_data = instagram_data;
@@ -401,7 +403,7 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
 
     }
 
-    
+    debugindex2++;
 
   });
 
