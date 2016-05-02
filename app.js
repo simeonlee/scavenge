@@ -197,11 +197,13 @@ var scavenge_tweets = [];
 
 var debugindex1;
 var debugindex2;
+var debugindex3;
 
 var success = function (data) {
 
   debugindex1 = 0;
   debugindex2 = 0;
+  debugindex3 = 0;
 
   console.log('LOCATION:  We are in the success handler function of the twitter API caller');
   console.log('');
@@ -394,23 +396,44 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
       
       // instagram api link that returns some media data
       var instaAPIURL = 'https://api.instagram.com/oembed?callback=&url='+expandedURL;
-      
+
+
+
+
+
       request(instaAPIURL, function(err, resp, body) {
 
+        console.log(' ');
+        console.log(debugindex3);
+        console.log(debugindex3 + '  ACTION:  Requesting data from the Instagram API');
+
         // console.log(debugindex2 + '  ' + 'In getInstagramData\'s request function for instagram API data');
-        console.log(debugindex2 + '  instaAPIurl:  ' + instaAPIURL);
+        console.log(debugindex3 + '  instaAPIurl:  ' + instaAPIURL);
 
         // parse and set instagram data
         try {
+          
           var instagram_data = JSON.parse(body);
-          console.log(debugindex2 + '  thumbnailurl:  ' + instagram_data.thumbnail_url);
+          console.log(debugindex3 + '  thumbnailurl:  ' + instagram_data.thumbnail_url);
+          
+
+          
+
         }
         catch(err) {
+          
           var instagram_data = body;
-          console.log(debugindex2 + '  ERROR:  Cannot parse instagram_data');
+          console.log(debugindex3 + '  ERROR:  Cannot parse instagram_data');
+
+
+        
         }
 
         scavenge_tweet.instagram_data = instagram_data;
+        
+
+
+        debugindex3++;
         
       });
 
