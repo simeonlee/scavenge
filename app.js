@@ -447,7 +447,7 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
               // send data to client
               io.sockets.emit('scavenge tweets', scavenge_tweets);
 
-            },10000);
+            },5000);
 
           }
 
