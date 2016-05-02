@@ -372,9 +372,9 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
 
   return new Promise(function(resolve, reject) {
 
-    console.log(debugindex1 + '  LOCATION:  In getInstagramData function');
-    console.log(debugindex1 + '  user:  ' + scavenge_tweet.user.name);
-    console.log(debugindex1 + '  expandedurl:  ' + expandedURL);
+    console.log(debugindex2 + '  LOCATION:  In getInstagramData function');
+    console.log(debugindex2 + '  user:  ' + scavenge_tweet.user.name);
+    console.log(debugindex2 + '  expandedurl:  ' + expandedURL);
 
     // check if it's an instagram link
     if (expandedURL.indexOf('instagram') > -1) {
@@ -384,17 +384,17 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
       
       request(instaAPIURL, function(err, resp, body) {
 
-        // console.log(debugindex1 + '  ' + 'In getInstagramData\'s request function for instagram API data');
-        console.log(debugindex1 + '  instaAPIurl:  ' + instaAPIURL);
+        // console.log(debugindex2 + '  ' + 'In getInstagramData\'s request function for instagram API data');
+        console.log(debugindex2 + '  instaAPIurl:  ' + instaAPIURL);
 
         // parse and set instagram data
         try {
           var instagram_data = JSON.parse(body);
-          console.log(debugindex1 + '  thumbnailurl:  ' + instagram_data.thumbnail_url);
+          console.log(debugindex2 + '  thumbnailurl:  ' + instagram_data.thumbnail_url);
         }
         catch(err) {
           var instagram_data = body;
-          console.log(debugindex1 + '  ERROR:  Cannot parse instagram_data');
+          console.log(debugindex2 + '  ERROR:  Cannot parse instagram_data');
         }
 
         scavenge_tweet.instagram_data = instagram_data;
