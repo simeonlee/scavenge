@@ -221,7 +221,7 @@ var success = function (data) {
 
   for (var i = 0; i < statuses.length; i++) {
 
-    debugindex1++;
+    
 
     // need debug index to tell us where we are in array
     console.log(debugindex1);
@@ -313,15 +313,22 @@ var expandURL = function(status, getInstagramData) {
     var t_coURL_index = text.indexOf(t_coURL);
     text = text.slice(0,t_coURL_index);
 
-    request(linkexpanderURL, function(err, resp, body) {
+
+
+    debugindex1++;
     
+
+
+    request(linkexpanderURL, function(err, resp, body) {
+
       // set the returned www.instagram.com url to 'expandedURL'
       // can also be a link to something else like a personal blog or something
       // so we need an if statement next to check if it's an instagram link
       var expandedURL = body;
 
-      console.log(debugindex1 + '  NEWS:  We\'ve received the expanded url from the API');
-      console.log(debugindex1 + '  ACTION:  Now starting the secondary for loop to locate the correct tweet'+
+      console.log(debugindex2 + '  NEWS:  We\'ve received the expanded url from the API and it looks like'+
+        'it took awhile to get here');
+      console.log(debugindex2 + '  ACTION:  Now starting the secondary for loop to locate the correct tweet'+
         'and attach the retrieved instagram url that we get from the API');
 
       
