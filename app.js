@@ -332,9 +332,9 @@ var expandURL = function(status, getInstagramData) {
 
       console.log(' ');
       console.log(debugindex2 + '  NEWS:  We\'ve received the expanded url from the API and it looks like'+
-        'it took awhile to get here');
+        ' it took awhile to get here');
       console.log(debugindex2 + '  ACTION:  Now starting the secondary for loop to locate the correct tweet'+
-        'and attach the retrieved instagram url that we get from the API');
+        ' and attach the retrieved instagram url that we get from the API');
 
       
       for (var i = 0; i < scavenge_tweets.length; i++) {
@@ -348,26 +348,7 @@ var expandURL = function(status, getInstagramData) {
           
           getInstagramData(scavenge_tweet, expandedURL)
             .then(function(response) {
-            
               console.log(debugindex1 + '  NEWS:  Promise was successful! We are about to socket emit the scavenged tweets');
-              
-              for (var i = 0; i < scavenge_tweets.length; i++) {
-                
-                // find out if this is the last scavenge_tweet in scavenge_tweets
-                if (scavenge_tweets[i].tweetID === scavenge_tweet.tweetID && scavenge_tweets[i+1] == undefined) {
-
-                  // setTimeout(function() {
-                  
-                    // send data to client
-                    io.sockets.emit('scavenge tweets', scavenge_tweets);
-
-                    
-
-                  // },10000);
-
-                }
-
-              }
             }, function(error) {
               console.log(debugindex1 + '  NEWS:  Promise failed!');
             });
@@ -430,8 +411,50 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
         
         }
 
+
+
+
+
+
+
+
+
+
         scavenge_tweet.instagram_data = instagram_data;
         
+
+
+
+
+
+
+
+
+
+        console.log(debugindex3 + '  ACTION:  Starting the for loop that identifies the last tweet in the array'+
+          ' so that we can open the socket and send our data')
+
+        for (var i = 0; i < scavenge_tweets.length; i++) {
+          
+          // find out if this is the last scavenge_tweet in scavenge_tweets
+          if (scavenge_tweets[i].tweetID === scavenge_tweet.tweetID && scavenge_tweets[i+1] == undefined) {
+
+            console.log(debugindex3 + '  NEWS:  Arrived at the last tweet in the array! Time to open the socket'+
+              ' and send data to the client!')
+
+            setTimeout(function() {
+            
+              // send data to client
+              io.sockets.emit('scavenge tweets', scavenge_tweets);
+
+            },10000);
+
+          }
+
+        }
+
+
+
 
 
         debugindex3++;
