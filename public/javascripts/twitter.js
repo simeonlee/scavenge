@@ -713,7 +713,7 @@ var MODULE = (function (my) {
     tw_div.appendChild(tw_username_div);
     tw_div.appendChild(tw_handle_div);
     tw_div.appendChild(tw_text_div);
-    tw_div.appendChild(tw_external_link_div);
+    // tw_div.appendChild(tw_external_link_div); // don't need since the instagram photo links to the link
     tw_div.appendChild(tw_twitter_bird);
     tw_div.appendChild(tw_timesince_div);
     tw_div.appendChild(emptyheart);
@@ -723,8 +723,8 @@ var MODULE = (function (my) {
     var tw_li = document.createElement("li");
     tw_li.className = 'tw-li';
 
-    if (tw_thumbnail_img) {
-      tw_li.appendChild(tw_thumbnail_img);
+    if (tw_thumbnail_a) {
+      tw_li.appendChild(tw_thumbnail_a);
     }
 
     tw_li.appendChild(tw_div);
