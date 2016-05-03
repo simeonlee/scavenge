@@ -166,7 +166,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 
   /*overflow: hidden;*/
   background-color: rgba(255,255,255,0.9);
-  padding: 10px 10px;
+  padding: 10px;
   margin: 2px 0;
 }
 
@@ -186,7 +186,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 /*these tweets below relate to tweets shown in list on left*/
 
 .tw-thumbnail-img {
-  width: 90px;
+  width: 110px;
 }
 
 .tw-thumbnail-a {
