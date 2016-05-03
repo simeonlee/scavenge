@@ -185,11 +185,11 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 
 /*these tweets below relate to tweets shown in list on left*/
 
-.tw_thumbnail_img {
+.tw-thumbnail-img {
   width: 90px;
 }
 
-.tw_thumbnail_a {
+.tw-thumbnail-a {
 
 }
 
