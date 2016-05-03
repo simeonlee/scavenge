@@ -564,7 +564,8 @@ var MODULE = (function (my) {
     var timeSince = calculateSince(timestamp);
     var tweetID = tweet.tweetID;
     var latLng = tweet.latLng;
-    var thumbnail_url = tweet.instagram_data.thumbnail_url;
+    
+
 
     // link to the tweeter's profile
     var userURL = 'https://www.twitter.com/'+handle;
@@ -577,19 +578,23 @@ var MODULE = (function (my) {
 
 
 
+    if (tweet.instagram_data) {
+      
+      var thumbnail_url = tweet.instagram_data.thumbnail_url;
 
-    // set thumbnail image
-    var tw_thumbnail_img = document.createElement('img');
-    tw_thumbnail_img.className = 'tw-thumbnail-img';
-    tw_thumbnail_img.setAttribute('src', thumbnail_url);
+      // set thumbnail image
+      var tw_thumbnail_img = document.createElement('img');
+      tw_thumbnail_img.className = 'tw-thumbnail-img';
+      tw_thumbnail_img.setAttribute('src', thumbnail_url);
 
-    // set profile image link wrapper to profile
-    var tw_thumbnail_a = document.createElement('a');
-    tw_thumbnail_a.className = 'tw-thumbnail-a';
-    tw_thumbnail_a.setAttribute('href', external_link);
-    tw_thumbnail_a.setAttribute('target', '_blank');
-    tw_thumbnail_a.appendChild(tw_thumbnail_img);
+      // set profile image link wrapper to profile
+      var tw_thumbnail_a = document.createElement('a');
+      tw_thumbnail_a.className = 'tw-thumbnail-a';
+      tw_thumbnail_a.setAttribute('href', external_link);
+      tw_thumbnail_a.setAttribute('target', '_blank');
+      tw_thumbnail_a.appendChild(tw_thumbnail_img);
 
+    }
 
 
 
@@ -704,7 +709,9 @@ var MODULE = (function (my) {
     
     var tw_div = document.createElement('div');
     tw_div.className = ('tw-div');
-    tw_div.appendChild(tw_thumbnail_img);
+    if (tw_thumbnail_img) {
+      tw_div.appendChild(tw_thumbnail_img);
+    }
     tw_div.appendChild(tw_username_div);
     tw_div.appendChild(tw_handle_div);
     tw_div.appendChild(tw_text_div);
