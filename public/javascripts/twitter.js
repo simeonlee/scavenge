@@ -709,9 +709,7 @@ var MODULE = (function (my) {
     
     var tw_div = document.createElement('div');
     tw_div.className = ('tw-div');
-    if (tw_thumbnail_img) {
-      tw_div.appendChild(tw_thumbnail_img);
-    }
+    
     tw_div.appendChild(tw_username_div);
     tw_div.appendChild(tw_handle_div);
     tw_div.appendChild(tw_text_div);
@@ -724,6 +722,11 @@ var MODULE = (function (my) {
     // Create <li> item to hold all the <div>'s we just created
     var tw_li = document.createElement("li");
     tw_li.className = 'tw-li';
+
+    if (tw_thumbnail_img) {
+      tw_li.appendChild(tw_thumbnail_img);
+    }
+
     tw_li.appendChild(tw_div);
 
     // find the <ul> in the document by its identifier and make <li> and
