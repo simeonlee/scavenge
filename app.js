@@ -462,8 +462,13 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
         
 
 
+
         for (var i = 0; i < scavenge_tweets.length; i++) {
-          
+        
+          if ( (i + 1) === x) {
+            console.log(debugindex3 + '  NEWS:  We\'ve arrived at the last tweet in the scavenge_tweets array!');
+          }
+
           // find out if this is the last scavenge_tweet in scavenge_tweets
           if (scavenge_tweets[i].tweetID === scavenge_tweet.tweetID && (i + 1) === x) {
 
