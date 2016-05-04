@@ -231,6 +231,7 @@ var MODULE = (function (my) {
 
 
         marker.setMap(map);
+        marker.setAnimation(google.maps.Animation.BOUNCE);
 
         marker.addListener('click', function() {
           

@@ -289,8 +289,8 @@ var success = function (data) {
 };
 
 
-
-
+// put the instagram urls in here
+var expanded_instagram_url_arr = [];
 
 
 
@@ -328,7 +328,17 @@ var expandURL = function(status, getInstagramData) {
       // set the returned www.instagram.com url to 'expandedURL'
       // can also be a link to something else like a personal blog or something
       // so we need an if statement next to check if it's an instagram link
-      var expandedURL = body;
+      var expandedURL = body.toString();
+
+
+      // push the expanded instagram urls to its own array so that we can grab the length for later
+      if (expandedURL.includes("www.instagram.com")) {
+
+        expanded_instagram_url_arr.push(expandedURL);
+        console.log(expanded_instagram_url_arr);
+        console.log(expanded_instagram_url_arr.length);
+
+      }
 
       console.log(' ');
       console.log(debugindex2 + '  NEWS:  We\'ve received the expanded url from the API and it looks like'+
@@ -359,6 +369,7 @@ var expandURL = function(status, getInstagramData) {
 
     });
 
+
   }
 
 }
@@ -379,7 +390,6 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
       
       // instagram api link that returns some media data
       var instaAPIURL = 'https://api.instagram.com/oembed?callback=&url='+expandedURL;
-
 
 
 
@@ -411,7 +421,7 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
         
         }
 
-
+      
 
 
 
@@ -434,10 +444,19 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
         console.log(debugindex3 + '  ACTION:  Starting the for loop that identifies the last tweet in the array'+
           ' so that we can open the socket and send our data');
 
+
+        // length of the instagram url array
+        // hopefully we've collected all the instagram urls by now and so when we call scavenge_tweets[x] below
+        // we would be one beyond the actual number of scavenge_tweets that we have collected, which would be equal
+        // to 'undefined' and would trigger the socket call
+        var x = expanded_instagram_url_arr.length;
+        console.log(x);
+
+
         for (var i = 0; i < scavenge_tweets.length; i++) {
           
           // find out if this is the last scavenge_tweet in scavenge_tweets
-          if (scavenge_tweets[i].tweetID === scavenge_tweet.tweetID && scavenge_tweets[i+1] == undefined) {
+          if (scavenge_tweets[i].tweetID === scavenge_tweet.tweetID && scavenge_tweets[x] == undefined) {
 
             console.log(debugindex3 + '  NEWS:  Arrived at the last tweet in the array! Time to open the socket'+
               ' and send data to the client!');
@@ -452,8 +471,6 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
           }
 
         }
-
-
 
 
 
