@@ -201,10 +201,12 @@ var debugindex3;
 
 var success = function (data) {
 
+  // wipe the slate
   debugindex1 = 0;
   debugindex2 = 0;
   debugindex3 = 0;
   expanded_instagram_url_arr = [];
+  thumbnail_url_arr = [];
 
   console.log('LOCATION:  We are in the success handler function of the twitter API caller');
   console.log('');
@@ -385,6 +387,9 @@ var expandURL = function(status, getInstagramData) {
 
 
 
+// to store thumbnail url's so we can count how many we have later
+var thumbnail_url_arr = [];
+
 
 var getInstagramData = function(scavenge_tweet, expandedURL) {
 
@@ -430,7 +435,9 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
         
         }
 
-      
+        // store the instagram thumbnail url in an array
+        var thumbnail_url = instagram_data.thumbnail_url;
+        thumbnail_url_arr.push(thumbnail_url);
 
 
 
@@ -450,27 +457,24 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
 
 
         console.log(debugindex3);
-        console.log(debugindex3 + '  ACTION:  Starting the for loop that identifies the last tweet in the array'+
-          ' so that we can open the socket and send our data');
+        console.log(debugindex3 + '  ACTION:  Checking if we have unpackaged the last thumbnail_url before'+
+          ' opening the socket to the client');
 
 
         // length of the instagram url array
         // hopefully we've collected all the instagram urls by now and so when we call scavenge_tweets[x] below
         // we would be one beyond the actual number of scavenge_tweets that we have collected, which would be equal
         // to 'undefined' and would trigger the socket call
-        var x = expanded_instagram_url_arr.length;
+        var expanded_arr_length = expanded_instagram_url_arr.length;
+        var thumbnail_arr_length = thumbnail_url_arr.length;
         
 
 
 
-        for (var i = 0; i < scavenge_tweets.length; i++) {
-        
-          if ( (i + 1) === x) {
-            console.log(debugindex3 + '  NEWS:  We\'ve arrived at the last tweet in the scavenge_tweets array!');
-          }
+        // for (var i = 0; i < scavenge_tweets.length; i++) {
 
           // find out if this is the last scavenge_tweet in scavenge_tweets
-          if (scavenge_tweets[i].tweetID === scavenge_tweet.tweetID && (i + 1) === x) {
+          if (expanded_arr_length === thumbnail_arr_length) {
 
             console.log(debugindex3 + '  NEWS:  Arrived at the last tweet in the array! Time to open the socket'+
               ' and send data to the client!');
@@ -482,7 +486,7 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
 
             // },5000);
 
-          }
+          // }
 
         }
 
