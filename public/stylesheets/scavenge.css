@@ -48,11 +48,13 @@ a {
 }
 
 #nav-logo {
-  color: #3498db;
-  float: left;
-  margin-left: 45%;
+  width: 500px;
+  margin-left: 42%;
   margin-top: 6px;
   padding: 0;
+
+  color: #3498db;
+  float: left;
 }
 
 #search {
