@@ -390,6 +390,7 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
 
   return new Promise(function(resolve, reject) {
 
+    console.log(debugindex2);
     console.log(debugindex2 + '  LOCATION:  In getInstagramData function');
 
 
@@ -448,7 +449,7 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
 
 
 
-
+        console.log(debugindex3);
         console.log(debugindex3 + '  ACTION:  Starting the for loop that identifies the last tweet in the array'+
           ' so that we can open the socket and send our data');
 
