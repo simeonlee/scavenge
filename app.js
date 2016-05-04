@@ -390,7 +390,7 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
 
   return new Promise(function(resolve, reject) {
 
-    console.log(debugindex2);
+    // console.log(debugindex2);
     console.log(debugindex2 + '  LOCATION:  In getInstagramData function');
 
 
