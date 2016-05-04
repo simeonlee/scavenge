@@ -204,6 +204,7 @@ var success = function (data) {
   debugindex1 = 0;
   debugindex2 = 0;
   debugindex3 = 0;
+  expanded_instagram_url_arr = [];
 
   console.log('LOCATION:  We are in the success handler function of the twitter API caller');
   console.log('');
@@ -461,12 +462,12 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
             console.log(debugindex3 + '  NEWS:  Arrived at the last tweet in the array! Time to open the socket'+
               ' and send data to the client!');
 
-            setTimeout(function() {
+            // setTimeout(function() {
             
               // send data to client
               io.sockets.emit('scavenge tweets', scavenge_tweets);
 
-            },5000);
+            // },5000);
 
           }
 
