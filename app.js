@@ -482,7 +482,7 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
             // setTimeout(function() {
             
               // send data to client
-              io.sockets.emit('scavenge tweets', scavenge_tweets);
+              io.sockets.emit('scavenge_tweets', scavenge_tweets);
 
             // },5000);
 

@@ -173,7 +173,8 @@ var MODULE = (function (my) {
         var thumbnail_url = tweet.instagram_data.thumbnail_url;
       }
       catch(err) {
-        console.log(err);
+        // don't need to log since we are purposefully filtering for this anyways
+        // console.log(err);
       }
 
       var query = tweet.query;
