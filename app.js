@@ -332,20 +332,28 @@ var expandURL = function(status, getInstagramData) {
       var expandedURL = body.toString();
 
 
-      // push the expanded instagram urls to its own array so that we can grab the length for later
-      if (expandedURL.includes("www.instagram.com")) {
-
-        expanded_instagram_url_arr.push(expandedURL);
-        console.log(expanded_instagram_url_arr);
-        console.log(expanded_instagram_url_arr.length);
-
-      }
-
       console.log(' ');
       console.log(debugindex2 + '  NEWS:  We\'ve received the expanded url from the API and it looks like'+
         ' it took awhile to get here');
       console.log(debugindex2 + '  ACTION:  Now starting the secondary for loop to locate the correct tweet'+
         ' and attach the retrieved instagram url that we get from the API');
+
+      // console.log(debugindex2 + '  user:  ' + scavenge_tweet.user.name);
+      console.log(debugindex2 + '  expandedurl:  ' + expandedURL);
+
+      // push the expanded instagram urls to its own array so that we can grab the length for later
+      if (expandedURL.includes("www.instagram.com")) {
+
+        expanded_instagram_url_arr.push(expandedURL);
+        console.log(' ');
+        // console.log(expanded_instagram_url_arr);
+        console.log('Length of expanded_instagram_url_arr: '+expanded_instagram_url_arr.length);
+
+      }
+
+
+
+      
 
       
       for (var i = 0; i < scavenge_tweets.length; i++) {
@@ -383,8 +391,7 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
   return new Promise(function(resolve, reject) {
 
     console.log(debugindex2 + '  LOCATION:  In getInstagramData function');
-    console.log(debugindex2 + '  user:  ' + scavenge_tweet.user.name);
-    console.log(debugindex2 + '  expandedurl:  ' + expandedURL);
+
 
     // check if it's an instagram link
     if (expandedURL.indexOf('instagram') > -1) {
@@ -451,7 +458,7 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
         // we would be one beyond the actual number of scavenge_tweets that we have collected, which would be equal
         // to 'undefined' and would trigger the socket call
         var x = expanded_instagram_url_arr.length;
-        console.log(x);
+        
 
 
         for (var i = 0; i < scavenge_tweets.length; i++) {
