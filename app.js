@@ -456,7 +456,7 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
         for (var i = 0; i < scavenge_tweets.length; i++) {
           
           // find out if this is the last scavenge_tweet in scavenge_tweets
-          if (scavenge_tweets[i].tweetID === scavenge_tweet.tweetID && scavenge_tweets[x] == undefined) {
+          if (scavenge_tweets[i].tweetID === scavenge_tweet.tweetID && i+1 === x) {
 
             console.log(debugindex3 + '  NEWS:  Arrived at the last tweet in the array! Time to open the socket'+
               ' and send data to the client!');
