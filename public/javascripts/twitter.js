@@ -713,7 +713,7 @@ var MODULE = (function (my) {
     tw_div.className = ('tw-div');
     
     tw_div.appendChild(tw_username_div);
-    tw_div.appendChild(tw_handle_div);
+    // tw_div.appendChild(tw_handle_div); // just use their screen name, no handle necessary
     tw_div.appendChild(tw_text_div);
     // tw_div.appendChild(tw_external_link_div); // don't need since the instagram photo links to the link
     tw_div.appendChild(tw_twitter_bird);
