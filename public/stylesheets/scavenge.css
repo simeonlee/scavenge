@@ -194,8 +194,8 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   border-color: #FFFFFF;
   border-radius: 0 7px 7px 0;
 
-  opacity: 0.7;
-  filter: alpha(opacity=70); /* For IE8 and earlier */
+  opacity: 0.8;
+  filter: alpha(opacity=80); /* For IE8 and earlier */
 }
 
 .tw-thumbnail-img:hover {
@@ -283,7 +283,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 }
 
 .tw-username-a:hover {
-  text-decoration: underline;
+  /*text-decoration: underline;*/
 }
 
 .tw-handle-div {
@@ -302,23 +302,24 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 }
 
 .tw-handle-a:hover {
-  text-decoration: underline;
+  /*text-decoration: underline;*/
 }
 
 .tw-text-div {
   font-size: 10px;
   position: relative;
   top: -7px;
-  
+  color: white;
+  background-color: black;
 }
 
 .tw-text-a {
-  color: black;
+  color: white;
   font-weight: 300;
 }
 
 .tw-text-a:hover {
-  text-decoration: underline;
+  /*text-decoration: underline;*/
 }
 
 .tw-external-link-div {
@@ -334,7 +335,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 }
 
 .tw-external-link-a:hover {
-  text-decoration: underline;
+  /*text-decoration: underline;*/
   /*color: rgba(0,128,0,0.8);*/
 }
 
