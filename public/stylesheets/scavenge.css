@@ -310,7 +310,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   position: relative;
   top: -7px;
   color: white;
-  background-color: black;
+  background-color: rgba(0,0,0,0.8);
 }
 
 .tw-text-a {
