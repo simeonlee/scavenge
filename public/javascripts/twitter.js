@@ -721,7 +721,7 @@ var calculateDistance = function(lat1, lng1, lat2, lng2, unit) {
     tw_timesince_text.className = 'tw-timesince-text';
 
     // show text like 'about 1 hr ago 3 mi away'
-    var tw_timesince = document.createTextNode(timeSince + ' ' + Math.round(10*distance)/10 + ' mi from you');
+    var tw_timesince = document.createTextNode(timeSince + ' ' + Math.round(10*distance)/10 + ' mi away');
     tw_timesince_text.appendChild(tw_timesince);
 
 
