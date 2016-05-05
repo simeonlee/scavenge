@@ -162,7 +162,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   /*border-width: 1px;*/
   border-bottom: 4px solid;
   border-top: 4px solid;
-  border-right: 4px solid;
+  border-right: 8px solid;
   border-color: #FFFFFF;
   /*border-color: black;*/
   /*border-radius: 0 7px 7px 0;*/
