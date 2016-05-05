@@ -361,8 +361,8 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 
 
 .tw-timesince-div {
-  left: 0;
-  bottom: 2px;
+  left: 10px;
+  bottom: 20px;
   position: absolute;
   /*display: inline-block;*/
   /*vertical-align: bottom;*/
@@ -409,8 +409,8 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   width: 14px;
   
   position: absolute;
-  right: 0;
-  bottom: 2px;
+  right: 24px;
+  bottom: 20px;
   background: url('../images/emptyheart.png');
 }
 
