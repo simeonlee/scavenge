@@ -237,7 +237,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   margin: 0;
   padding: 10px;
   height: 100%;
-  width: 160px; /* make 20px less than list width of 180px */
+  width: 180px; /* make 20px less than list width of 180px */
   /*text-align: left;*/
   /*vertical-align: middle;*/
   /*margin: 0 0 0 5px;*/
@@ -311,7 +311,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   bottom: 40px;
   color: white;
   background-color: rgba(0,0,0,0.8);
-  width: 140px;
+  width: 160px;
 }
 
 .tw-text-a {
