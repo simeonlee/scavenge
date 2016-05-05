@@ -301,6 +301,7 @@ var MODULE = (function (my) {
 
         var infowindow = new google.maps.InfoWindow({
           content: iwContent,
+          disableAutoPan: true, // prevent map from moving around to each infowindow - spastic motion
           maxWidth: 175 // width of the card - also change .gm-style-iw width in css
         });
 

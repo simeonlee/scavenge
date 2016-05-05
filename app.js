@@ -179,7 +179,7 @@ var twitterSearch = function(userGeo, twitterQueryTerms){
     'geocode': lat+','+lng+',1mi',
 
     // search for this many results
-    'count': 20,
+    'count': 30,
 
     // bias towards recent tweets
     'result_type': 'recent'
