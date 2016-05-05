@@ -272,7 +272,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 .tw-username-div {
   margin: 0;
   padding: 0;
-  width: 10px;
+  min-width: 10px;
   background-color: rgba(0,0,0,0.7);
 }
 
