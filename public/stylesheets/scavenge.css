@@ -280,7 +280,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   /*color: rgba(85, 172, 238, 1.0);*/
   color: white;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 12px;
   font-style: bold;
   text-decoration: none;
 }
@@ -303,7 +303,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   color: white;
   font-weight: 300;
   font-style: bold;
-  font-size: 12px;
+  font-size: 10px;
   text-decoration: none;
 }
 
@@ -312,7 +312,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 }
 
 .tw-text-div {
-  font-size: 12px;
+  font-size: 10px;
   position: absolute;
   bottom: 25px;
   color: white;
