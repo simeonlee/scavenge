@@ -319,7 +319,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 .tw-text-div {
   font-size: 10px;
   position: absolute;
-  bottom: 30px;
+  bottom: 32px;
   color: white;
   background-color: rgba(0,0,0,0.7);
   width: 168px;
