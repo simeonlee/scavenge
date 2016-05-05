@@ -197,7 +197,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   /*display: block;*/
   margin: 0;
   padding: 10px;
-  height: 100%;
+  height: 180px;
   width: 180px;
   /*text-align: left;*/
   /*vertical-align: middle;*/
