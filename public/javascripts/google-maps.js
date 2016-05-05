@@ -211,6 +211,8 @@ var MODULE = (function (my) {
           lng: position.coords.longitude
         };
 
+        my.pos = pos;
+
         console.log('User located at ' + pos.lat + ', ' + pos.lng);
 
         // set infowindow

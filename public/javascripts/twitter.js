@@ -538,7 +538,19 @@ var MODULE = (function (my) {
 
 
 
-
+var calculateDistance = function(lat1, lng1, lat2, lng2, unit) {
+  var radlat1 = Math.PI * lat1/180
+  var radlat2 = Math.PI * lat2/180
+  var theta = lon1-lon2
+  var radtheta = Math.PI * theta/180
+  var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+  dist = Math.acos(dist)
+  dist = dist * 180/Math.PI
+  dist = dist * 60 * 1.1515
+  if (unit=="K") { dist = dist * 1.609344 }
+  if (unit=="N") { dist = dist * 0.8684 }
+  return dist
+}
 
 
 
@@ -564,6 +576,18 @@ var MODULE = (function (my) {
     var external_link = tweet.external_link;
     var timestamp = tweet.timestamp;
     var timeSince = calculateSince(timestamp);
+    
+    var distance = calculateDistance(my.pos.lat, my.pos.lng, tweet.latLng.lat, tweet.latLng.lng);
+    console.log(distance + 'mi');
+
+
+
+
+
+
+
+
+
     var tweetID = tweet.tweetID;
     var latLng = tweet.latLng;
     
