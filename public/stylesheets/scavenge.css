@@ -275,6 +275,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   /*width: 168px;*/
   background-color: rgba(0,0,0,0.7);
   display: inline-block;
+  max-width: 146px;
   position: relative;
   z-index: 900;
 }
@@ -414,7 +415,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   
   position: absolute;
   right: 24px;
-  top: 20px;
+  
   background: url('../images/emptyheart.png');
 }
 
