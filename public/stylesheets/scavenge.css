@@ -319,7 +319,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 .tw-text-div {
   font-size: 10px;
   position: absolute;
-  bottom: 38px;
+  bottom: 30px;
   color: white;
   background-color: rgba(0,0,0,0.7);
   width: 168px;
@@ -415,7 +415,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   
   position: absolute;
   right: 24px;
-  
+  top: 0px;
   background: url('../images/emptyheart.png');
 }
 
