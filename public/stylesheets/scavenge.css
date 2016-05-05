@@ -321,6 +321,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   background-color: rgba(0,0,0,0.7);
   width: 168px;
   display: inline-block;
+  float: left;
 }
 
 .tw-text-a {
