@@ -179,8 +179,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   
 }
 
-/*#list ul .tw-li {*/
-.tw-li {
+#list ul .tw-li {
   /*display: inline-block;*/
   /*position: relative;*/
   /*height: 85px;*/
