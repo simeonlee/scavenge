@@ -159,16 +159,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   max-height: 65px;
   list-style-type: none;
 
-  /*border-width: 1px;*/
-  border-bottom: 4px solid;
-  border-top: 4px solid;
-  border-right: 8px solid;
-  border-color: #FFFFFF;
-  /*border-color: black;*/
-  /*border-radius: 0 7px 7px 0;*/
-
-  /*overflow: hidden;*/
-  background-color: rgba(255,255,255,0.9);
+  /*background-color: rgba(255,255,255,0.9);*/
   padding: 0px;
   margin: 4px 0;
 
@@ -196,6 +187,12 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   left: 0px;
   width: 180px;
   height: 180px;
+
+  border-bottom: 4px solid;
+  border-top: 4px solid;
+  border-right: 4px solid;
+  border-color: #FFFFFF;
+  border-radius: 0 7px 7px 0;
 }
 
 .tw-thumbnail-a {
