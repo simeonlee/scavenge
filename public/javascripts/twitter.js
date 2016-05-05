@@ -578,7 +578,7 @@ var calculateDistance = function(lat1, lng1, lat2, lng2, unit) {
     var timeSince = calculateSince(timestamp);
     
     var distance = calculateDistance(my.pos.lat, my.pos.lng, tweet.latLng.lat, tweet.latLng.lng);
-    console.log(distance + 'mi');
+    
 
 
 
@@ -720,7 +720,7 @@ var calculateDistance = function(lat1, lng1, lat2, lng2, unit) {
     var tw_timesince_text = document.createElement('div');
     tw_timesince_text.className = 'tw-timesince-text';
 
-    var tw_timesince = document.createTextNode(timeSince);
+    var tw_timesince = document.createTextNode(timeSince + ' ' + Math.round(10*distance)/10 + ' mi away');
     tw_timesince_text.appendChild(tw_timesince);
 
 
