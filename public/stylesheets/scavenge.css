@@ -161,7 +161,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 
   /*background-color: rgba(255,255,255,0.9);*/
   padding: 0px;
-  margin: 4px 0;
+  margin: 12px 0;
 
   position: relative;
 }
@@ -188,11 +188,19 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   width: 180px;
   height: 180px;
 
-  border-bottom: 4px solid;
-  border-top: 4px solid;
-  border-right: 4px solid;
+  border: 4px solid;
+  /*border-top: 4px solid;
+  border-right: 4px solid;*/
   border-color: #FFFFFF;
   border-radius: 0 7px 7px 0;
+
+  opacity: 0.7;
+  filter: alpha(opacity=70); /* For IE8 and earlier */
+}
+
+.tw-thumbnail-img:hover {
+    opacity: 1.0;
+    filter: alpha(opacity=100); /* For IE8 and earlier */
 }
 
 .tw-thumbnail-a {
