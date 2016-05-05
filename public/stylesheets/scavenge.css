@@ -319,7 +319,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   bottom: 38px;
   color: white;
   background-color: rgba(0,0,0,0.7);
-  /*width: 168px;*/
+  width: 168px;
   display: inline-block;
 }
 
