@@ -179,12 +179,13 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   
 }
 
-#list ul .tw-li {
+/*#list ul .tw-li {*/
+.tw-li {
   /*display: inline-block;*/
   /*position: relative;*/
   /*height: 85px;*/
-  min-height: 90px;
-  max-height: 90px;
+  min-height: 140px;
+  max-height: 140px;
   /*list-style-type: none;*/
 }
 
@@ -194,8 +195,8 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   position: absolute;
   top: 0px;
   left: 0px;
-  width: 90px;
-  height: 90px;
+  width: 140px;
+  height: 140px;
 }
 
 .tw-thumbnail-a {
