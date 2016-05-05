@@ -272,7 +272,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 .tw-username-div {
   margin: 0;
   padding: 0;
-  min-width: 10px;
+  width: 168px;
   background-color: rgba(0,0,0,0.7);
 }
 
@@ -294,7 +294,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   padding: 0;
   position: relative;
   top: -7px;
-  
+  width: 168px;
   background-color: rgba(0,0,0,0.7);
 }
 
@@ -317,7 +317,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   bottom: 25px;
   color: white;
   background-color: rgba(0,0,0,0.7);
-  width: 160px;
+  width: 168px;
 }
 
 .tw-text-a {
