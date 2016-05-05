@@ -183,10 +183,11 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 
 
 .tw-div {
-  border-top: 4px solid;
+  border: 4px solid;
+  /*border-top: 4px solid;
   border-right: 4px solid;
-  border-bottom: 4px solid;
-  border-radius: 0 7px 7px 0;
+  border-bottom: 4px solid;*/
+  /*border-radius: 0 7px 7px 0;*/
   border-color: rgba(0,0,0,0.8);
 
   background-color: rgba(255,255,255,0.5);
