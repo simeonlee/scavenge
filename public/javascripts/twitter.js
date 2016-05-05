@@ -680,7 +680,7 @@ var MODULE = (function (my) {
 
     var tw_twitter_bird = document.createElement('img');
     tw_twitter_bird.className = 'tw-twitter-bird';
-    tw_twitter_bird.setAttribute('src', '../images/twitterbird.png');
+    tw_twitter_bird.setAttribute('src', '../images/twitterbirdsmall.png');
 
     
     // make twitter bird appear next to timesince text
@@ -712,6 +712,11 @@ var MODULE = (function (my) {
     var tw_div = document.createElement('div');
     tw_div.className = ('tw-div');
     
+    if (tw_thumbnail_a) {
+      tw_div.appendChild(tw_thumbnail_a);
+    }
+
+
     tw_div.appendChild(tw_username_div);
     // tw_div.appendChild(tw_handle_div); // just use their screen name, no handle necessary
     tw_div.appendChild(tw_text_div);
@@ -725,9 +730,7 @@ var MODULE = (function (my) {
     var tw_li = document.createElement("li");
     tw_li.className = 'tw-li';
 
-    if (tw_thumbnail_a) {
-      tw_li.appendChild(tw_thumbnail_a);
-    }
+    
 
     tw_li.appendChild(tw_div);
 
