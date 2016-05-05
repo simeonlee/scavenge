@@ -275,7 +275,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   /*width: 168px;*/
   background-color: rgba(0,0,0,0.7);
   display: inline-block;
-  z-index: 200;
+  z-index: 900;
 }
 
 .tw-username-a {
