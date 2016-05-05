@@ -414,7 +414,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   
   position: absolute;
   right: 24px;
-  bottom: 20px;
+  top: 20px;
   background: url('../images/emptyheart.png');
 }
 
