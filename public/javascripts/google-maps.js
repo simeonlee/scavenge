@@ -230,8 +230,16 @@ var MODULE = (function (my) {
 
 
 
+        // put the home marker on the map
         marker.setMap(map);
+
+        // make the home marker bounce upon load
         marker.setAnimation(google.maps.Animation.BOUNCE);
+
+        // Have the home marker stop bouncing after 10 seconds
+        setTimeout(function(){
+          marker.setAnimation(null);
+        },10000)
 
         marker.addListener('click', function() {
           
