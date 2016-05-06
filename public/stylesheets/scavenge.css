@@ -721,7 +721,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 }
 
 .iw-bird {
-  height: 10px;
+  height: 8px;
   float: right;
   margin: 4px 0 0;
 }

@@ -16,7 +16,50 @@ var MODULE = (function (my) {
   // user position
   var pos;
 
-  my.twitterQueryTerms = ['paleo','healthy','keto','ketogenic','avocado','juice','chia','salad'];
+  // search for nearby healthy eating
+  my.twitterQueryTerms = [
+    
+    'paleo',
+    'healthy',
+    'keto',
+    'ketogenic',
+    'avocado',
+    'juice',
+    'juicepress',
+    'smoothies',
+    'chia',
+    'salad',
+    'salmon',
+    'organic',
+    'usdaorganic',
+    'vegan',
+    'raw',
+    'glutenfree',
+    'noGMO',
+    'eatclean',
+    'wholefoods',
+    'kale',
+    'broccoli',
+    'cucumber',
+    'ginger',
+    'protein',
+    'fiber',
+    'healthy'
+
+    // 'fitness',
+    // 'fitfam',
+    // 'fitspo',
+    // 'gym',
+    // 'crossfit',
+    // 'barre',
+    // 'yoga',
+    // 'pilates',
+    // 'lifting',
+    // 'training',
+    // 'running',
+    // 'boxing',
+    // 'sweat',
+  ];
 
   // set to Washington Square Park... familiar restaurants for debugging
   var defaultLocation = {
