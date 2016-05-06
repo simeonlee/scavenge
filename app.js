@@ -267,21 +267,24 @@ var success = function (data) {
       var latLng = null;
     }
 
-    // create a new array of select data to be sent to client
-    scavenge_tweets.push({
-      tweetID: tweetID,
-      user: user,
-      text: text,
-      hashtags: hashtags,
-      latLng: latLng,
-      timestamp: timestamp,
-      source: source,
-      favorite_count: favorite_count,
-      retweet_count: retweet_count,
-      truncated: truncated,
-      sensitive: sensitive,
-      query: query
-    });
+    // only add to scavenge_tweets / send to client if there is a link to instagram pic
+    if (source.indexOf('instagram') > -1) {
+      // create a new array of select data to be sent to client
+      scavenge_tweets.push({
+        tweetID: tweetID,
+        user: user,
+        text: text,
+        hashtags: hashtags,
+        latLng: latLng,
+        timestamp: timestamp,
+        source: source,
+        favorite_count: favorite_count,
+        retweet_count: retweet_count,
+        truncated: truncated,
+        sensitive: sensitive,
+        query: query
+      });
+    }
     
     console.log(debugindex1 + '  ACTION:  Calling expandURL function now');
 
