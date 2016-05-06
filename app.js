@@ -179,7 +179,7 @@ var twitterSearch = function(userGeo, twitterQueryTerms){
     'geocode': lat+','+lng+',1mi',
 
     // search for this many results
-    'count': 30,
+    'count': 40,
 
     // bias towards recent tweets
     'result_type': 'recent'
@@ -268,7 +268,9 @@ var success = function (data) {
     }
 
     // only add to scavenge_tweets / send to client if there is a link to instagram pic
+    // when we add support for other links later on, can add additional filters through ||
     if (source.indexOf('instagram') > -1) {
+
       // create a new array of select data to be sent to client
       scavenge_tweets.push({
         tweetID: tweetID,
@@ -284,6 +286,7 @@ var success = function (data) {
         sensitive: sensitive,
         query: query
       });
+
     }
     
     console.log(debugindex1 + '  ACTION:  Calling expandURL function now');
