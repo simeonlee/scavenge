@@ -155,6 +155,12 @@ var MODULE = (function (my) {
       var text = tweet.text;
       var external_link = tweet.external_link;
 
+      
+      // check if error occured in external_link handling - happened sometimes during development
+      if (external_link && external_link.indexOf('!DOCTYPE') > -1) {
+        external_link = '#'; // replace with dummy link
+      }
+
 
       var user = tweet.user;
       var username = user.name;
@@ -164,7 +170,11 @@ var MODULE = (function (my) {
 
       var timestamp = tweet.timestamp;
       var timeSince = calculateSince(timestamp);
-      
+
+      if (tweet.latLng) {
+        var distance = calculateDistance(my.pos.lat, my.pos.lng, tweet.latLng.lat, tweet.latLng.lng);
+      }
+
       var latLng = tweet.latLng;
 
       // try..catch used as lazy way to filter for tweets with instagram links
@@ -204,6 +214,12 @@ var MODULE = (function (my) {
 
 
         
+        // show how long ago and how far away the tweet was
+        if (distance) {
+          var time_and_distance = timeSince + ' ' + Math.round(10*distance)/10 + ' mi away'
+        } else {
+          var time_and_distance = timeSince
+        }
         
 
         // add the marker variable to the master my.tweets array for later manipulation
@@ -220,82 +236,41 @@ var MODULE = (function (my) {
         // twitter user object comes with a url to the image of the profile photo
         var profileImageURL = user.profile_image_url;
 
-        var scene1URL = '../images/scenes/scene1.png'; // change to actual related twitter pics
-        var scene2URL = '../images/scenes/scene2.png';
-        var scene3URL = '../images/scenes/scene3.png';
-        var scene4URL = '../images/scenes/scene4.png';
-
         var iwContent = '<div class="iw-container">'+
         
-        '<div class="iw-header">'+
-        
-        '<a href="'+userURL+'" target="_blank" >'+
-        '<img src="'+profileImageURL+'" alt="image" class="iw-profile-img">'+
-        '</a>'+
-
-        '<div class="iw-profile-names">'+
-        '<div class="iw-username-div"><a href="'+userURL+'" target="_blank" class="iw-username">'+username+'</a></div>'+
-        '<div class="iw-handle-div"><a href="'+userURL+'" target="_blank" class="iw-handle">@'+handle+'</a></div>'+
-        '</div>'+
-
-        '</div>'+
-
-        '<div class="iw-body">'+
-        '<div class="iw-tweet"><a href="'+tweetURL+'" target="_blank" >'+text+'</a></div>'+
-        '</div>'+
-        
-        // '<div class="iw-tweet iw-external-link"><a href="'+external_link+'" target="_blank" >'+external_link+'</a></div>'+
+        // '<a href="'+userURL+'" target="_blank" >'+
+        // '<img src="'+profileImageURL+'" alt="image" class="iw-profile-img">'+
+        // '</a>'+
 
         '<div class="iw-tweet iw-external-img-div">'+
-        '<a href="'+external_link+'" target="_blank" >'+
+        '<a href="'+external_link+'" target="_blank" >'+ // sometimes this errors out and surrounds the image with broken stuff
         '<img src="'+thumbnail_url+'" alt="'+external_link+'" class="iw-external-img">'+
         '</a>'+
         '</div>'+
 
-        '<p class="iw-time">'+timeSince+'</p>'+
+        '<div class="iw-body">'+
+        '<div class="iw-username-div"><a href="'+userURL+'" target="_blank" class="iw-username">'+username+'</a></div>'+
+        '<div class="iw-tweet"><a href="'+tweetURL+'" target="_blank" >'+text+'</a></div>'+
+        '</div>'+
+
+        '<p class="iw-time">'+time_and_distance+'</p>'+
         '<img src="../images/twitterbird.png" class="iw-bird">'+
-        
 
-        // unsure why we need to attach twitterbird logo AFTER <p>
-        // to get the twitter bird to show before...
-
-        // '<div class="iw-body-img-container">'+
+        // '<div class="iw-choices">'+
         
         // '<a href="#" target="_blank" >'+
-        // '<img src="'+scene1URL+'" alt="image" class="iw-body-img">'+
+        // '<div class="iw-dislike">'+
+        // '<img src="../images/dislike.png" alt="dislike" class="iw-dislike-img">'+
+        // '</div>'+
         // '</a>'+
 
         // '<a href="#" target="_blank" >'+
-        // '<img src="'+scene2URL+'" alt="image" class="iw-body-img">'+
-        // '</a>'+
-
-        // '<a href="#" target="_blank" >'+
-        // '<img src="'+scene3URL+'" alt="image" class="iw-body-img">'+
-        // '</a>'+
-
-        // '<a href="#" target="_blank" >'+
-        // '<img src="'+scene4URL+'" alt="image" class="iw-body-img">'+
+        // '<div class="iw-like">'+
+        // '<img src="../images/heart.png" alt="like" class="iw-like-img">'+
+        // '</div>'+
         // '</a>'+
 
         // '</div>'+
-
-        '<div class="iw-choices">'+
-        
-        '<a href="#" target="_blank" >'+
-        '<div class="iw-dislike">'+
-        '<img src="../images/dislike.png" alt="dislike" class="iw-dislike-img">'+
-        '</div>'+
-        '</a>'+
-
-        '<a href="#" target="_blank" >'+
-        '<div class="iw-like">'+
-        '<img src="../images/heart.png" alt="like" class="iw-like-img">'+
-        '</div>'+
-        '</a>'+
-
-        '</div>'+
-
-        // '<div class="iw-bottom-gradient"></div>'+
 
         '</div>'
 
@@ -381,16 +356,11 @@ var MODULE = (function (my) {
           // Apply the desired effect to the close button
           iwCloseBtn.css({
             opacity: '1.0', // by default the close button has an opacity of 0.7
-            right: '58px', top: '22px', // button repositioning
-            // border: '1px solid rgba(0, 172, 237, 0.6)', // increasing button border and new color
-            'border-radius': '13px', // circular effect
-            // 'box-shadow': '0 0 5px #3990B9' // 3D effect to highlight the button
-            // 'background-color': 'rgba(0, 172, 237, 0.6)'
-
-            'content': 'url("../images/closesymbol.png")',
-            'height': '15px',
-            'width': '15px'
-            });
+            position: 'absolute',
+            right: '56px', top: '25px', // button repositioning
+            content: 'url("../images/dislike.png")',
+            height: '15px', width: '15px'
+          });
 
           // The API automatically applies 0.7 opacity to the button after the mouseout event.
           // This function reverses this event to the desired value.
@@ -762,18 +732,18 @@ var calculateDistance = function(lat1, lng1, lat2, lng2, unit) {
     // find the <ul> in the document by its identifier and make <li> and
     // all the <div>'s part of the document
     var ul = document.getElementById("list-ul");             
-    ul.appendChild(tw_li);
+    // ul.appendChild(tw_li);
 
     // create virtual list of tweet divs for better manipulation and assign unique IDs
     tw_div.id = 'list-div-no-'+listIndex;
     listIndex++;
     listArr.push(tw_div);
 
-    document.getElementById(tw_div.id).onmousedown = function(){
-      console.log('User clicked on tweet '+tweetID);
-      console.log('Tweet located at ' + latLng.lat + ', ' +latLng.lng);
-      my.google_map.setCenter(latLng);
-    };
+    // document.getElementById(tw_div.id).onmousedown = function(){
+    //   console.log('User clicked on tweet '+tweetID);
+    //   console.log('Tweet located at ' + latLng.lat + ', ' +latLng.lng);
+    //   my.google_map.setCenter(latLng);
+    // };
 
   }
 

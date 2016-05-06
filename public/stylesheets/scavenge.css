@@ -162,7 +162,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 
   /*background-color: rgba(255,255,255,0.9);*/
   padding: 0px;
-  margin: 40px 0;
+  margin: 24px 0;
 
   position: relative;
 }
@@ -188,7 +188,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   /*border-top: 4px solid;
   border-right: 4px solid;
   border-bottom: 4px solid;*/
-  /*border-radius: 0 7px 7px 0;*/
+  border-radius: 7px;
   border-color: rgba(0,0,0,0.8);
 
   background-color: rgba(255,255,255,0.5);
@@ -236,6 +236,8 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   width: 180px;
   height: 180px;
 
+  border-radius: 2px;
+
   opacity: 0.8;
   filter: alpha(opacity=80); /* For IE8 and earlier */
 }
@@ -261,9 +263,9 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   margin: 0;
   padding: 0;
   /*width: 168px;*/
-  background-color: rgba(0,0,0,0.7);
+  background-color: rgba(0,0,0,0.8);
   display: inline-block;
-  max-width: 146px;
+  max-width: 160px;
   position: relative;
   z-index: 900;
 }
@@ -287,7 +289,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   position: relative;
   top: -2px;
   width: 168px;
-  background-color: rgba(0,0,0,0.7);
+  background-color: rgba(0,0,0,0.8);
   display: inline-block;
 }
 
@@ -307,10 +309,11 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 .tw-text-div {
   font-size: 10px;
   position: absolute;
-  bottom: 32px;
+  /*left: 10px;*/
+  bottom: 0px;
   color: white;
-  background-color: rgba(0,0,0,0.7);
-  width: 168px;
+  background-color: rgba(0,0,0,0.8);
+  width: 180px;
 }
 
 .tw-text-a {
@@ -354,8 +357,8 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 
 
 .tw-timesince-div {
-  left: 10px;
-  bottom: 20px;
+  right: 0px;
+  bottom: -15px;
   position: absolute;
   /*display: inline-block;*/
   /*vertical-align: bottom;*/
@@ -386,7 +389,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 
 .tw-timesince-text {
   font-size: 8px;
-  color: white;
+  color: gray;
   font-style: italic;
   /*text-align: right;*/
   font-weight: 300;
@@ -402,8 +405,8 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   width: 14px;
   
   position: absolute;
-  right: 24px;
-  top: 10px;
+  right: 4px;
+  top: 4px;
   background: url('../images/emptyheart.png');
 }
 
@@ -527,18 +530,18 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   left: 0 !important;
   background-color: rgba(255, 255, 255, 0.9);
   box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
-  border: 2px solid rgba(72, 181, 233, 0.0);
+  border: 4px solid rgba(72, 181, 233, 0.0);
   border-radius: 5px 5px 5px 5px; /* make card-like */
+  position: relative;
 }
 
-.iw-container .iw-header {
+/*.iw-container .iw-header {
   padding: 5px 10px 5px 5px;
-  background-color: rgba(85, 172, 238, 0.6); /* twitter blue #55acee */
+  background-color: rgba(85, 172, 238, 0.6);
   margin: 0;
-}
+}*/
 
 .iw-profile-img {
-  float: left;
   width: 48px;
   height: 48px;
   margin: 0;
@@ -546,11 +549,6 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   border: 2px solid white;
   border-radius: 3px 3px 3px 3px;
   position: absolute;
-}
-
-.iw-profile-names {
-  margin: 2px 0 2px 48px;
-  padding: 0 0 0 8px;
 }
 
 .iw-username-div {
@@ -561,7 +559,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 
 .iw-username {
   font-weight: 400;
-  font-size: 14px;
+  font-size: 12px;
   color: white;
   overflow: hidden;
 }
@@ -569,28 +567,28 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 /* unvisited link */
 /*.iw-container .iw-header a:link {*/
 .iw-username:link {
-    color: white;
+    color: black;
     text-decoration: none;
     overflow: hidden;
 }
 
 /* visited link */
 .iw-username:visited {
-    color: white;
+    color: black;
     text-decoration: none;
     overflow: hidden;
 }
 
 /* mouse over link */
 .iw-username:hover {
-    color: white;
+    color: black;
     text-decoration: underline;
     overflow: hidden;
 }
 
 /* selected link */
 .iw-username:active {
-    color: white;
+    color: black;
     text-decoration: none;
     overflow: hidden;
 }
@@ -645,11 +643,11 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 }
 
 .iw-body {
-  margin: 16px 10px 8px;
+  margin: 4px 6px 0;
 }
 
 .iw-tweet {
-  font-size: 12px;
+  font-size: 10px;
   margin: 0;
   padding: 0;
 }
@@ -679,12 +677,10 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 }
 
 .iw-external-link {
-  font-size: 12px;
+  font-size: 8px;
   margin: 0;
   padding: 0;
-  
 }
-
 
 /* unvisited link */
 .iw-external-link a:link {
@@ -712,21 +708,22 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 
 .iw-external-img {
   width: 175px;
+  border-radius: 2px 2px 0 0;
 }
 
 .iw-time {
   color: gray;
   font-style: italic;
-  font-size: 10px;
+  font-size: 8px;
   float: right;
-  margin: 4px 6px 8px 0px;
+  margin: 4px 6px 0 0;
   padding: 0;
 }
 
 .iw-bird {
   height: 10px;
   float: right;
-  margin: 4px 0 8px;
+  margin: 4px 0 0;
 }
 
 .iw-bottom-gradient {
@@ -793,7 +790,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   margin-right: auto;
   padding: 0;
   float: left;
-  border-right: 0.5px solid rgba(200,200,200,0.6);
+  
 }
 
 .iw-dislike-img {
@@ -811,21 +808,23 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 }
 
 .iw-like {
-  width: 85.5px;
-  height: 30px;
+  width: 15px;
+  height: 15px;
   vertical-align: middle;
   margin-left: auto;
   margin-right: auto;
   padding: 0;
-  float: left;
-  border-left: 0.5px solid rgba(200,200,200,0.6);
+  position: absolute;
+  top: 30px;
+  right: 6px; 
 }
 
 .iw-like-img {
-  margin-top: 5px;
   display: block;
   margin-left: auto;
   margin-right: auto;
+  width: 15px;
+  height: 15px;
   opacity: 0.8;
   filter: alpha(opacity=80); /* For IE8 and earlier */
 }
