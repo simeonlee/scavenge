@@ -204,9 +204,9 @@ var debugindex3;
 var success = function (data) {
 
   // wipe the slate
-  debugindex1 = 0;
-  debugindex2 = 0;
-  debugindex3 = 0;
+  debugindex1 = 1;
+  debugindex2 = 1;
+  debugindex3 = 1;
   expanded_instagram_url_arr = [];
   thumbnail_url_arr = [];
 
@@ -366,7 +366,6 @@ var expandURL = function(status, getInstagramData) {
 
           expanded_instagram_url_arr.push(expandedURL);
           console.log(' ');
-          // console.log(expanded_instagram_url_arr);
           console.log('Length of expanded_instagram_url_arr: '+expanded_instagram_url_arr.length);
 
         }
@@ -481,6 +480,9 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
         console.log(debugindex3 + '  ACTION:  Checking if we have unpackaged the last thumbnail_url before'+
           ' opening the socket to the client');
 
+        console.log(' ');
+        console.log('Length of thumbnail_url_arr: '+thumbnail_url_arr.length);
+
 
         // length of the instagram url array
         // hopefully we've collected all the instagram urls by now and so when we call scavenge_tweets[x] below
@@ -509,7 +511,7 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
 
           // }
 
-        }
+          }
 
 
 
