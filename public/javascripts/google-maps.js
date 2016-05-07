@@ -241,7 +241,7 @@ var MODULE = (function (my) {
 
   function initGeolocate(map){
 
-    // var infowindow = new google.maps.InfoWindow({map: map});
+    var infowindow = new google.maps.InfoWindow({map: map});
 
     console.log('In my.initGeolocate function');
 
