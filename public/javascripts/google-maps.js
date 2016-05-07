@@ -6,6 +6,8 @@
  */ 
 var MODULE = (function (my) {
 
+  var client_to_server;
+
   // url of site
   // var scavengeurl = 'http://local.simeon86.com:3000'
   var scavengeurl = 'https://infinite-inlet-93119.herokuapp.com/'
@@ -98,13 +100,11 @@ var MODULE = (function (my) {
 
     console.log("'scavenge_tweets' socket is on")
 
-    // select data from twitter api
-    my.tweets = data;
-
     // data that contains instagram data
     console.log(my.tweets);
 
-    my.markTweets(map);
+    // start displaying data that we received from server on our google map
+    my.markTweets(data, map);
 
   })
 
@@ -187,12 +187,90 @@ var MODULE = (function (my) {
     // assess user position
     initGeolocate(map);
 
-    setTimeout(function(){
-      // searchPlaces();
-    },4000);
     
-    // add results to list
-    // initAutocomplete(map);
+    
+    
+    /*
+     * Set up google maps place autocomplete to search for new locations to scavenge
+     * https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete
+     */
+
+    var input = document.getElementById('nav-search-bar');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete.bindTo('bounds', map);
+
+    autocomplete.addListener('place_changed', function() {
+      
+      var place = autocomplete.getPlace();
+
+      // place hopefully has geometry-related information
+      // geometry-related info includes location (lat,lng) and preferred viewport on map
+      // viewport specified as two lat,lng values defining southwest and northeast corner of
+      // viewport bounding box - frames the result(s)
+
+      // geocoding is process of converting addresses into geographic coordinates
+
+      if (!place.geometry) {
+        window.alert("Autocomplete's returned place contains no geometry");
+        return;
+      }
+
+      var user_inputted_location = place.geometry.location;
+
+      // If the place has a geometry, then present it on a map.
+      if (place.geometry.viewport) {
+
+        map.fitBounds(place.geometry.viewport);
+
+      } else {
+
+        map.setCenter(place.geometry.location);
+        map.setZoom(16);
+
+      }
+
+      // marker.setIcon(/** @type {google.maps.Icon} */({
+      //   url: place.icon,
+      //   size: new google.maps.Size(71, 71),
+      //   origin: new google.maps.Point(0, 0),
+      //   anchor: new google.maps.Point(17, 34),
+      //   scaledSize: new google.maps.Size(35, 35)
+      // }));
+      // marker.setPosition(place.geometry.location);
+      // marker.setVisible(true);
+
+      var address = '';
+      if (place.address_components) {
+        address = [
+          (place.address_components[0] && place.address_components[0].short_name || ''),
+          (place.address_components[1] && place.address_components[1].short_name || ''),
+          (place.address_components[2] && place.address_components[2].short_name || '')
+        ].join(' ');
+      }
+
+      console.log(address);
+
+
+      var new_location_lat = place.geometry.location.lat;
+      var new_location_lng = place.geometry.location.lng;
+      var new_location = {
+        lat: new_location_lat,
+        lng: new_location_lng
+      }
+      console.log(new_location);
+
+      // attach user geolocation data and twitter query terms to a data object
+      // that we will send to the server to make API calls with based on user context
+      setAndSendDataToServer(new_location, my.twitterQueryTerms);
+
+      // infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+      // infowindow.open(map, marker);
+    });
+
+
+
+
+
 
     map.addListener('click', function(event) { // event is object containing information regarding click
       // moveCenter(event.latLng, map);
@@ -295,17 +373,9 @@ var MODULE = (function (my) {
           }
         });
 
-
-        var clientToServer = {
-          pos: pos,
-          twitterQueryTerms: my.twitterQueryTerms
-        };
-
-        // type of data to emit
-        var mygeo = 'my geolocation';
-
-        // call function to emit geolocation data to server
-        socketEmit(mygeo, clientToServer);
+        // attach user geolocation data and twitter query terms to a data object
+        // that we will send to the server to make API calls with based on user context
+        setAndSendDataToServer(pos, my.twitterQueryTerms);
 
         // set map to center on position
         map.setCenter(pos);
@@ -325,29 +395,46 @@ var MODULE = (function (my) {
   };
 
 
+  var setAndSendDataToServer = function(pos, queryterms) {
 
-  var socketEmit = function(type, data) {
-    var socket = io.connect(scavengeurl);
-    
+    // set up object with the relevant data that we need to send to server
+    // to ask API's to search for data
+    client_to_server = {
+      pos: pos,
+      twitterQueryTerms: queryterms
+    };
+
     // socket prefers json over objects
-    var jsonData = JSON.stringify(data);
-    socket.emit(type, jsonData);
-  };
+    var jsonData = JSON.stringify(client_to_server);
+
+    // set up socket
+    var socket = io.connect(scavengeurl);
+
+    // send data to server
+    socket.emit('my geolocation', jsonData);
+
+  }
 
 
 
 
-  // Search returns places and predicted search terms
+
+
+
+
+
+  // Location search bar returns places and predicted search terms
+  // Supported by Google Places Autocomplete
+  
+  // Ultimately want to return a location, convert to latLng,
+  // then move map and have new twitter api call with new location
+
   function initAutocomplete(map) {
 
     // create the search box and link it to the UI element
     // want to make auto-search upon page load
     input = document.getElementById('nav-search-bar');
     searchBox = new google.maps.places.SearchBox(input);
-
-    // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-    // this previously pushed the search bar into the Google Maps pane...
-    // I've left this here so I can delve later into how the controls work
 
     // Bias the SearchBox results towards current map's viewport.
     map.addListener('bounds_changed', function() {
@@ -356,11 +443,12 @@ var MODULE = (function (my) {
 
     // Listen for the event fired when the user selects a prediction and retrieve
     // more details for that place.
+    
     searchBox.addListener('places_changed', function() {
       
       // google search for restaurants
       var places = searchBox.getPlaces();
-      
+
       console.log(places);
 
       if (places.length == 0) {

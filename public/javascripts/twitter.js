@@ -133,7 +133,7 @@ var MODULE = (function (my) {
     }
 
     // mark location of tweets
-    my.markTweets(my.google_map);
+    my.markTweets(data, my.google_map);
   }
 
 
@@ -144,8 +144,11 @@ var MODULE = (function (my) {
 
 
 
-  my.markTweets = function(map) {
-  
+  my.markTweets = function(data, map) {
+    
+    // select data from twitter api
+    my.tweets = data;
+
     var tweets = my.tweets;
   
     for (var i = 0; i < tweets.length; i++) {
