@@ -254,12 +254,13 @@ var MODULE = (function (my) {
       console.log(address);
 
 
-      var new_location_lat = place.geometry.location.lat;
-      var new_location_lng = place.geometry.location.lng;
-      var new_location = {
-        lat: new_location_lat,
-        lng: new_location_lng
-      }
+      // var new_location_lat = place.geometry.location.lat;
+      // var new_location_lng = place.geometry.location.lng;
+      // var new_location = {
+      //   lat: new_location_lat,
+      //   lng: new_location_lng
+      // }
+      var new_location = place.geometry.location;
       console.log(new_location);
 
       // attach user geolocation data and twitter query terms to a data object
