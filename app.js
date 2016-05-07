@@ -335,7 +335,9 @@ var expandURL = function(status, getInstagramData) {
     // request(linkexpanderURL, function(err, resp, body) {
 
 
-    request(t_coURL, function(error, response, body) {
+    request
+      .get(t_coURL)
+      .on('response', function(response) {
         
       
 
@@ -343,7 +345,7 @@ var expandURL = function(status, getInstagramData) {
       // can also be a link to something else like a personal blog or something
       // so we need an if statement next to check if it's an instagram link
       // var expandedURL = body.toString();
-if (resp) {
+
       console.log(response.request.href);
       var expandedURL = response.request.href;
 
@@ -395,7 +397,7 @@ if (resp) {
 
     
 
-}
+
 
     });
 
