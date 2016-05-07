@@ -344,8 +344,8 @@ var expandURL = function(status, getInstagramData) {
       // so we need an if statement next to check if it's an instagram link
       // var expandedURL = body.toString();
 
-      console.log(response.request.href);
-      var expandedURL = response.request.href;
+      console.log(resp.request.href);
+      var expandedURL = resp.request.href;
 
 
       console.log(' ');
