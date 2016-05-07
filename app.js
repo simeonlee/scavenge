@@ -332,12 +332,20 @@ var expandURL = function(status, getInstagramData) {
 
 
 
-    request(linkexpanderURL, function(err, resp, body) {
+    // request(linkexpanderURL, function(err, resp, body) {
+
+
+    request( { method: "HEAD", url: t_coURL, followAllRedirects: true }, function(err, resp) {
+        
+      
 
       // set the returned www.instagram.com url to 'expandedURL'
       // can also be a link to something else like a personal blog or something
       // so we need an if statement next to check if it's an instagram link
-      var expandedURL = body.toString();
+      // var expandedURL = body.toString();
+
+      console.log(response.request.href);
+      var expandedURL = response.request.href;
 
 
       console.log(' ');
