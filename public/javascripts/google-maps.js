@@ -16,7 +16,7 @@ var MODULE = (function (my) {
   var map;
 
   // user position
-  var pos;
+  // var pos;
 
   // search for nearby healthy eating
   my.twitterQueryTerms = [
@@ -327,11 +327,12 @@ var MODULE = (function (my) {
     if (navigator.geolocation) {
       
       navigator.geolocation.getCurrentPosition(function(position) {        
-        pos = {
+        var pos = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
 
+        // for calculating distances, etc.
         my.pos = pos;
 
         console.log('User located at ' + pos.lat + ', ' + pos.lng);

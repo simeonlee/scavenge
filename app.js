@@ -179,7 +179,7 @@ var twitterSearch = function(userGeo, twitterQueryTerms){
     'geocode': lat+','+lng+',1mi',
 
     // search for this many results
-    'count': 40,
+    'count': 25,
 
     // bias towards recent tweets
     'result_type': 'recent'
@@ -341,6 +341,7 @@ var expandURL = function(status, getInstagramData) {
 
 
       console.log(' ');
+      console.log(debugindex2 + '  t_coURL:  ' + t_coURL);
       console.log(debugindex2 + '  NEWS:  We\'ve received the expanded url from the API and it looks like'+
         ' it took awhile to get here');
       console.log(debugindex2 + '  ACTION:  Now starting the secondary for loop to locate the correct tweet'+
