@@ -342,61 +342,61 @@ var expandURL = function(status, getInstagramData) {
 
     reverse(t_coURL, function(err, expandedURL) {
 
-      
+      if (expandedURL) {
 
-      // set the returned www.instagram.com url to 'expandedURL'
-      // can also be a link to something else like a personal blog or something
-      // so we need an if statement next to check if it's an instagram link
-      // var expandedURL = body.toString();
+        // set the returned www.instagram.com url to 'expandedURL'
+        // can also be a link to something else like a personal blog or something
+        // so we need an if statement next to check if it's an instagram link
+        // var expandedURL = body.toString();
 
-      // var expandedURL = expandedURL;
+        // var expandedURL = expandedURL;
 
-      console.log(' ');
-      console.log(debugindex2 + '  t_coURL:  ' + t_coURL);
-      console.log(debugindex2 + '  NEWS:  We\'ve received the expanded url from the API and it looks like'+
-        ' it took awhile to get here');
-      console.log(debugindex2 + '  ACTION:  Now starting the secondary for loop to locate the correct tweet'+
-        ' and attach the retrieved instagram url that we get from the API');
-
-      // console.log(debugindex2 + '  user:  ' + scavenge_tweet.user.name);
-      console.log(debugindex2 + '  expandedurl:  ' + expandedURL);
-
-      // push the expanded instagram urls to its own array so that we can grab the length for later
-      if (expandedURL.includes("www.instagram.com")) {
-
-        expanded_instagram_url_arr.push(expandedURL);
         console.log(' ');
-        // console.log(expanded_instagram_url_arr);
-        console.log('Length of expanded_instagram_url_arr: '+expanded_instagram_url_arr.length);
+        console.log(debugindex2 + '  t_coURL:  ' + t_coURL);
+        console.log(debugindex2 + '  NEWS:  We\'ve received the expanded url from the API and it looks like'+
+          ' it took awhile to get here');
+        console.log(debugindex2 + '  ACTION:  Now starting the secondary for loop to locate the correct tweet'+
+          ' and attach the retrieved instagram url that we get from the API');
 
-      }
+        // console.log(debugindex2 + '  user:  ' + scavenge_tweet.user.name);
+        console.log(debugindex2 + '  expandedurl:  ' + expandedURL);
+
+        // push the expanded instagram urls to its own array so that we can grab the length for later
+        if (expandedURL.includes("www.instagram.com")) {
+
+          expanded_instagram_url_arr.push(expandedURL);
+          console.log(' ');
+          // console.log(expanded_instagram_url_arr);
+          console.log('Length of expanded_instagram_url_arr: '+expanded_instagram_url_arr.length);
+
+        }
 
 
 
-      
-
-      
-      for (var i = 0; i < scavenge_tweets.length; i++) {
-      
-        var scavenge_tweet = scavenge_tweets[i];
         
-        if (scavenge_tweet.tweetID === tweetID) {
 
-          scavenge_tweet.text = text;
-          scavenge_tweet.external_link = expandedURL;
+        
+        for (var i = 0; i < scavenge_tweets.length; i++) {
+        
+          var scavenge_tweet = scavenge_tweets[i];
           
-          getInstagramData(scavenge_tweet, expandedURL)
-            .then(function(response) {
-              console.log(debugindex1 + '  NEWS:  Promise was successful! We are about to socket emit the scavenged tweets');
-            }, function(error) {
-              console.log(debugindex1 + '  NEWS:  Promise failed!');
-            });
+          if (scavenge_tweet.tweetID === tweetID) {
+
+            scavenge_tweet.text = text;
+            scavenge_tweet.external_link = expandedURL;
+            
+            getInstagramData(scavenge_tweet, expandedURL)
+              .then(function(response) {
+                console.log(debugindex1 + '  NEWS:  Promise was successful! We are about to socket emit the scavenged tweets');
+              }, function(error) {
+                console.log(debugindex1 + '  NEWS:  Promise failed!');
+              });
+
+          }
 
         }
 
       }
-
-    
 
 
 
