@@ -176,7 +176,7 @@ var twitterSearch = function(userGeo, twitterQueryTerms){
     'q': twitterQueryTerms.join(' OR '),
 
     // 'latitude,longitude,radius'
-    'geocode': lat+','+lng+',2mi',
+    'geocode': lat+','+lng+',1.1mi',
 
     // search for this many results
     'count': 40,
