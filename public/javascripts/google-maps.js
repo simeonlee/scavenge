@@ -6,6 +6,9 @@
  */ 
 var MODULE = (function (my) {
 
+  // set up socket
+  var socket = io.connect(scavengeurl);
+
   var client_to_server;
 
   // url of site
@@ -408,8 +411,7 @@ var MODULE = (function (my) {
     // socket prefers json over objects
     var jsonData = JSON.stringify(client_to_server);
 
-    // set up socket
-    var socket = io.connect(scavengeurl);
+    
 
     // send data to server
     socket.emit('my geolocation', jsonData);
