@@ -335,9 +335,7 @@ var expandURL = function(status, getInstagramData) {
     // request(linkexpanderURL, function(err, resp, body) {
 
 
-    request
-      .get(t_coURL)
-      .on('response', function(response) {
+    request(t_coURL, function(error, response, body) {
         
       
 
