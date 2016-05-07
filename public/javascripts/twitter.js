@@ -216,7 +216,16 @@ var MODULE = (function (my) {
         
         // show how long ago and how far away the tweet was
         if (distance) {
-          var time_and_distance = timeSince + ' ' + Math.round(10*distance)/10 + ' mi away'
+          
+          // mile v. miles
+          if (distance >= 0.95 || distance < 1.05) { // if the distance rounds to 1.0...
+            var distance_phrase = Math.round(10*distance)/10 + ' mile away'
+          } else {
+            var distance_phrase = Math.round(10*distance)/10 + ' miles away'
+          }
+
+          var time_and_distance = timeSince + ' ' + distance_phrase
+
         } else {
           var time_and_distance = timeSince
         }

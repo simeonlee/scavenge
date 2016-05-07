@@ -18,7 +18,7 @@ var MODULE = (function (my) {
 
   // search for nearby healthy eating
   my.twitterQueryTerms = [
-    
+
     'paleo',
     'healthy',
     'keto',
