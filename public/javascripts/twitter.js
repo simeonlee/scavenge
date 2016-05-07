@@ -218,7 +218,7 @@ var MODULE = (function (my) {
         if (distance) {
           
           // mile v. miles
-          if (distance >= 0.95 || distance < 1.05) { // if the distance rounds to 1.0...
+          if (Math.round(distance) === 1) {
             var distance_phrase = Math.round(10*distance)/10 + ' mile away'
           } else {
             var distance_phrase = Math.round(10*distance)/10 + ' miles away'
