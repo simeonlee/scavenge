@@ -34,6 +34,8 @@ var request = require('request');
 var qs = require('querystring');
 var _ = require('lodash');
 
+var reverse = require('long-url');
+
 // hold {lat:x,lng:y} of client
 var pos = {
   lat: 40.7308,
@@ -336,8 +338,10 @@ var expandURL = function(status, getInstagramData) {
 
     // HEAD is same as GET but returns only HTTP headers and no document body
 
-    request( { method: "HEAD", url: t_coURL, followAllRedirects: true }, function(error, response) {
-        
+    // request( { method: "HEAD", url: t_coURL, followAllRedirects: true }, function(error, response) {
+
+    reverse(t_coURL, function(err, expandedURL) {
+
       
 
       // set the returned www.instagram.com url to 'expandedURL'
@@ -345,9 +349,7 @@ var expandURL = function(status, getInstagramData) {
       // so we need an if statement next to check if it's an instagram link
       // var expandedURL = body.toString();
 
-      console.log(response.request.href);
-      var expandedURL = response.request.href;
-
+      // var expandedURL = expandedURL;
 
       console.log(' ');
       console.log(debugindex2 + '  t_coURL:  ' + t_coURL);
