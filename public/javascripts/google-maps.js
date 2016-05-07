@@ -19,6 +19,8 @@ var MODULE = (function (my) {
   // search for nearby healthy eating
   my.twitterQueryTerms = [
 
+    'instagram', // search for all instagram pics
+
     'paleo',
     'healthy',
     'keto',
@@ -241,8 +243,6 @@ var MODULE = (function (my) {
 
   function initGeolocate(map){
 
-    var infowindow = new google.maps.InfoWindow({map: map});
-
     console.log('In my.initGeolocate function');
 
     // Try HTML5 geolocation
@@ -257,13 +257,6 @@ var MODULE = (function (my) {
         my.pos = pos;
 
         console.log('User located at ' + pos.lat + ', ' + pos.lng);
-
-        // set infowindow
-        // infowindow.setPosition(pos);
-        // infowindow.setContent('Here you are - time to scavenge!');
-        // setTimeout(function(){
-        //   infowindow.close();
-        // }, 10000);
         
         // mark user location - 'the nest'
         var marker = new google.maps.Marker({
@@ -319,15 +312,13 @@ var MODULE = (function (my) {
 
       }, function() {
 
-        handleLocationError(true, infowindow, map.getCenter());
-        console.log('error');
+        alert('Geolocation failed');
 
       });
 
     } else {
 
-      // Browser doesn't support Geolocation
-      handleLocationError(false, infowindow, map.getCenter());
+      alert('Your browser doesn\'t support geolocation');
 
     }
 
@@ -344,20 +335,6 @@ var MODULE = (function (my) {
   };
 
 
-
-
-
- 
-
-
-
-
-  function handleLocationError(browserHasGeolocation, infowindow, pos) {
-    infowindow.setPosition(pos);
-    infowindow.setContent(browserHasGeolocation ?
-      'The Geolocation service failed.' :
-      'Your browser doesn\'t support geolocation.');
-  }
 
 
   // Search returns places and predicted search terms
