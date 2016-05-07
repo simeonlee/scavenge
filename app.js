@@ -334,8 +334,9 @@ var expandURL = function(status, getInstagramData) {
 
     // request(linkexpanderURL, function(err, resp, body) {
 
+    // HEAD is same as GET but returns only HTTP headers and no document body
 
-    request(t_coURL, function(error, response, body) {
+    request( { method: "HEAD", url: t_coURL, followAllRedirects: true }, function(error, response) {
         
       
 
