@@ -319,7 +319,7 @@ var expandURL = function(status, getInstagramData) {
   if (text.match(regex)) {
 
     // set external link to that link in the text that links to some content
-    var t_coURL = text.match(regex);
+    var t_coURL = text.match(regex).toString();
     var linkexpanderURL = 'https://www.linkexpander.com/?url='+t_coURL;
 
     // remove the inner URL from the text so we can do better things with the url
