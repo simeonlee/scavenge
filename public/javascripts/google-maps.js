@@ -467,8 +467,8 @@ var MODULE = (function (my) {
 
 
   // if you click the search button, scavenge for more tweets in your current location
-  document.addEventListener('DOMContentLoaded', function(event) {
-    document.getElementById('nav-search-button').onclick = setAndSendDataToServer();
+  document.addEventListener("DOMContentLoaded", function(event) {
+    document.getElementById("nav-search-button").onclick = setAndSendDataToServer();
   });
 
 
