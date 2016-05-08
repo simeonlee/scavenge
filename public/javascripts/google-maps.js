@@ -263,6 +263,9 @@ var MODULE = (function (my) {
       var new_location = place.geometry.location;
       console.log(new_location);
 
+      // we are saving new location to my.pos variable to persist user's desired gelocation
+      my.pos = new_location;
+
       // mark new location
       var marker = new google.maps.Marker({
         position: new_location,
@@ -432,6 +435,18 @@ var MODULE = (function (my) {
 
   var setAndSendDataToServer = function(pos, queryterms) {
 
+    if (pos) {
+      pos = pos;
+    } else {
+      pos = my.pos;
+    }
+
+    if (queryterms) {
+      queryterms = queryterms;
+    } else {
+      queryterms = my.twitterQueryTerms;
+    }
+
     // set up object with the relevant data that we need to send to server
     // to ask API's to search for data
     client_to_server = {
@@ -451,7 +466,8 @@ var MODULE = (function (my) {
 
 
 
-
+  // if you click the search button, scavenge for more tweets in your current location
+  document.getElementById('nav-search-button').onclick = setAndSendDataToServer();
 
 
 
