@@ -435,18 +435,6 @@ var MODULE = (function (my) {
 
   var setAndSendDataToServer = function(pos, queryterms) {
 
-    if (pos) {
-      pos = pos;
-    } else {
-      pos = my.pos;
-    }
-
-    if (queryterms) {
-      queryterms = queryterms;
-    } else {
-      queryterms = my.twitterQueryTerms;
-    }
-
     // set up object with the relevant data that we need to send to server
     // to ask API's to search for data
     client_to_server = {
@@ -467,8 +455,11 @@ var MODULE = (function (my) {
 
 
   // if you click the search button, scavenge for more tweets in your current location
-  document.addEventListener("DOMContentLoaded", function(event) {
-    document.getElementById("nav-search-button").onclick = setAndSendDataToServer();
+  document.addEventListener('DOMContentLoaded', function(event) {
+    console.log('DOM fully loaded and parsed');
+    document.getElementById('nav-search-button').onclick = function(){
+      setAndSendDataToServer(my.pos, my.twitterQueryTerms);
+    }
   });
 
 
