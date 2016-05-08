@@ -178,13 +178,13 @@ var twitterSearch = function(userGeo, twitterQueryTerms){
     'q': twitterQueryTerms.join(' OR '),
 
     // 'latitude,longitude,radius'
-    'geocode': lat+','+lng+',1mi',
+    'geocode': lat+','+lng+',0.5mi',
 
     // search for this many results
     'count': 25,
 
     // bias towards recent tweets
-    'result_type': 'recent'
+    // 'result_type': 'recent'
 
   }, error, success);
 
