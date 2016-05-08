@@ -250,41 +250,41 @@ var MODULE = (function (my) {
 
         var iwContent = '<div class="iw-container">'+
         
-        // '<a href="'+userURL+'" target="_blank" >'+
-        // '<img src="'+profileImageURL+'" alt="image" class="iw-profile-img">'+
-        // '</a>'+
+          // '<a href="'+userURL+'" target="_blank" >'+
+          // '<img src="'+profileImageURL+'" alt="image" class="iw-profile-img">'+
+          // '</a>'+
 
-        '<div class="iw-tweet iw-external-img-div">'+
-        '<a href="'+external_link+'" target="_blank" >'+ // sometimes this errors out and surrounds the image with broken stuff
-        '<img src="'+thumbnail_url+'" alt="'+external_link+'" class="iw-external-img">'+
-        '</a>'+
-        '</div>'+
+          '<div class="iw-tweet iw-external-img-div">'+
+          '<a href="'+external_link+'" target="_blank" >'+ // sometimes this errors out and surrounds the image with broken stuff
+          '<img src="'+thumbnail_url+'" alt="'+external_link+'" class="iw-external-img">'+
+          '</a>'+
+          '</div>'+
 
-        '<div class="iw-body">'+
-        '<div class="iw-username-div"><a href="'+userURL+'" target="_blank" class="iw-username">'+username+'</a></div>'+
-        '<div class="iw-tweet"><a href="'+tweetURL+'" target="_blank" >'+text+'</a></div>'+
-        '</div>'+
+          '<div class="iw-body">'+
+          '<div class="iw-username-div"><a href="'+userURL+'" target="_blank" class="iw-username">'+username+'</a></div>'+
+          '<div class="iw-tweet"><a href="'+tweetURL+'" target="_blank" >'+text+'</a></div>'+
+          '</div>'+
 
-        '<p class="iw-time">'+time_and_distance+'</p>'+
-        '<img src="../images/twitterbird.png" class="iw-bird">'+
+          '<p class="iw-time">'+time_and_distance+'</p>'+
+          '<img src="../images/twitterbird.png" class="iw-bird">'+
 
-        // '<div class="iw-choices">'+
-        
-        // '<a href="#" target="_blank" >'+
-        // '<div class="iw-dislike">'+
-        // '<img src="../images/dislike.png" alt="dislike" class="iw-dislike-img">'+
-        // '</div>'+
-        // '</a>'+
+          // '<div class="iw-choices">'+
+          
+          // '<a href="#" target="_blank" >'+
+          // '<div class="iw-dislike">'+
+          // '<img src="../images/dislike.png" alt="dislike" class="iw-dislike-img">'+
+          // '</div>'+
+          // '</a>'+
 
-        // '<a href="#" target="_blank" >'+
-        // '<div class="iw-like">'+
-        // '<img src="../images/heart.png" alt="like" class="iw-like-img">'+
-        // '</div>'+
-        // '</a>'+
+          // '<a href="#" target="_blank" >'+
+          // '<div class="iw-like">'+
+          // '<img src="../images/heart.png" alt="like" class="iw-like-img">'+
+          // '</div>'+
+          // '</a>'+
 
-        // '</div>'+
+          // '</div>'+
 
-        '</div>'
+          '</div>'
 
         var infowindow = new google.maps.InfoWindow({
           content: iwContent,
@@ -292,27 +292,35 @@ var MODULE = (function (my) {
           maxWidth: 175 // width of the card - also change .gm-style-iw width in css
         });
 
-        // marker.addListener('mouseover', function() {  
-          // infowindow.open(map, marker);
-        // });
+        marker.infowindow = infowindow;
+        marker.infowindow.open(map, marker);
+        marker.infowindow.state = true; // mark state as open
 
-        // setTimeout(function(){
-          infowindow.open(map, marker);
-        // },500);
-        
+        // have the markers be bouncing upon load to signal that they are ripe for discovery
+        // doing some action like 'liking' them or clicking on the marker will stop the bouncing
+        marker.setAnimation(google.maps.Animation.BOUNCE);
 
+        // use 'this' instead of 'marker' in this function to point to the right marker
+        // http://you.arenot.me/2010/06/29/google-maps-api-v3-0-multiple-markers-multiple-infowindows/
         marker.addListener('click', function() {
-          
-          // my.google_map.setZoom(16);
-          
-          // my.google_map.setCenter(marker.getPosition());
-          
-          infowindow.open(map, marker);
-
-          if (marker.getAnimation() !== null) {
-            marker.setAnimation(null);
+        
+          if (this.infowindow.state) { // if infowindow is currently open
+            console.log('closing infowindow');
+            this.infowindow.close();
+            this.infowindow.state = false; // currently not open
           } else {
-            marker.setAnimation(google.maps.Animation.BOUNCE);
+            console.log('opening infowindow');
+            this.infowindow.open(map, this);
+            this.infowindow.state = true; // currently open
+
+            // center the map on the marker only when you are opening it
+            my.google_map.setCenter(this.getPosition());
+          }
+
+          if (this.getAnimation() !== null) {
+            this.setAnimation(null);
+          } else {
+            this.setAnimation(google.maps.Animation.BOUNCE);
           }
           
         });
