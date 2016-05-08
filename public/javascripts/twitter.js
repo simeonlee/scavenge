@@ -377,7 +377,7 @@ var MODULE = (function (my) {
           iwCloseBtn.css({
             opacity: '1.0', // by default the close button has an opacity of 0.7
             position: 'absolute',
-            right: '56px', top: '25px', // button repositioning
+            right: '54px', top: '24px', // button repositioning
             content: 'url("../images/closebutton.png")',
             height: '15px', width: '15px'
           });
