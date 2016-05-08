@@ -378,7 +378,7 @@ var MODULE = (function (my) {
             opacity: '1.0', // by default the close button has an opacity of 0.7
             position: 'absolute',
             right: '56px', top: '25px', // button repositioning
-            content: 'url("../images/dislike.png")',
+            content: 'url("../images/closebutton.png")',
             height: '15px', width: '15px'
           });
 
