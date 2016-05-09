@@ -299,6 +299,9 @@ var MODULE = (function (my) {
         // have the markers be bouncing upon load to signal that they are ripe for discovery
         // doing some action like 'liking' them or clicking on the marker will stop the bouncing
         marker.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout(function(){
+          marker.setAnimation(null);
+        },10000)
 
         // use 'this' instead of 'marker' in this function to point to the right marker
         // http://you.arenot.me/2010/06/29/google-maps-api-v3-0-multiple-markers-multiple-infowindows/
@@ -321,6 +324,9 @@ var MODULE = (function (my) {
             this.setAnimation(null);
           } else {
             this.setAnimation(google.maps.Animation.BOUNCE);
+            setTimeout(function(){
+              this.setAnimation(null);
+            },10000)
           }
           
         });
