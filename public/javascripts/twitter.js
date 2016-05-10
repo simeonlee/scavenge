@@ -384,7 +384,7 @@ var MODULE = (function (my) {
         // create marker variable
         var marker = new google.maps.Marker({
           position: latLng,
-          icon: '../images/twitterbird.png',
+          icon: '../images/scavengebird.png',
           animation: google.maps.Animation.DROP
         });
 
@@ -447,7 +447,8 @@ var MODULE = (function (my) {
           '</div>'+
 
           '<p class="iw-time">'+time_and_distance+'</p>'+
-          '<img src="../images/twitterbird.png" class="iw-bird">'+
+          '<img src="../images/twitterbird.png" class="iw-tw-bird">'+
+          '<img src="../images/instagramlogo.png" class="iw-ig-camera">'+
 
           // '<div class="iw-choices">'+
           
@@ -480,9 +481,18 @@ var MODULE = (function (my) {
         // have the markers be bouncing upon load to signal that they are ripe for discovery
         // doing some action like 'liking' them or clicking on the marker will stop the bouncing
         marker.setAnimation(google.maps.Animation.BOUNCE);
-        setTimeout(function(){
-          marker.setAnimation(null);
-        },10000)
+        
+        // have the marker stop bouncing automatically after 10 seconds
+        // too much ongoing animation can ruin UX and bother user
+        // !! use 'that' = 'this' to have 'this' set to correct scope in regards to setTimeout
+        // otherwise 'this' will point to global scope
+        marker.stopBouncing = function(){
+          var that = this;
+          setTimeout(function(){
+            that.setAnimation(null);
+          },10000)
+        }
+        // marker.stopBouncing(); // chose not to call it
 
         // use 'this' instead of 'marker' in this function to point to the right marker
         // http://you.arenot.me/2010/06/29/google-maps-api-v3-0-multiple-markers-multiple-infowindows/
@@ -505,8 +515,9 @@ var MODULE = (function (my) {
             this.setAnimation(null);
           } else {
             this.setAnimation(google.maps.Animation.BOUNCE);
+            var that = this;
             setTimeout(function(){
-              this.setAnimation(null);
+              that.setAnimation(null);
             },10000)
           }
           

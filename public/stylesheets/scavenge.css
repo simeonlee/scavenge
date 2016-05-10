@@ -92,7 +92,7 @@ a {
   border: 1px solid #5F9FEA;
   border-radius: 3px;
   
-  /*box-shadow: inset 0px 0px 2px rgba(178, 178, 178, 0.6);*/
+  box-shadow: inset 0px 0px 2px rgba(178, 178, 178, 0.6);
 
   background-color: #fff;
   text-overflow: ellipsis; /* ... */
@@ -683,41 +683,42 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 .iw-username-div {
   padding: 0;
   margin: 0;
+  color: #5F9FEA;
   overflow: hidden;
 }
 
 .iw-username {
-  font-weight: 400;
+  font-weight: 300;
   font-size: 12px;
-  color: white;
+  color: #5F9FEA;
   overflow: hidden;
 }
 
 /* unvisited link */
 /*.iw-container .iw-header a:link {*/
 .iw-username:link {
-    color: black;
+    color: #5F9FEA;
     text-decoration: none;
     overflow: hidden;
 }
 
 /* visited link */
 .iw-username:visited {
-    color: black;
+    color: #5F9FEA;
     text-decoration: none;
     overflow: hidden;
 }
 
 /* mouse over link */
 .iw-username:hover {
-    color: black;
-    text-decoration: underline;
+    color: #5F9FEA;
+    text-decoration: none;
     overflow: hidden;
 }
 
 /* selected link */
 .iw-username:active {
-    color: black;
+    color: #5F9FEA;
     text-decoration: none;
     overflow: hidden;
 }
@@ -776,6 +777,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 }
 
 .iw-tweet {
+  font-weight: 300;
   font-size: 10px;
   margin: 0;
   padding: 0;
@@ -796,7 +798,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 /* mouse over link */
 .iw-tweet a:hover {
     color: black;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 /* selected link */
@@ -849,10 +851,16 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   padding: 0;
 }
 
-.iw-bird {
+.iw-tw-bird {
   height: 8px;
   float: right;
   margin: 4px 0 0;
+}
+
+.iw-ig-camera {
+  height: 8px;
+  float: right;
+  margin: 4px 2px 0; 
 }
 
 .iw-bottom-gradient {
