@@ -21,53 +21,6 @@ var MODULE = (function (my) {
   // user position
   // var pos;
 
-  // search for nearby healthy eating
-  my.twitterQueryTerms = [
-
-    // 'instagram', // search for all instagram pics
-
-    'paleo',
-    'healthy',
-    'keto',
-    'ketogenic',
-    'avocado',
-    'juice',
-    'juicepress',
-    'smoothies',
-    'chia',
-    'salad',
-    'salmon',
-    'organic',
-    'usdaorganic',
-    'vegan',
-    'raw',
-    'glutenfree',
-    'noGMO',
-    'eatclean',
-    'wholefoods',
-    'kale',
-    'broccoli',
-    'cucumber',
-    'ginger',
-    'protein',
-    'fiber',
-    'healthy'
-
-    // 'fitness',
-    // 'fitfam',
-    // 'fitspo',
-    // 'gym',
-    // 'crossfit',
-    // 'barre',
-    // 'yoga',
-    // 'pilates',
-    // 'lifting',
-    // 'training',
-    // 'running',
-    // 'boxing',
-    // 'sweat',
-  ];
-
   // set to Washington Square Park... familiar restaurants for debugging
   var defaultLocation = {
     lat: 40.7308,
@@ -198,7 +151,7 @@ var MODULE = (function (my) {
      * https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete
      */
 
-    var input = document.getElementById('nav-search-bar');
+    var input = document.getElementById('google-search-bar');
     var autocomplete = new google.maps.places.Autocomplete(input);
     autocomplete.bindTo('bounds', map);
 
@@ -475,7 +428,7 @@ var MODULE = (function (my) {
 
     // create the search box and link it to the UI element
     // want to make auto-search upon page load
-    input = document.getElementById('nav-search-bar');
+    input = document.getElementById('google-search-bar');
     searchBox = new google.maps.places.SearchBox(input);
 
     // Bias the SearchBox results towards current map's viewport.

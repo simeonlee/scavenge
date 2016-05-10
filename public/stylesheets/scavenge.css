@@ -64,7 +64,7 @@ a {
   position: absolute;
   
   right: 10%;
-  top: 12px;
+  top: 14px;
   bottom: 0;
 
   margin: 0;
@@ -75,7 +75,7 @@ a {
   margin: 0;
   padding: 0;
 
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 300;
 
   box-sizing: border-box;
@@ -83,14 +83,14 @@ a {
   outline: none;
 }
 
-#nav-search-bar {
+.nav-search-bar {
   margin: 0;
   padding: 4px 7px;
 
-  width: 240px;
+  width: 200px;
 
   border: 1px solid #5F9FEA;
-  border-radius: 3px 0 0 3px;
+  border-radius: 3px;
   
   /*box-shadow: inset 0px 0px 2px rgba(178, 178, 178, 0.6);*/
 
@@ -98,17 +98,48 @@ a {
   text-overflow: ellipsis; /* ... */
 }
 
-#nav-search-button {
-  background: url("../images/magnifier.png") no-repeat center;
+#query-search-bar {
 
-  margin: 0 0 0 -4px;
+}
+
+#google-search-bar {
+
+}
+
+.nav-button {
+
+}
+
+#query-add-button {
+  background: url("../images/plus.png") no-repeat center;
+
+  margin: 0;
+  margin-right: 8px;
   padding: 4px 6px;
   width: 27px;
   
   border: 1px solid #5F9FEA;
 
-  border-radius: 0 3px 3px 0;
+  border-radius: 3px;
   background-color: #5F9FEA;
+}
+
+#nav-search-button {
+  background: url("../images/magnifier.png") no-repeat center;
+
+  margin: 0;
+  padding: 4px 6px;
+  width: 27px;
+  
+  border: 1px solid #5F9FEA;
+
+  border-radius: 3px;
+  background-color: #5F9FEA;
+}
+
+#query-add-button:active {
+  border: 1px solid #5083C0;
+  background-color: #5083C0;
 }
 
 #nav-search-button:active {
@@ -131,13 +162,41 @@ a {
   /*margin: 0;
   padding: 0;*/
   flex: 1 1 auto;
+  position: relative;
+}
+
+#remove-all {
+  top: 8px;
+  left: 0px;
+  z-index: 1001;
+  position: absolute;
+
+
+  border: 1px solid #5F9FEA;
+  background-color: #5F9FEA;
+  border-radius: 0 3px 3px 0;
+  
+  font-weight: 300;
+  color: white;
+  font-size: 12px;
+
+
+  margin: 0;
+  padding: 4px 6px;
+
+  width: 134px;
+
+}
+
+#remove-all:active {
+  background-color: red;
 }
 
 #list {
   height: 100%;
   /*height: 95%;*/
   /*width: 188px;*/
-  width: 240px;
+  
   /*float: left;*/
   padding: 0;
   margin: 0;
@@ -160,21 +219,24 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   overflow-y: scroll;
   padding: 0;
   margin: 0;
+  /*margin: 33px 0 0 0;*/
 }
+
+
 
 #list ul::-webkit-scrollbar { 
   display: none;
 }
 
 #list ul li {
-  height: 65px;
+  /*height: 65px;
   min-height: 65px;
-  max-height: 65px;
+  max-height: 65px;*/
   list-style-type: none;
 
   /*background-color: rgba(255,255,255,0.9);*/
-  padding: 0px;
-  margin: 24px 0;
+  /*padding: 0px;
+  margin: 24px 0;*/
 
   position: relative;
 }
@@ -410,6 +472,61 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   /*position: relative;*/
 }
 
+.term-li {
+  border: 1px solid rgba(255,255,255,1.0);
+  background-color: rgba(255,255,255,0.6);
+  border-radius: 0 3px 3px 0;
+  margin: 8px 0;
+  padding: 4px 6px;
+  width: 120px;
+
+  /* used to center the logo */
+  display: flex; /* flexbox */
+  align-items: center; /* flexbox center vertically */
+
+}
+
+/* push the first list item down further so that it shows up below 'remove-all' button */
+#list ul li:first-child {
+  margin: 41px 0 8px 0;
+}
+
+.term-div {
+  font-weight: 300;
+  color: #5F9FEA;
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+  text-overflow: ellipsis; /* ... */
+  /*width: 100px;*/
+  display: inline-block;
+  
+
+  /*float: left;*/
+  -webkit-align-self: flex-start;
+  align-self: flex-start;
+}
+
+.query-dislike-div {
+
+}
+
+
+
+.query-dislike-img {
+  /*float: right;*/
+  
+  margin: 0 0 0 auto;
+  padding: 0;
+  
+  
+  height: 10px;
+}
+
+
+.query-dislike-img:active {
+  background-color: white;
+}
 .emptyheart {
   
   /* if you are going to change height and width, make sure you change the size of the image asset itself */

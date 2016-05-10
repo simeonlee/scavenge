@@ -5,7 +5,200 @@ var MODULE = (function (my) {
   var map = my.google_map;
 
   
-  
+  // search for nearby healthy eating
+  my.twitterQueryTerms = [
+
+    // 'instagram', // search for all instagram pics
+
+    'paleo',
+    'healthy',
+    'keto',
+    'ketogenic',
+    'avocado',
+    'juice',
+    'juicepress',
+    'smoothies',
+    'chia',
+    'salad',
+    'salmon',
+    'organic',
+    'usdaorganic',
+    'vegan',
+    'raw',
+    'glutenfree',
+    'noGMO',
+    'eatclean',
+    'wholefoods',
+    'kale',
+    'broccoli',
+    'cucumber',
+    'ginger',
+    'protein',
+    'fiber'
+
+    // 'fitness',
+    // 'fitfam',
+    // 'fitspo',
+    // 'gym',
+    // 'crossfit',
+    // 'barre',
+    // 'yoga',
+    // 'pilates',
+    // 'lifting',
+    // 'training',
+    // 'running',
+    // 'boxing',
+    // 'sweat',
+  ];
+
+
+
+
+  // display twitter query terms on DOM so user can customize search
+  var listQueryTerm = function(term) { // pass place from google to this function
+
+    var term_div = document.createElement("div");
+    term_div.className = "term-div";
+    
+    var term_text = document.createTextNode("#"+term);
+    term_text.className = "term-text";
+
+    term_div.appendChild(term_text);
+
+
+
+
+    var dislike_img = document.createElement("img");
+    dislike_img.setAttribute("src", "../images/dislike.png");
+    dislike_img.className = "query-dislike-img";
+    dislike_img.id = term+"-dislike-img"      
+
+
+
+
+    // Create <li> item to hold the <div> we just created
+    var term_li = document.createElement("li");
+    term_li.className = "term-li";
+
+    term_li.appendChild(term_div);
+    term_li.appendChild(dislike_img);
+
+
+
+    // find the <ul> in the document by its identifier and add <li> to document
+    var ul = document.getElementById("list-ul");
+    ul.appendChild(term_li);
+
+    
+
+    // when you press dislike, remove from list and from my.twitterqueryterms
+    document.getElementById(term+"-dislike-img").onclick=function(){
+      
+      var $this = $(this);
+
+      // find the parent list element
+      var list_element = $this.parent('.term-li');
+
+      // use jquery to find the cousin text module
+      var this_search_term = list_element.children('.term-div').text();
+      
+      // remove '#'
+      this_search_term = this_search_term.slice(this_search_term.indexOf('#')+1)
+
+      // remove from internal query terms list
+      removeTwitterQueryTerm(this_search_term);
+
+      // hide the list element from DOM
+      list_element.remove();
+
+      console.log("Removed "+this_search_term);
+      
+    }
+    
+  }
+
+
+
+
+
+
+
+  function addTwitterQueryTerm(term) {
+    // my.twitterQueryTerms = ['paleo', ...]; 
+    my.twitterQueryTerms.push(term);
+
+
+
+    // print for review
+    console.log(my.twitterQueryTerms);
+    console.log("User entered new term: "+term);
+  }
+
+  // remove from our search terms list
+  function removeTwitterQueryTerm(term) {
+    // my.twitterQueryTerms = ['paleo', ...];
+    var termIndex = my.twitterQueryTerms.indexOf(term);
+    my.twitterQueryTerms.splice(termIndex,1)
+
+    // print for review
+    console.log(my.twitterQueryTerms);
+  }
+
+  // clear all search terms for clean slate
+  function removeAllTwitterQueryTerms() {
+    my.twitterQueryTerms = [];
+    console.log("Twitter search terms array now empty");
+  }
+
+
+  // set up list of query terms and prepare add/remove query term functions upon DOM load
+  document.addEventListener("DOMContentLoaded", function() {
+    
+    for (var i = 0; i < my.twitterQueryTerms.length; i++) {
+      listQueryTerm(my.twitterQueryTerms[i]);
+    }
+
+
+
+    // clear twitter search terms with one click
+    document.getElementById('remove-all').onclick=function(){
+
+      // clear list in DOM
+      $("#list-ul").empty();
+
+      // clear array
+      removeAllTwitterQueryTerms();
+
+    }
+
+    // add query terms
+    document.getElementById('query-search-bar').onkeypress = function(e) {
+      if (!e) e = window.event;
+      var keyCode = e.keyCode || e.which;
+      if (keyCode == '13') {
+
+        // get the value that user entered
+        var new_query_term = this.value;
+
+        // add to query terms array
+        addTwitterQueryTerm(new_query_term);
+
+        // display on DOM list
+        listQueryTerm(new_query_term);
+      
+        return false;
+      }
+      
+    }
+    
+  });
+
+
+
+
+
+
+
   // to set unique identities for each tweet, we'll increment 'id'
   var id = 0;
 
@@ -49,18 +242,6 @@ var MODULE = (function (my) {
   // request.send();
 
    
-
-  function addTwitterQueryTerm(term) {
-    // my.twitterQueryTerms = ['paleo', ...]; 
-    my.twitterQueryTerms.push(term);
-  }
-
-  function removeTwitterQueryTerm(term) {
-    // my.twitterQueryTerms = ['paleo', ...];
-    var termIndex = my.twitterQueryTerms.indexOf(term);
-    my.twitterQueryTerms.splice(termIndex,1)
-  }
-
 
   
   // currently NOT BEING CALLED - moved this functionality to the server
