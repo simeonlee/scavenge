@@ -173,8 +173,8 @@ var twitterSearch = function(userGeo, search_radius, twitterQueryTerms) {
     var lng = -73.9973;
   }
 
-  var geocode_input = lat+','+lng+','+search_radius+'mi';
   // var geocode_input = lat+','+lng+',0.5mi';
+  var geocode_input = lat+','+lng+','+search_radius+'mi';
 
   return twitter.getSearch({
     
@@ -185,7 +185,7 @@ var twitterSearch = function(userGeo, search_radius, twitterQueryTerms) {
     'geocode': geocode_input,
 
     // search for this many results
-    'count': 25,
+    'count': 40,
 
     // bias towards recent tweets
     // 'result_type': 'recent'
