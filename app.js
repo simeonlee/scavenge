@@ -185,7 +185,7 @@ var twitterSearch = function(userGeo, search_radius, twitterQueryTerms) {
     'geocode': geocode_input,
 
     // search for this many results
-    'count': 40,
+    'count': 25,
 
     // bias towards recent tweets
     // 'result_type': 'recent'
