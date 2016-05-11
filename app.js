@@ -54,6 +54,9 @@ server.on('listening', onListening);
       
       var clientData = JSON.parse(clientToServer);
 
+      // search radius in miles
+      var search_radius = 5;
+
       pos = clientData.pos;
       var lat = pos.lat;
       var lng = pos.lng;
@@ -65,7 +68,7 @@ server.on('listening', onListening);
       console.log('Client geolocation: '+lat+','+lng);
 
       
-      twitterSearch(pos, twitterQueryTerms);
+      twitterSearch(pos, search_radius, twitterQueryTerms);
     });
 
   });
@@ -160,9 +163,7 @@ var config = {
 
 var twitter = new Twitter(config);
 
-
-
-var twitterSearch = function(userGeo, twitterQueryTerms){
+var twitterSearch = function(userGeo, search_radius, twitterQueryTerms){
 
   if (userGeo) {
     var lat = userGeo.lat;
@@ -178,10 +179,10 @@ var twitterSearch = function(userGeo, twitterQueryTerms){
     'q': twitterQueryTerms.join(' OR '),
 
     // 'latitude,longitude,radius'
-    'geocode': lat+','+lng+',0.5mi',
+    'geocode': lat+','+lng+','+search_radius+'mi',
 
     // search for this many results
-    'count': 25,
+    'count': 50,
 
     // bias towards recent tweets
     // 'result_type': 'recent'

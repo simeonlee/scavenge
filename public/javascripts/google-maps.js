@@ -67,7 +67,13 @@ var MODULE = (function (my) {
   // load upon HTML loaded
   document.addEventListener("DOMContentLoaded", function() {
     
+    // map
     setUpGoogleMap();
+
+    // initiate walkthrough
+    (function() {
+      console.log('initiating walkthrough')
+    })();
     
   });
 
@@ -136,6 +142,9 @@ var MODULE = (function (my) {
 
     // set the map as a property of my to make it and its functions accessible to other scripts
     my.google_map = map;
+
+    // add capabilities to map
+    addMapListeners(map);
 
     // to demonstrate that we can access our Google Maps functions in the Twitter API script file
     // my.loadMapIntoTwitterAPIScript();
@@ -673,6 +682,56 @@ var MODULE = (function (my) {
     document.getElementById(id).style.width=size+"px";
   
   }
+
+
+
+
+
+
+  var addMapListeners = function(map) {
+
+
+
+    // when you move the map viewport, do something
+    // in this case, we want to enable the user to 'scavenge' even easier
+    // by bringing up new tweets / pictures just by moving the map around
+    map.addListener('bounds_changed', function() {
+      
+      console.log('bounds changed');
+
+    })
+
+    map.addListener('zoom_changed', function() {
+
+      console.log('zoom changed');
+      
+      // var that = this;
+
+      // // reset map zoom
+      // setTimeout(function(){
+      //   that.setZoom(16);
+      // },10000)
+      
+
+      // var zoom_window = document.getElementById()
+      // zoom_window.setContent('Zoom: ' + map.getZoom());
+
+    });
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   return my;
 }(MODULE || {}));
