@@ -55,7 +55,7 @@ server.on('listening', onListening);
       var clientData = JSON.parse(clientToServer);
 
       // search radius in miles
-      var search_radius = 1;
+      var search_radius = clientToServer.search_radius;
 
       pos = clientData.pos;
       var lat = pos.lat;
@@ -174,6 +174,7 @@ var twitterSearch = function(userGeo, search_radius, twitterQueryTerms) {
   }
 
   var geocode_input = lat+','+lng+','+search_radius+'mi';
+  // var geocode_input = lat+','+lng+',0.5mi';
 
   return twitter.getSearch({
     
@@ -184,7 +185,7 @@ var twitterSearch = function(userGeo, search_radius, twitterQueryTerms) {
     'geocode': geocode_input,
 
     // search for this many results
-    'count': 20,
+    'count': 25,
 
     // bias towards recent tweets
     // 'result_type': 'recent'

@@ -394,6 +394,7 @@ var MODULE = (function (my) {
 
   };
 
+  var search_radius = 0.5;
 
   var setAndSendDataToServer = function(pos, queryterms) {
 
@@ -401,6 +402,7 @@ var MODULE = (function (my) {
     // to ask API's to search for data
     client_to_server = {
       pos: pos,
+      search_radius: search_radius,
       twitterQueryTerms: queryterms
     };
 
