@@ -457,7 +457,7 @@ var MODULE = (function (my) {
             var distance_phrase = Math.round(10*distance)/10 + ' miles away'
           }
 
-          var time_and_distance = timeSince + ' ' + distance_phrase
+          var time_and_distance = timeSince + ', ' + distance_phrase
 
         } else {
           var time_and_distance = timeSince
@@ -496,8 +496,9 @@ var MODULE = (function (my) {
           '</div>'+
 
           '<p class="iw-time">'+time_and_distance+'</p>'+
-          '<img src="../images/twitterbird.png" class="iw-tw-bird">'+
           '<img src="../images/instagramlogo.png" class="iw-ig-camera">'+
+          '<img src="../images/twitterbird.png" class="iw-tw-bird">'+
+          
 
           // '<div class="iw-choices">'+
           
