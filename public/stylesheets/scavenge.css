@@ -59,6 +59,11 @@ a {
   margin: 0 0 0 10%;
 }
 
+#nav-logo-img {
+  width: 142px;
+  height: 32px;
+}
+
 /* div */
 #search {
   position: absolute;
@@ -112,6 +117,7 @@ a {
 
 #query-add-button {
   background: url("../images/plus.png") no-repeat center;
+  background-size: 12px 12px;
 
   margin: 0;
   margin-right: 8px;
@@ -126,6 +132,7 @@ a {
 
 #nav-search-button {
   background: url("../images/magnifier.png") no-repeat center;
+  background-size: 12px 12px;  
 
   margin: 0;
   padding: 4px 6px;
@@ -972,4 +979,43 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 .iw-like-img:hover {
   opacity: 1.0;
   filter: alpha(opacity=100); /* For IE8 and earlier */
+}
+
+@media only screen and (min--moz-device-pixel-ratio: 2),
+
+only screen and (-o-min-device-pixel-ratio: 2/1),
+
+only screen and (-webkit-min-device-pixel-ratio: 2),
+
+only screen and (min-device-pixel-ratio: 2) {
+
+  #query-add-button {
+    background: url("../images/plus@2x.png") no-repeat center;
+    background-size: 12px 12px;
+
+    margin: 0;
+    margin-right: 8px;
+    padding: 4px 6px;
+    width: 27px;
+    
+    border: 1px solid #5F9FEA;
+
+    border-radius: 3px;
+    background-color: #5F9FEA;
+  }
+
+  #nav-search-button {
+    background: url("../images/magnifier@2x.png") no-repeat center;
+    background-size: 12px 12px;  
+
+    margin: 0;
+    padding: 4px 6px;
+    width: 27px;
+    
+    border: 1px solid #5F9FEA;
+
+    border-radius: 3px;
+    background-color: #5F9FEA;
+  }
+
 }

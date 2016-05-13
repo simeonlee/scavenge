@@ -252,10 +252,12 @@ var MODULE = (function (my) {
       // we are saving new location to my.pos variable to persist user's desired gelocation
       my.pos = new_location;
 
+      var new_location_marker_icon = new google.maps.MarkerImage("../images/newlocation@2x.png", null, null, null, new google.maps.Size(55,62));
+
       // mark new location
       var marker = new google.maps.Marker({
         position: new_location,
-        icon: '../images/newlocation.png',
+        icon: new_location_marker_icon,
         animation: google.maps.Animation.DROP,
         title: 'new location'
       });
@@ -362,10 +364,12 @@ var MODULE = (function (my) {
 
         console.log('User located at ' + pos.lat + ', ' + pos.lng);
         
+        var user_position_marker_icon = new google.maps.MarkerImage("../images/homeicon@2x.png", null, null, null, new google.maps.Size(55,62));
+
         // mark user location - 'the nest'
         var marker = new google.maps.Marker({
           position: pos,
-          icon: '../images/homeicon.png',
+          icon: user_position_marker_icon,
           animation: google.maps.Animation.DROP,
           title: 'you'
         });

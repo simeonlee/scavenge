@@ -430,10 +430,12 @@ var MODULE = (function (my) {
       // add a marker for each tweet with a geotag
       if (latLng){
         
+        var scavenge_bird_marker_icon = new google.maps.MarkerImage("../images/scavengebird@2x.png", null, null, null, new google.maps.Size(30,30));
+
         // create marker variable
         var marker = new google.maps.Marker({
           position: latLng,
-          icon: '../images/scavengebird.png',
+          icon: scavenge_bird_marker_icon,
           animation: google.maps.Animation.DROP
         });
 
@@ -662,7 +664,7 @@ var MODULE = (function (my) {
             opacity: '1.0', // by default the close button has an opacity of 0.7
             position: 'absolute',
             right: '54px', top: '24px', // button repositioning
-            content: 'url("../images/closebutton.png")',
+            content: 'url("../images/closebutton@2x.png")',
             height: '15px', width: '15px'
           });
 
