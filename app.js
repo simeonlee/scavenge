@@ -42,6 +42,7 @@ var pos = {
   lng: -73.9973
 }
 
+// hold the latest twitter query terms in the wider app.js scope
 var twitterQueryTerms;
 
 server.listen(port);
@@ -182,10 +183,10 @@ var twitterSearch = function(userGeo, search_radius, twitterQueryTerms) {
   var twitter_query = twitterQueryTerms.join(' OR ');
   
   // 37.781157,-122.398720,1mi
-  var geocode_input = lat+','+lng+',1mi';
+  var geocode_input = lat+','+lng+',2mi';
 
   // maximum of 100, defaults to 15
-  var results_count = 25;
+  var results_count = 50;
 
   console.log('Twitter Query String:  ' + twitter_query);
   console.log('Twitter Query String Length:  ' + twitter_query.length + ' (500 char maximum)');

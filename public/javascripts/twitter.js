@@ -4,11 +4,16 @@ var MODULE = (function (my) {
   var tweetMarkers = [];
   var map = my.google_map;
 
+
+
+
+  
+
   
   // search for nearby healthy eating
   my.twitterQueryTerms = [
 
-    // 'instagram', // search for all instagram pics
+    'instagram', // search for all instagram pics
 
     'paleo',
     'healthy',
@@ -57,7 +62,9 @@ var MODULE = (function (my) {
 
 
   // display twitter query terms on DOM so user can customize search
-  var listQueryTerm = function(term) { // pass place from google to this function
+  // prepend_bool is so that after the initial list is loaded, whenever
+  // we add a new term, it adds to the top of list, not bottom
+  var listQueryTerm = function(term, prepend_bool) { 
 
     var term_div = document.createElement("div");
     term_div.className = "term-div";
@@ -89,7 +96,17 @@ var MODULE = (function (my) {
 
     // find the <ul> in the document by its identifier and add <li> to document
     var ul = document.getElementById("list-ul");
-    ul.appendChild(term_li);
+    
+
+    // logic dictating where in the list we should put the dom elements
+    if (prepend_bool) {
+      // if we are adding terms one at a time, add to top of list so
+      // user can see the immediate impact of adding a term
+      ul.insertBefore(term_li, ul.childNodes[0])
+    } else {
+      // if we are loading the list for the first time, load in order of array
+      ul.appendChild(term_li);
+    }
 
     
 
@@ -125,15 +142,91 @@ var MODULE = (function (my) {
 
 
 
+  // set up list of query terms and prepare add/remove query term functions upon DOM load
+  document.addEventListener("DOMContentLoaded", function() {
+    
+    for (var i = 0; i < my.twitterQueryTerms.length; i++) {
+      listQueryTerm(my.twitterQueryTerms[i], false);
+    }
+
+
+
+    // clear twitter search terms with one click
+    document.getElementById('remove-all').onclick=function(){
+
+      // clear list in DOM
+      $("#list-ul").empty();
+
+      // clear array
+      removeAllTwitterQueryTerms();
+
+    }
+
+
+
+
+
+
+
+    var query_search_bar = document.getElementById('query-search-bar');
+    var query_add_button = document.getElementById('query-add-button');
+
+    // add query terms by pressing enter within the search bar
+    query_search_bar.onkeypress = function(e) {
+      if (!e) e = window.event;
+      var keyCode = e.keyCode || e.which;
+      if (keyCode == '13') {
+
+        addTermAndResetSearch(query_search_bar);
+
+        // return false necessary for this onkeypress event
+        return false;
+      }
+      
+    }
+
+    // add query terms by pressing the 'plus' symbol next to the search bar
+    query_add_button.onclick = function(){
+
+      addTermAndResetSearch(query_search_bar);
+
+    }    
+    
+  });
+
+
+  // do a set order of operations once the user has signified their intent
+  // to modify the list of query terms used for the Twitter API call
+  // including adding the term to the list and creating a new call
+  var addTermAndResetSearch = function(query_search_bar) {
+
+    // get the value that user entered
+    var new_query_term = query_search_bar.value;
+
+    // clear the field for the next input
+    query_search_bar.value = '';
+
+    // add to query terms array
+    addTwitterQueryTerm(new_query_term);
+
+    // make a new call to the API with our new query term
+    my.setAndSendDataToServer(my.pos, my.search_radius, my.twitterQueryTerms);
+
+  }
+
+  // do some operations after we alter our query terms list
   function addTwitterQueryTerm(term) {
-    // my.twitterQueryTerms = ['paleo', ...]; 
-    my.twitterQueryTerms.push(term);
-
-
+    // my.twitterQueryTerms = ['paleo', ...];
+    // add the new term to front of array
+    my.twitterQueryTerms.unshift(term);
 
     // print for review
     console.log(my.twitterQueryTerms);
     console.log("User entered new term: "+term);
+
+    // display on DOM list
+    listQueryTerm(term, true);
+
   }
 
   // remove from our search terms list
@@ -151,52 +244,6 @@ var MODULE = (function (my) {
     my.twitterQueryTerms = [];
     console.log("Twitter search terms array now empty");
   }
-
-
-  // set up list of query terms and prepare add/remove query term functions upon DOM load
-  document.addEventListener("DOMContentLoaded", function() {
-    
-    for (var i = 0; i < my.twitterQueryTerms.length; i++) {
-      listQueryTerm(my.twitterQueryTerms[i]);
-    }
-
-
-
-    // clear twitter search terms with one click
-    document.getElementById('remove-all').onclick=function(){
-
-      // clear list in DOM
-      $("#list-ul").empty();
-
-      // clear array
-      removeAllTwitterQueryTerms();
-
-    }
-
-    // add query terms
-    document.getElementById('query-search-bar').onkeypress = function(e) {
-      if (!e) e = window.event;
-      var keyCode = e.keyCode || e.which;
-      if (keyCode == '13') {
-
-        // get the value that user entered
-        var new_query_term = this.value;
-
-        // add to query terms array
-        addTwitterQueryTerm(new_query_term);
-
-        // display on DOM list
-        listQueryTerm(new_query_term);
-      
-        return false;
-      }
-      
-    }
-    
-  });
-
-
-
 
 
 
@@ -633,27 +680,23 @@ var MODULE = (function (my) {
 
       }
     }
-
-    
-
-    // setTimeout(function(){
-    //   // document.getElementsByTagName('iw-bird').style.float='right';
-    //   $('.iw-bird').css('float','right');
-    //   setTimeout(function(){
-    //     $('.iw-time').css('float','right');
-    //   },3000);
-    // },3000);
-    
   }
 
-  // // make the twitter logo bounce
-  // function toggleBounce (marker) {
-  //     if (marker.getAnimation() != null) {
-  //         marker.setAnimation(null);
-  //     } else {
-  //         marker.setAnimation(google.maps.Animation.BOUNCE);
-  //     }
-  // }
+
+
+  // clear the map of content in preparation for a new query
+  my.clearMarkers = function(){
+    
+    for (var i = 0; i < my.tweets.length; i++) {
+      var stale_marker = my.tweets[i].marker;
+      if (stale_marker) {
+        stale_marker.setMap(null);
+      }
+    }
+
+    console.log('Map cleared!');
+  }
+
 
 
   var queryMatch = function(text, queryArr) {

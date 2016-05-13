@@ -3,7 +3,7 @@
  * Resources:
  * http://stackoverflow.com/questions/8752627/how-can-i-split-a-javascript-application-into-multiple-files
  * http://www.adequatelygood.com/JavaScript-Module-Pattern-In-Depth.html
- */ 
+ */
 var MODULE = (function (my) {
 
   // set up socket
@@ -20,6 +20,9 @@ var MODULE = (function (my) {
 
   // how far twitter API should look for tweets
   var search_radius = 1.0;
+  my.search_radius = search_radius;
+
+  
 
   // user position
   // var pos;
@@ -124,6 +127,13 @@ var MODULE = (function (my) {
     // need to add my. to initMap() to have it accessible by the callback function in the url
     // of setUpGoogleMap() which calls the my.initMap method from the document body
 
+    // if daylight, light style
+    // if nighttime, dark style
+    // by default, use light style
+    // depends on user's time and location
+    // var map_style = my.map_style_light;
+    var map_style = my.map_style_light;
+
     map = new google.maps.Map(document.getElementById('map'), {
 
       // make center the default location until the geolocate finishes finding you
@@ -138,9 +148,9 @@ var MODULE = (function (my) {
       // no terrain view or satellite view
       mapTypeId: google.maps.MapTypeId.ROADMAP,
 
-      // change the style of the map to futuristic white (thanks to snazzymaps)
-      styles: [{"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}]
-    
+      // change the style of the map
+      styles: map_style
+
     });
 
     // set the map as a property of my to make it and its functions accessible to other scripts
@@ -265,7 +275,7 @@ var MODULE = (function (my) {
 
       // attach user geolocation data and twitter query terms to a data object
       // that we will send to the server to make API calls with based on user context
-      setAndSendDataToServer(new_location, search_radius, my.twitterQueryTerms);
+      my.setAndSendDataToServer(new_location, search_radius, my.twitterQueryTerms);
 
       // infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
       // infowindow.open(map, marker);
@@ -378,7 +388,7 @@ var MODULE = (function (my) {
 
         // attach user geolocation data and twitter query terms to a data object
         // that we will send to the server to make API calls with based on user context
-        setAndSendDataToServer(pos, search_radius, my.twitterQueryTerms);
+        my.setAndSendDataToServer(pos, search_radius, my.twitterQueryTerms);
 
         // set map to center on position
         map.setCenter(pos);
@@ -398,8 +408,15 @@ var MODULE = (function (my) {
   };
 
   
+  // 1) called upon initGeolocate
+  // 2) called upon autocomplete place_changed
+  // 3) called upon magnifier button click
+  // 4) called upon addition of search term to twitterqueryterms
+  // 5) called upon plus button click
+  my.setAndSendDataToServer = function(pos, radius, queryterms) {
 
-  var setAndSendDataToServer = function(pos, radius, queryterms) {
+    // clear existing content on the map in preparation for new content
+    my.clearMarkers();
 
     // set up object with the relevant data that we need to send to server
     // to ask API's to search for data
@@ -425,7 +442,8 @@ var MODULE = (function (my) {
   document.addEventListener('DOMContentLoaded', function(event) {
     console.log('DOM fully loaded and parsed');
     document.getElementById('nav-search-button').onclick = function(){
-      setAndSendDataToServer(my.pos, search_radius, my.twitterQueryTerms);
+      // ask for new data from server
+      my.setAndSendDataToServer(my.pos, search_radius, my.twitterQueryTerms);
     }
   });
 
