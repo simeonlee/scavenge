@@ -249,7 +249,8 @@ var success = function (data) {
   // don't serve up an empty page
   // we also want to show a message on the client side to the user alerting them of this
   if (statuses.length === 0) {
-    twitterSearch(pos, search_radius, twitterQueryTerms.push('instagram'));
+    twitterQueryTerms.push('instagram');
+    twitterSearch(pos, search_radius, twitterQueryTerms);
   }
 
   console.log('ACTION:  Starting for loop:');
