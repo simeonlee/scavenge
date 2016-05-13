@@ -19,7 +19,7 @@ var MODULE = (function (my) {
   var map;
 
   // how far twitter API should look for tweets
-  var search_radius = 0.5;
+  var search_radius = 1.0;
 
   // user position
   // var pos;

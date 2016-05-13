@@ -173,19 +173,27 @@ var twitterSearch = function(userGeo, search_radius, twitterQueryTerms) {
     var lng = -73.9973;
   }
 
-  // var geocode_input = lat+','+lng+',0.5mi';
+  var twitter_query = twitterQueryTerms.join(' OR ');
+  
+  // '40.7308,-73.9973,0.5mi'
   var geocode_input = lat+','+lng+','+search_radius+'mi';
+
+  var results_count = 25;
+
+  console.log(twitter_query);
+  console.log(geocode_input);
+  console.log(results_count);
 
   return twitter.getSearch({
     
     // twitter query search terms
-    'q': twitterQueryTerms.join(' OR '),
+    'q': twitter_query,
 
     // 'latitude,longitude,radius'
     'geocode': geocode_input,
 
     // search for this many results
-    'count': 25,
+    'count': results_count,
 
     // bias towards recent tweets
     // 'result_type': 'recent'
