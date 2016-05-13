@@ -165,6 +165,9 @@ var twitter = new Twitter(config);
 
 var twitterSearch = function(userGeo, search_radius, twitterQueryTerms) {
 
+  // Reference:
+  // https://dev.twitter.com/rest/reference/get/search/tweets
+
   if (userGeo) {
     var lat = userGeo.lat;
     var lng = userGeo.lng;
@@ -173,11 +176,13 @@ var twitterSearch = function(userGeo, search_radius, twitterQueryTerms) {
     var lng = -73.9973;
   }
 
+  // UTF-8, URL-encoded search query of 500 characters maximum, including operators
   var twitter_query = twitterQueryTerms.join(' OR ');
   
-  // '40.7308,-73.9973,0.5mi'
-  var geocode_input = lat+','+lng+','+search_radius+'mi';
+  // 37.781157,-122.398720,1mi
+  var geocode_input = lat+','+lng+',1mi';
 
+  // maximum of 100, defaults to 15
   var results_count = 25;
 
   console.log(twitter_query);
