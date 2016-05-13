@@ -60,6 +60,8 @@ var MODULE = (function (my) {
 
 
 
+  var dislike_timeout;
+
 
   // display twitter query terms on DOM so user can customize search
   // prepend_bool is so that after the initial list is loaded, whenever
@@ -78,7 +80,7 @@ var MODULE = (function (my) {
 
 
     var dislike_img = document.createElement("img");
-    dislike_img.setAttribute("src", "../images/dislike.png");
+    dislike_img.setAttribute("src", "../images/dislike@2x.png");
     dislike_img.className = "query-dislike-img";
     dislike_img.id = term+"-dislike-img"      
 
@@ -110,7 +112,7 @@ var MODULE = (function (my) {
 
     
 
-    // when you press dislike, remove from list and from my.twitterqueryterms
+    // when you press 'dislike' (represented by 'x'), remove from list and from my.twitterqueryterms
     document.getElementById(term+"-dislike-img").onclick=function(){
       
       var $this = $(this);
@@ -131,6 +133,24 @@ var MODULE = (function (my) {
       list_element.remove();
 
       console.log("Removed "+this_search_term);
+
+      
+
+
+
+      // Set a timer so that once you modify the list, we call data from Twitter API in 5 seconds
+      // Also we reset the timer everytime we click an additional 'x' so that we only 
+      // do one additional API call instead of an API call every time we modify the list
+      if (dislike_timeout) {
+        console.log('Resetting timeout!');
+        clearTimeout(dislike_timeout);
+      };
+      
+      console.log('Setting timeout!');
+      dislike_timeout = setTimeout(function(){
+        my.setAndSendDataToServer(my.pos, my.search_radius, my.twitterQueryTerms);
+        console.log('Timeout finished! Sending data to server!');
+      },5000);
       
     }
     
