@@ -142,14 +142,25 @@ var MODULE = (function (my) {
       // neighborhood view
       zoom: 16,
       
-      // don't show the ui controls
-      disableDefaultUI: true,
-      
       // no terrain view or satellite view
       mapTypeId: google.maps.MapTypeId.ROADMAP,
 
       // change the style of the map
-      styles: map_style
+      styles: map_style, 
+
+      // don't show the ui controls
+      // disableDefaultUI: true,
+
+      // only show zoom controls
+      zoomControl: true,
+      zoomControlOptions: {
+        position: google.maps.ControlPosition.RIGHT_BOTTOM
+      },
+      mapTypeControl: false,
+      scaleControl: false,
+      streetViewControl: false,
+      rotateControl: false,
+      fullscreenControl: false
 
     });
 
@@ -375,8 +386,7 @@ var MODULE = (function (my) {
           // reset the zoom to starting 16
           map.setZoom(16);
 
-          // set the position to be center of map
-          // map.setCenter(marker.getPosition());
+          
 
           // bounce (on/off)
           if (marker.getAnimation() !== null) {
@@ -433,6 +443,9 @@ var MODULE = (function (my) {
 
     // send data to server
     socket.emit('my geolocation', jsonData);
+
+    // set the position to be center of map
+    map.setCenter(my.pos);
 
   }
 

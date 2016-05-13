@@ -530,18 +530,62 @@ var MODULE = (function (my) {
         // have the markers be bouncing upon load to signal that they are ripe for discovery
         // doing some action like 'liking' them or clicking on the marker will stop the bouncing
         marker.setAnimation(google.maps.Animation.BOUNCE);
+
+        marker.stopBounce = function(){
+          console.log('Stopping marker bounce animation!');
+          if (this.getAnimation() !== null) {
+            this.setAnimation(null);
+          }
+        }
+
+        marker.toggleBounce = function(){
+          console.log('Toggling marker bounce animation!');
+          if (this.getAnimation() !== null) {
+            this.setAnimation(null);
+          } else {
+            this.setAnimation(google.maps.Animation.BOUNCE);
+          }
+        }
+
+        // add a listener to marker's infowindow so that when you
+        // close the infowindow, the associated marker stops its animation
+        marker.infowindowCloseClick = function(){
+          
+          var that = this;
+
+          google.maps.event.addListener(marker.infowindow,'closeclick',function(){
+            
+            console.log('Closed infowindow!');
+            
+            // set infowindow state to false so we can track for later
+            // true = currently open
+            // false = currently not open
+            this.state = false; 
+
+            // stop marker animation
+            that.stopBounce();
+
+            // remove the marker from the map
+            // that.setMap(null);
+            
+          });
+          
+        }
+        // add listener
+        marker.infowindowCloseClick();
+        
         
         // have the marker stop bouncing automatically after 10 seconds
         // too much ongoing animation can ruin UX and bother user
         // !! use 'that' = 'this' to have 'this' set to correct scope in regards to setTimeout
         // otherwise 'this' will point to global scope
-        marker.stopBouncing = function(){
+        marker.setBounceTimeout = function(){
           var that = this;
           setTimeout(function(){
             that.setAnimation(null);
           },10000)
         }
-        // marker.stopBouncing(); // chose not to call it
+        // marker.setBounceTimeout(); // chose not to call it
 
         // use 'this' instead of 'marker' in this function to point to the right marker
         // http://you.arenot.me/2010/06/29/google-maps-api-v3-0-multiple-markers-multiple-infowindows/
@@ -557,18 +601,10 @@ var MODULE = (function (my) {
             this.infowindow.state = true; // currently open
 
             // center the map on the marker only when you are opening it
-            my.google_map.setCenter(this.getPosition());
+            // my.google_map.setCenter(this.getPosition());
           }
 
-          if (this.getAnimation() !== null) {
-            this.setAnimation(null);
-          } else {
-            this.setAnimation(google.maps.Animation.BOUNCE);
-            var that = this;
-            setTimeout(function(){
-              that.setAnimation(null);
-            },10000)
-          }
+          this.toggleBounce();
           
         });
 
