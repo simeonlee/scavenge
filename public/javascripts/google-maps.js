@@ -265,7 +265,7 @@ var MODULE = (function (my) {
 
       // attach user geolocation data and twitter query terms to a data object
       // that we will send to the server to make API calls with based on user context
-      setAndSendDataToServer(new_location, my.twitterQueryTerms);
+      setAndSendDataToServer(new_location, search_radius, my.twitterQueryTerms);
 
       // infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
       // infowindow.open(map, marker);
@@ -378,7 +378,7 @@ var MODULE = (function (my) {
 
         // attach user geolocation data and twitter query terms to a data object
         // that we will send to the server to make API calls with based on user context
-        setAndSendDataToServer(pos, my.twitterQueryTerms);
+        setAndSendDataToServer(pos, search_radius, my.twitterQueryTerms);
 
         // set map to center on position
         map.setCenter(pos);
@@ -399,13 +399,13 @@ var MODULE = (function (my) {
 
   
 
-  var setAndSendDataToServer = function(pos, queryterms) {
+  var setAndSendDataToServer = function(pos, radius, queryterms) {
 
     // set up object with the relevant data that we need to send to server
     // to ask API's to search for data
     client_to_server = {
       pos: pos,
-      search_radius: search_radius,
+      search_radius: radius,
       twitterQueryTerms: queryterms
     };
 
@@ -425,7 +425,7 @@ var MODULE = (function (my) {
   document.addEventListener('DOMContentLoaded', function(event) {
     console.log('DOM fully loaded and parsed');
     document.getElementById('nav-search-button').onclick = function(){
-      setAndSendDataToServer(my.pos, my.twitterQueryTerms);
+      setAndSendDataToServer(my.pos, search_radius, my.twitterQueryTerms);
     }
   });
 

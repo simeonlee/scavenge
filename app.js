@@ -301,6 +301,14 @@ var success = function (data) {
     
   }
 
+  // send data to the client anyways, no matter what happens in these loops / requests
+  setTimeout(function() {
+    console.log('10 seconds have elapsed - sending data anyways!')
+
+    // send data to client
+    io.sockets.emit('scavenge_tweets', scavenge_tweets);
+  },10000);
+
 };
 
 
@@ -312,6 +320,7 @@ var expanded_instagram_url_arr = [];
 var expandURL = function(status, getInstagramData) {
   
   console.log(debugindex1 + '  LOCATION:  In expandURL function');
+  debugindex1++;
 
   var text = status.text;
   var tweetID = status.id_str;  
@@ -334,7 +343,7 @@ var expandURL = function(status, getInstagramData) {
 
 
 
-    debugindex1++;
+    
 
 
 
@@ -388,12 +397,12 @@ var expandURL = function(status, getInstagramData) {
             scavenge_tweet.text = text;
             scavenge_tweet.external_link = expandedURL;
             
-            getInstagramData(scavenge_tweet, expandedURL)
-              .then(function(response) {
-                console.log(debugindex1 + '  NEWS:  Promise was successful! We are about to socket emit the scavenged tweets');
-              }, function(error) {
-                console.log(debugindex1 + '  NEWS:  Promise failed!');
-              });
+            getInstagramData(scavenge_tweet, expandedURL);
+              // .then(function(response) {
+              //   console.log(debugindex1 + '  NEWS:  Promise was successful! We are about to socket emit the scavenged tweets');
+              // }, function(error) {
+              //   console.log(debugindex1 + '  NEWS:  Promise failed!');
+              // });
 
           }
 
@@ -516,7 +525,6 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
           // }
 
           }
-
 
 
         debugindex3++;
