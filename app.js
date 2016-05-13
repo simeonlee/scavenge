@@ -42,6 +42,8 @@ var pos = {
   lng: -73.9973
 }
 
+var twitterQueryTerms;
+
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
@@ -62,7 +64,7 @@ server.on('listening', onListening);
       var lng = pos.lng;
 
       // var twitterQueryTerms = ['paleo','healthy','keto','ketogenic','avocado','juice','chia','salad'];
-      var twitterQueryTerms = clientData.twitterQueryTerms;
+      twitterQueryTerms = clientData.twitterQueryTerms;
 
       // print client's geolocation
       console.log('Client geolocation: '+lat+','+lng);
@@ -228,9 +230,6 @@ var success = function (data) {
   expanded_instagram_url_arr = [];
   thumbnail_url_arr = [];
 
-  console.log('LOCATION:  We are in the success handler function of the twitter API caller');
-  console.log('');
-
   twitter_API_data = JSON.parse(data);
   var statuses = twitter_API_data.statuses;
   
@@ -240,6 +239,18 @@ var success = function (data) {
 
   // clear array of any existing elements  
   scavenge_tweets = [];
+
+  console.log('LOCATION:  We are in the success handler function of the twitter API caller');
+  console.log('NEWS:  We have returned ' + statuses.length + ' results');
+  console.log('');
+
+  // if the twitter query had keywords that were too specific and we couldn't find any results,
+  // redo the twitter search but for all instagram pics in the local vicinity so that you
+  // don't serve up an empty page
+  // we also want to show a message on the client side to the user alerting them of this
+  if (statuses.length === 0) {
+    twitterSearch(pos, search_radius, twitterQueryTerms.push('instagram'));
+  }
 
   console.log('ACTION:  Starting for loop:');
   console.log('');
