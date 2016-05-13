@@ -248,10 +248,10 @@ var success = function (data) {
   // redo the twitter search but for all instagram pics in the local vicinity so that you
   // don't serve up an empty page
   // we also want to show a message on the client side to the user alerting them of this
-  if (statuses.length === 0) {
-    twitterQueryTerms.push('instagram');
-    twitterSearch(pos, search_radius, twitterQueryTerms);
-  }
+  // if (statuses.length === 0) {
+  //   twitterQueryTerms.push('instagram');
+  //   twitterSearch(pos, search_radius, twitterQueryTerms);
+  // }
 
   console.log('ACTION:  Starting for loop:');
   console.log('');
