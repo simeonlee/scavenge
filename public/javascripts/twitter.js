@@ -8,7 +8,7 @@ var MODULE = (function (my) {
   // search for nearby healthy eating
   my.twitterQueryTerms = [
 
-    'instagram', // search for all instagram pics
+    // 'instagram', // search for all instagram pics
 
     'paleo',
     'healthy',
