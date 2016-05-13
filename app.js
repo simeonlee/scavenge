@@ -185,9 +185,10 @@ var twitterSearch = function(userGeo, search_radius, twitterQueryTerms) {
   // maximum of 100, defaults to 15
   var results_count = 25;
 
-  console.log(twitter_query);
-  console.log(geocode_input);
-  console.log(results_count);
+  console.log('Twitter Query String:  ' + twitter_query);
+  console.log('Twitter Query String Length:  ' + twitter_query.length + ' (500 char maximum)');
+  console.log('Twitter Geocode Input:  ' + geocode_input);
+  console.log('Number Of Results To Return:  ' + results_count);
 
   return twitter.getSearch({
     
@@ -314,13 +315,13 @@ var success = function (data) {
     
   }
 
-  // send data to the client anyways, no matter what happens in these loops / requests
-  setTimeout(function() {
-    console.log('10 seconds have elapsed - sending data anyways!')
+  // // send data to the client anyways, no matter what happens in these loops / requests
+  // setTimeout(function() {
+  //   console.log('10 seconds have elapsed - sending data anyways!')
 
-    // send data to client
-    io.sockets.emit('scavenge_tweets', scavenge_tweets);
-  },10000);
+  //   // send data to client
+  //   io.sockets.emit('scavenge_tweets', scavenge_tweets);
+  // },10000);
 
 };
 
