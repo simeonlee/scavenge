@@ -1136,6 +1136,13 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   and (max-device-width: 736px) 
   and (-webkit-min-device-pixel-ratio: 3) { 
 
+    #query-search-bar,
+    #google-search-bar
+    {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
     #query-add-button,
     #nav-search-button
     {
