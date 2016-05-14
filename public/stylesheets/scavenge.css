@@ -25,8 +25,6 @@ a {
 }
 
 #nav {
-  /*position: relative;*/
-  /*height: 5%;*/
   height: 50px;
   min-height: 50px;
   max-height: 50px;
@@ -35,15 +33,11 @@ a {
   margin: 0;
   padding: 0; 
   background-color: #fff; /*#3498db;*/
-  /*overflow: hidden;*/
-  /*position: relative;*/
-  /*display: table-cell;
-  vertical-align: middle;*/
+  
   border-bottom: 1px solid rgba(160,160,160,0.6);
   box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
   z-index: 1000;
-  /*display: flex;*/
-  /*box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); use shading to emphasize scroll roll*/
+  
   flex: 0 1 30px;
 
   /* used to center the logo */
@@ -1136,40 +1130,17 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   and (max-device-width: 736px) 
   and (-webkit-min-device-pixel-ratio: 3) { 
 
-    #nav
-    {
-      height: 50px;
-      min-height: 50px;
-      max-height: 50px;
-      width: 100%;
-      
-      margin: 0;
-      padding: 0; 
-      background-color: #fff; /*#3498db;*/
+    #nav {
 
-      border-bottom: 1px solid rgba(160,160,160,0.6);
-      box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
-      z-index: 1000;
-
-      flex: 0 1 30px;
-
-      /* used to center the logo */
-      display: flex; /* flexbox */
-      align-items: center; /* flexbox center vertically */
-      justify-content: center; /* flexbox center horizontally */
-
-      position: relative;
     }
 
     #query-search-bar,
-    #google-search-bar
-    {
+    #google-search-bar {
 
     }
 
     #query-add-button,
-    #nav-search-button
-    {
+    #nav-search-button {
       visibility: hidden;
     }
 

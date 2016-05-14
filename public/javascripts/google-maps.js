@@ -127,12 +127,21 @@ var MODULE = (function (my) {
     // need to add my. to initMap() to have it accessible by the callback function in the url
     // of setUpGoogleMap() which calls the my.initMap method from the document body
 
-    // if daylight, light style
-    // if nighttime, dark style
-    // by default, use light style
-    // depends on user's time and location
-    // var map_style = my.map_style_light;
-    var map_style = my.map_style_light;
+    
+
+
+    // get time of day in user's location
+    var hr = (new Date()).getHours()
+    console.log('Hour of day:  ' + hr); // 0 - 24
+    
+    // if daylight, light map style
+    // if nighttime, dark map style
+    // by default, use light
+    if (hr >= 6 && hr < 19) {
+      var map_style = my.map_style_light;
+    } else {
+      var map_style = my.map_style_dark;
+    }
 
     map = new google.maps.Map(document.getElementById('map'), {
 
