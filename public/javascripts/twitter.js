@@ -4,66 +4,9 @@ var MODULE = (function (my) {
   var tweetMarkers = [];
   var map = my.google_map;
 
-
-
-
-  
-
-  
-  // search for nearby healthy eating
-  my.twitterQueryTerms = [
-
-    'instagram', // search for all instagram pics
-
-    'paleo',
-    'healthy',
-    'keto',
-    'ketogenic',
-    'avocado',
-    'juice',
-    'juicepress',
-    'smoothies',
-    'chia',
-    'salad',
-    'salmon',
-    'organic',
-    'usdaorganic',
-    'vegan',
-    'raw',
-    'glutenfree',
-    'noGMO',
-    'eatclean',
-    'wholefoods',
-    'kale',
-    'broccoli',
-    'cucumber',
-    'ginger',
-    'protein',
-    'fiber'
-
-
-
-    // 'fitness',
-    // 'fitfam',
-    // 'fitspo',
-    // 'gym',
-    // 'crossfit',
-    // 'barre',
-    // 'yoga',
-    // 'pilates',
-    // 'lifting',
-    // 'training',
-    // 'running',
-    // 'boxing',
-    // 'sweat',
-  ];
-
-
-
   var dislike_timeout;
 
-
-  // display twitter query terms on DOM so user can customize search
+  // Display twitter query terms on DOM so user can customize search
   // prepend_bool is so that after the initial list is loaded, whenever
   // we add a new term, it adds to the top of list, not bottom
   var listQueryTerm = function(term, prepend_bool) { 
@@ -271,8 +214,7 @@ var MODULE = (function (my) {
   // to set unique identities for each tweet, we'll increment 'id'
   var id = 0;
 
-  // url of site
-  // var scavengeurl = 'http://local.simeon86.com:3000'
+  
 
 
 
@@ -743,18 +685,7 @@ var MODULE = (function (my) {
 
 
 
-  // clear the map of content in preparation for a new query
-  my.clearMarkers = function(){
-    
-    for (var i = 0; i < my.tweets.length; i++) {
-      var stale_marker = my.tweets[i].marker;
-      if (stale_marker) {
-        stale_marker.setMap(null);
-      }
-    }
-
-    console.log('Map cleared!');
-  }
+  
 
 
 

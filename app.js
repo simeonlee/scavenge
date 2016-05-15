@@ -49,11 +49,10 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-// setTimeout(function() {
   io.on('connection', function(socket) {
     // socket.emit('test emit', 'test emit');
 
-    socket.on('my geolocation', function(clientToServer) {
+    socket.on('my_geolocation', function(clientToServer) {
       
       var clientData = JSON.parse(clientToServer);
 
@@ -75,16 +74,6 @@ server.on('listening', onListening);
     });
 
   });
-// },2500);
-
-
-// io.sockets.on('my geolocation', function(userGeo) {
-//   console.log(userGeo); // returns user's geolocation
-//   console.log('this is geo');
-//   twitterSearch(userGeo);
-// });
-
-
 
 /**
  * Normalize a port into a number, string, or false.
