@@ -12,7 +12,7 @@ var MODULE = (function (my) {
   my.twitterQueryTerms = [
 
     // search for all instagram pics
-    'instagram',
+    // 'instagram',
 
     // search for healthy eating tips
     'paleo',
