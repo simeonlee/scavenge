@@ -8,9 +8,10 @@ I could be pretty happy living on Instagram salads and Instagram green juices, b
 
 ### What I Used
 
-Given that Instagram has restricted their API, this app accesses the Twitter API for recent, nearby tweets and pulls image metadata from embedded links. The application uses Node.js and is hosted using Heroku. SSL certificate required as Chrome browser recently deprecated geolocation on http (now restricted to https).
+Given that Instagram has restricted their API ([requiring a review process][instagram]), this app accesses the Twitter API for recent, nearby tweets and pulls image metadata from embedded links. The application uses Node.js and is hosted using Heroku. SSL certificate required as Chrome browser recently deprecated geolocation on http (now restricted to https).
 
 
 
-[site]: https://www.scavenge.io "Scavenge site"
 [logo]: https://github.com/simeonlee/scavenge/blob/master/public/images/scavengebird%402x.png "Scavenge logo"
+[site]: https://www.scavenge.io "Scavenge site"
+[instagram]: https://www.instagram.com/developer "Instagram developers"
