@@ -1,6 +1,6 @@
 # ![alt text][logo] Scavenge
 
-At the age of 23, it became important to me to start eating healthy. However, it was Manhattan, no one cooked, and whatever's convenient usually ends up being something unhealthy.
+At the age of 23, it finally became important to me to eat healthy. But it was Manhattan, no one cooked, and whatever's easy usually = unhealthy.
 
 I could be pretty happy living on Instagram salads and Instagram green juices, but all the people I followed were scattered around the world. I wanted to find places a tad closer to home. Like five steps out the door closer. And I didn't want to sift through pages of reviews to find solid places to make my decision - **_lazy_** - so I turned to social media with the goal of making decisions easier.
 
