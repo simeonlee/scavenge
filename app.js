@@ -1,5 +1,5 @@
 
-/* require the modules needed */
+// Require the modules needed
 var compression = require('compression');
 
 var express = require('express');
