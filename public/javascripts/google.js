@@ -33,21 +33,6 @@ var MODULE = (function (my) {
   // Array to hold our Place / Tweet markers for later operations
   var markers = [];
 
-  // After we have sent our parameters to app.js, the server will make a Twitter API Call
-  // and return tweets and related data to the client via socket below
-  socket.on('scavenge_tweets', function(data) {
-
-    // Announcement
-    console.log("'scavenge_tweets' socket is on")
-
-    // Data that contains instagram data
-    console.log(my.tweets);
-
-    // Start displaying data that we received from server on our map
-    my.markTweets(data, map);
-
-  })
-
   // Do some operations including setting up our map and walkthrough upon DOM load
   document.addEventListener("DOMContentLoaded", function() {
     
