@@ -12,7 +12,7 @@ var MODULE = (function (my) {
   my.twitterQueryTerms = [
 
     // search for all instagram pics
-    // 'instagram',
+    'instagram',
 
     // search for healthy eating tips
     'paleo',
@@ -88,20 +88,6 @@ var MODULE = (function (my) {
 
   }
 
-  // After we have sent our parameters to app.js, the server will make a Twitter API Call
-  // and return tweets and related data to the client via socket below
-  socket.on('scavenge_tweets', function(data) {
-
-    // Announcement
-    console.log("'scavenge_tweets' socket is on")
-
-    // Data that contains instagram data
-    console.log(my.tweets);
-
-    // Start displaying data that we received from server on our map
-    my.markTweets(data, map);
-
-  })
 
   // Clear the map of content in preparation for a new query
   my.clearMarkers = function(){

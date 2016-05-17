@@ -5,7 +5,6 @@
  * Expand the shortened t.co url's that Twitter replaces its external links with
  * Check if the link is related to Instagram
  * If related to Instagram, we get the photo's metadata including a url to the img
- * (without needing to access Instagram API)
  * Then we use socket.io to send all the Twitter and Instagram data back to the client
  */
 
@@ -377,13 +376,11 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
       // Instagram api link that returns some media data
       var instaAPIURL = 'https://api.instagram.com/oembed?callback=&url='+expandedURL;
 
-      // AJAX call
+      // AJAX call to get Instagram photo metadata
       request(instaAPIURL, function(err, resp, body) {
 
         console.log(' ');
         console.log(debugindex3 + '  ACTION:  Requesting data from the Instagram API');
-
-        // console.log(debugindex2 + '  ' + 'In getInstagramData\'s request function for instagram API data');
         console.log(debugindex3 + '  instaAPIurl:  ' + instaAPIURL);
 
         // Parse and set instagram data
@@ -396,11 +393,20 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
           console.log(debugindex3 + '  ERROR:  Cannot parse instagram_data');
         }
 
-        // Store the instagram thumbnail url in an array
-        var thumbnail_url = instagram_data.thumbnail_url;
-        thumbnail_url_arr.push(thumbnail_url);
-
+        // attach to scavenge_tweet
         scavenge_tweet.instagram_data = instagram_data;
+        
+        // Instagram thumbnail
+        if (instagram_data) {
+          var thumbnail_url = instagram_data.thumbnail_url;
+        }
+        
+        // Store the instagram thumbnail url in an array
+        if (thumbnail_url) {
+          thumbnail_url_arr.push(thumbnail_url);
+        } else {
+          thumbnail_url_arr.push('noinstagramurl');
+        }
         
         console.log(debugindex3);
         console.log(debugindex3 + '  ACTION:  Checking if we have unpackaged the last thumbnail_url before'+
@@ -415,9 +421,7 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
 
         // Find out if this is the last scavenge_tweet in scavenge_tweets
         if (expanded_arr_length === thumbnail_arr_length) {
-          console.log(debugindex3 + '  NEWS:  Arrived at the last tweet in the array! Time to open the socket'+
-            ' and send data to the client!');
-
+          console.log(debugindex3 + '  NEWS:  Last tweet in the array! Opening socket and sending data!');
             // Send data to client via socket.io
             io.sockets.emit('scavenge_tweets', scavenge_tweets);
         }
