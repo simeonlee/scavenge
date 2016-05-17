@@ -6,7 +6,7 @@ I could be pretty happy living on Instagram salads and Instagram green juices, b
 
 [Scavenge][site] accomplishes this by serving up Instagram images automatically related to healthy eating on a map of your neighborhood with no clicking through links required. You can also search for any other topic(s) in any location.
 
-
+### What I Used
 
 Given that Instagram has restricted their API, this app accesses the Twitter API for recent, nearby tweets and pulls image metadata from embedded links. The application uses some Node.js and npm and is hosted using Heroku. SSL certificate required as Chrome browser recently deprecated geolocation on http (now restricted to https).
 
