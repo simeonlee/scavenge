@@ -352,9 +352,6 @@ var MODULE = (function (my) {
         // Doing some action like 'liking' them or clicking on the marker will stop the bouncing
         marker.setAnimation(google.maps.Animation.BOUNCE);
 
-        // Add listener
-        marker.infowindowCloseClick();
-
         /* 
          * Use 'this' instead of 'marker' in this function to point to the right marker
          *
@@ -399,6 +396,9 @@ var MODULE = (function (my) {
             this.state = false; // referring to 'infowindow'
           });
         }
+
+        // Add listener
+        marker.infowindowCloseClick();
         
         // When you click on the marker, toggle the bounce animation on/off
         marker.addListener('click', function() {
