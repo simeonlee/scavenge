@@ -22,9 +22,9 @@ Given that Instagram has restricted their API ([requiring a review process][inst
 * Responsive CSS for phone and tablet devices
 * Provide 'recommended' queries such as 'politics', 'trending', 'fitness', etc.
 
-### About Me
+### Author
 
-Scavenge was built by Simeon Lee as part of the [Hack Reactor][hackreactor] admissions process.
+Scavenge was built by [Simeon Lee][linkedin] as part of the [Hack Reactor][hackreactor] admissions process.
 
 [logo]: https://github.com/simeonlee/scavenge/blob/master/public/images/scavengebird%402x.png "Scavenge logo"
 [site]: https://www.scavenge.io "Scavenge site"
@@ -35,3 +35,4 @@ Scavenge was built by Simeon Lee as part of the [Hack Reactor][hackreactor] admi
 [heroku]: https://www.heroku.com "Heroku"
 [deprecated]: https://developers.google.com/web/updates/2016/04/geolocation-on-secure-contexts-only "Deprecated"
 [hackreactor]: http://www.hackreactor.com "Hack Reactor"
+[linkedin]: https://www.linkedin.com/in/simeonhlee "LinkedIn profile"
