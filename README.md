@@ -1,10 +1,10 @@
 # ![alt text][logo] Scavenge
 
-It's 2016 and healthy eating is in. If you're craving beautiful Instagram salads and Instagram green juices, but the people you follow are nowhere near you, how are you going to live your Instagram-worthy life? Instead of sifting through pages of Yelp reviews to find snacks worthy of your mouth, let Scavenge do the legwork!
+It's 2016 and healthy eating is in. If you're craving beautiful Instagram salads and Instagram green juices but the people in your feed are nowhere near you, how are you going to live your Instagram-worthy life? Instead of sifting through pages of Yelp reviews to find snacks worthy of your mouth, let Scavenge do the legwork!
 
 [Scavenge][site] changes your life by serving up Instagram pics related to healthy eating on a map of your neighborhood with no clicking required. Immediately see what people in your current area are posting pics of and how far away they are!
 
-Oh, and the site can search for any other topic all over the world. But kale!
+Then, after you get your juice, search for any other topic all over the world!
 
 ### Resources
 
