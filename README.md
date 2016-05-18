@@ -4,7 +4,7 @@ It's 2016 and healthy eating is in. If you're craving beautiful Instagram salads
 
 [Scavenge][site] changes your life by serving up Instagram pics related to healthy eating on a map of your neighborhood with no clicking required. Immediately see what people in your current area are posting pics of and how far away they are!
 
-Then, after you get your juice, search for any other topic all over the world!
+Then, after you get your [Sweet Green][sweetgreen], search for any other topic all over the world!
 
 ### Resources
 
@@ -28,6 +28,7 @@ Scavenge was built by [Simeon Lee][linkedin] as part of the [Hack Reactor][hackr
 
 [logo]: https://github.com/simeonlee/scavenge/blob/master/public/images/scavengebird%402x.png "Scavenge logo"
 [site]: https://www.scavenge.io "Scavenge site"
+[sweetgreen]: http://www.sweetgreen.com "sweetgreen site"
 [instagram]: https://www.instagram.com/developer "Instagram API"
 [twitter]: https://dev.twitter.com "Twitter API"
 [google]: https://developers.google.com/maps "Google API"
