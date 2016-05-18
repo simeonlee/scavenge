@@ -91,11 +91,12 @@ var MODULE = (function (my) {
     
     // If daytime, light map style
     // If nighttime, dark map style
-    if (hr >= 6 && hr < 19) {
-      var map_style = my.map_style_light;
-    } else {
-      var map_style = my.map_style_dark;
-    }
+    // if (hr >= 6 && hr < 19) {
+    //   var map_style = my.map_style_light;
+    // } else {
+    //   var map_style = my.map_style_dark;
+    // }
+    var map_style = my.map_style_light;
 
     map = new google.maps.Map(document.getElementById('map'), {
 
