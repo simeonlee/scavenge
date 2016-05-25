@@ -32,10 +32,10 @@ a {
   
   margin: 0;
   padding: 0; 
-  background-color: #fff; /*#3498db;*/
+  background-color: rgba(40,40,40,1.0);
   
-  border-bottom: 1px solid rgba(160,160,160,0.6);
-  box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
+  /*border-bottom: 1px solid rgba(100,100,100,1.0);*/
+  box-shadow: 0 0px 4px rgba(120, 120, 120, 0.6);
   z-index: 1000;
   
   flex: 0 1 30px;
@@ -45,7 +45,7 @@ a {
   align-items: center; /* flexbox center vertically */
   /*justify-content: center; /* flexbox center horizontally */
 
-  position: relative;
+  position: absolute;
 }
 
 #nav-logo {
@@ -88,10 +88,11 @@ a {
 
   width: 200px;
 
-  border: 1px solid #5F9FEA;
+  /*border: 1px solid #5F9FEA;*/
+  border: 1px solid white;
   border-radius: 3px;
   
-  box-shadow: inset 0px 0px 2px rgba(178, 178, 178, 0.6);
+  /*box-shadow: inset 0px 0px 2px rgba(178, 178, 178, 0.6);*/
 
   background-color: #fff;
   text-overflow: ellipsis; /* ... */
@@ -148,22 +149,33 @@ a {
   background-color: #5083C0;
 }
 
-#list-map-container {
+#body-container {
   height: 100%;
   width: 100%;
   margin: 0;
+  padding: 50px 0 0 0;
+  position: absolute;
+}
+
+#grid-container {
+  height: 100%;
+  width: 30%;
+  margin: 0;
   padding: 0;
-  /*margin-top: 50px;*/
-  /*margin-bottom: 0;*/
-  overflow: hidden;
+  float: left;
   position: relative;
-  /*margin-top: 50px;
-  margin-bottom: 0;*/
-  /*width: 100%;*/
-  /*margin: 0;
-  padding: 0;*/
-  flex: 1 1 auto;
+  background-color: rgba(30,30,30,1.0);
+}
+
+#map-container {
+  height: 100%;
+  width: 55%;
+  margin: 0;
+  padding: 0;
+  float: right;
   position: relative;
+  /*overflow: hidden;
+  flex: 1 1 auto;*/
 }
 
 #remove-all {
@@ -175,36 +187,32 @@ a {
 
   border: 1px solid #5F9FEA;
   background-color: #5F9FEA;
-  border-radius: 0 3px 3px 0;
+  border-radius: 2px;
   
   font-weight: 300;
   color: white;
   font-size: 12px;
 
-
-  margin: 0;
+  margin: 0 4%;
   padding: 4px 6px;
 
-  width: 134px;
-
+  width: 92%;
 }
 
 #remove-all:active {
   background-color: red;
 }
 
-#list {
+#list-container {
   height: 100%;
-  /*height: 95%;*/
-  /*width: 188px;*/
-  
-  /*float: left;*/
+  width: 15%;
+  background-color: rgba(40,40,40,1.0);
   padding: 0;
   margin: 0;
-  position: absolute;
+  position: relative;
+  float: left;
   z-index: 20;
   overflow: hidden;
-
 }
 
 /*The fourth property there -2px is the shadow spread, you can use it to change the spread of the shadow, making it appear that the shadow is on one side only.
@@ -213,7 +221,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 
 5px is the blur radius :)*/
 
-#list ul {
+#list-container ul {
   height: 100%;
   width: 100%;
   overflow: hidden;
@@ -225,11 +233,11 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 
 
 
-#list ul::-webkit-scrollbar { 
+#list-container ul::-webkit-scrollbar { 
   display: none;
 }
 
-#list ul li {
+#list-container ul li {
   /*height: 65px;
   min-height: 65px;
   max-height: 65px;*/
@@ -242,11 +250,11 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   position: relative;
 }
 
-#list ul .place-li {
+#list-container ul .place-li {
   
 }
 
-#list ul .tw-li {
+#list-container ul .tw-li {
   /*display: inline-block;*/
   /*position: relative;*/
   /*height: 85px;*/
@@ -474,15 +482,15 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 }
 
 .term-li {
-  border-top: 1px solid rgba(255,255,255,1.0);
-  border-right: 1px solid rgba(255,255,255,1.0);
-  border-bottom: 1px solid rgba(255,255,255,1.0);
+  /*border-top: 1px solid rgba(255,255,255,1.0);*/
+  /*border-right: 1px solid rgba(255,255,255,1.0);*/
+  /*border-bottom: 1px solid rgba(255,255,255,1.0);*/
 
   background-color: rgba(255,255,255,0.6);
-  border-radius: 0 3px 3px 0;
-  margin: 8px 0;
+  /*border-radius: 0 3px 3px 0;*/
+  margin: 4px 0;
   padding: 4px 6px;
-  width: 120px;
+  width: 100%;
 
   /* used to center the logo */
   display: flex; /* flexbox */
@@ -491,13 +499,14 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 }
 
 /* push the first list item down further so that it shows up below 'remove-all' button */
-#list ul li:first-child {
-  margin: 41px 0 8px 0;
+#list-container ul li:first-child {
+  margin: 42px 0 4px 0;
 }
 
 .term-div {
   font-weight: 300;
-  color: #5F9FEA;
+  /*color: #5F9FEA;*/
+  color: white;
   font-size: 12px;
   margin: 0;
   padding: 0;
@@ -531,8 +540,8 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 .query-dislike-img:active {
   background-color: white;
 }
-.emptyheart {
-  
+
+.emptyheart {  
   /* if you are going to change height and width, make sure you change the size of the image asset itself */
   height: 14px;
   width: 14px;
@@ -975,7 +984,35 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   filter: alpha(opacity=100); /* For IE8 and earlier */
 }
 
+.grid {
+  overflow: hidden;
+  margin: 0;
+  padding: 4px;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
 
+.grid-sizer,
+.grid-item {
+  float: left;
+  width: 50%;
+  /*height: 200px;*/
+  /*border: 1px solid rgba(255,255,255,1.0);*/
+  padding: 4px;
+}
+
+.grid-sizer {
+  display: none;
+}
+
+.grid-image {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  margin: 0;
+  padding: 0;
+}
 
 
 
@@ -1015,6 +1052,10 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   }
 
 }
+
+
+
+
 
 
 

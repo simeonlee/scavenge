@@ -242,11 +242,11 @@ var MODULE = (function (my) {
 
       // Calculate the time since each tweet using our calculateSince function
       var timestamp = tweet.timestamp;
-      var timeSince = calculateSince(timestamp);
+      var timeSince = my.calculateSince(timestamp);
 
       // If there is a geolocation associated with the tweet (usually there is for Twitter API), calculate distance
       if (tweet.latLng) {
-        var distance = calculateDistance(my.pos.lat, my.pos.lng, tweet.latLng.lat, tweet.latLng.lng);
+        var distance = my.calculateDistance(my.pos.lat, my.pos.lng, tweet.latLng.lat, tweet.latLng.lng);
       }
 
       var latLng = tweet.latLng;
@@ -470,7 +470,7 @@ var MODULE = (function (my) {
 
 
   // Calculates the time since the tweet was created
-  function calculateSince(datetime) {
+  my.calculateSince = function(datetime) {
       
       var tTime = new Date(datetime);
       var cTime = new Date();
@@ -516,7 +516,7 @@ var MODULE = (function (my) {
 
 
   // Calculates the distance between the user's geolocation and the tweet's geolocation
-  var calculateDistance = function(lat1, lng1, lat2, lng2, unit) {
+  my.calculateDistance = function(lat1, lng1, lat2, lng2, unit) {
     var radlat1 = Math.PI * lat1/180
     var radlat2 = Math.PI * lat2/180
     var theta = lng1-lng2

@@ -15,6 +15,14 @@
 		<!-- Socket.io CDN -->
 		<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 
+		<!-- Bootstrap CDN -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+		<!-- Masonry CDN -->
+		<script src="https://npmcdn.com/masonry-layout@4.0/dist/masonry.pkgd.js"></script>
+
+		
+		<script src="javascripts/grid.js"></script>
 		<script src="javascripts/scavenge.js"></script>
 		<script src="javascripts/google.js"></script>
 		<script src="javascripts/twitter.js"></script>
@@ -26,6 +34,7 @@
 	</head>
 	<body>
 		<div id="container">
+
 			<div id="nav">
 				<div id="nav-logo" class="logo">
 					<a href="/" title="home">
@@ -40,13 +49,25 @@
 				</div>
 				<!-- <input id="pac-input" class="controls" type="text" placeholder="Scavenge"> -->
 			</div>
-			<div id="list-map-container">
-				<input id="remove-all" type="button" value="Clear Search Terms">
-				<div id="list">
+
+			<div id="body-container">	
+				
+				<div id="list-container">
+					<input id="remove-all" type="button" value="Clear Search Terms">
 					<ul id="list-ul"></ul>
 				</div>
-				<div id="map"></div>
+
+				<div id="grid-container">
+					<div class="grid">
+						<div class="grid-sizer"></div>
+					</div>
+				</div>
+
+				<div id="map-container">
+					<div id="map"></div>
+				</div>
 			</div>
-		</div>	
+
+		</div>
 	</body>
 </html>

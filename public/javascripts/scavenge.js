@@ -70,6 +70,9 @@ var MODULE = (function (my) {
     // Clear existing content on the map in preparation for new content
     my.clearMarkers();
 
+    // clear grid of images
+    my.clearGrid();
+
     // Set up object with the relevant data that we need to send to server to ask API's to search for data
     my.client_to_server = {
       pos: pos,

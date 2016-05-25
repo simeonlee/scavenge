@@ -43,6 +43,8 @@ var MODULE = (function (my) {
     // Start displaying data that we received from server on our map
     my.markTweets(data, map);
 
+    my.showImagesOnGrid(data);
+
   })
 
   // Do some operations including setting up our map and walkthrough upon DOM load
@@ -96,7 +98,7 @@ var MODULE = (function (my) {
     // } else {
     //   var map_style = my.map_style_dark;
     // }
-    var map_style = my.map_style_light;
+    var map_style = my.map_style_dark;
 
     map = new google.maps.Map(document.getElementById('map'), {
 
@@ -104,7 +106,7 @@ var MODULE = (function (my) {
       center: defaultLocation,
       
       // Zoom the map to neighborhood level of detail
-      zoom: 16,
+      zoom: 15,
       
       // No terrain view or satellite view
       mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -173,7 +175,7 @@ var MODULE = (function (my) {
       } else {
 
         map.setCenter(place.geometry.location);
-        map.setZoom(16);
+        map.setZoom(15);
 
       }
 
@@ -221,8 +223,8 @@ var MODULE = (function (my) {
       // Stop animation or reanimate the marker once you click on it
       marker.addListener('click', function() {
         
-        // Reset the zoom to starting 16
-        map.setZoom(16);
+        // Reset zoom
+        map.setZoom(15);
 
         // Bounce on / off
         if (marker.getAnimation() !== null) {
@@ -288,8 +290,8 @@ var MODULE = (function (my) {
 
         marker.addListener('click', function() {
           
-          // reset the zoom to starting 16
-          map.setZoom(16);
+          // Reset zoom
+          map.setZoom(15);
 
           // bounce toggle on / off
           if (marker.getAnimation() !== null) {
@@ -338,6 +340,7 @@ var MODULE = (function (my) {
     });
 
   }
+  
   
   return my;
 }(MODULE || {}));
