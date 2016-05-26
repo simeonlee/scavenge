@@ -861,7 +861,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   font-style: italic;
   font-size: 8px;
   float: right;
-  margin: 4px 0 0;
+  margin: 4px 10px 0 0;
   padding: 0;
 }
 
