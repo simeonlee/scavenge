@@ -115,13 +115,53 @@ var MODULE = (function (my) {
         var image_width = $image.width();
         $image.css({'height': image_width+'px'});
 
-
-
         // set center of map on coordinates of image
         $grid_item.mouseover(function(event){
-          my.google_map.setCenter(latLng);
-        })
 
+          var map = my.google_map;
+
+          // get the corners of the map at the current zoom so we can calculate relative size
+          var ne = map.getBounds().getNorthEast();
+          var sw = map.getBounds().getSouthWest();
+
+          // get new, adjusted coordinates
+          var newLat = latLng.lat + 0.25*(ne.lat() - sw.lat());
+          var lng = latLng.lng;
+
+          // set map center at new, adjusted coordinates so that the image is centered, not the marker
+          map.setCenter(new google.maps.LatLng(newLat,lng));
+
+          for (var i = 0; i < my.tweets.length; i++) {
+            
+            // open the selected infowindow
+            if (tweetID === my.tweets[i].tweetID) {
+              console.log('Identified!');
+
+              var marker = my.tweets[i].marker;
+              marker.setAnimation(google.maps.Animation.BOUNCE);
+
+              var infowindow = marker.infowindow;
+              infowindow.open(my.google_map, marker);
+
+              // true = 'I am currently open'
+              infowindow.state = true;
+            }
+
+            // close all other infowindows
+            if (tweetID != my.tweets[i].tweetID) {
+              var marker = my.tweets[i].marker;
+              if (marker) {
+                marker.setAnimation(null);
+
+                var infowindow = marker.infowindow;
+                infowindow.close();
+
+                // false = 'I am currently not open'
+                infowindow.state = false;
+              }
+            }
+          }
+        })
 
 
 

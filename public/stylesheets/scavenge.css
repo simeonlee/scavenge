@@ -667,7 +667,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 /* styling of infowindow for each tweet */
 
 .gm-style-iw {
-  width: 175px !important;
+  width: 200px !important;
   top: 15px !important; /* move the infowindow 15px down */
   left: 0 !important;
   background-color: rgba(255, 255, 255, 0.9);
@@ -786,7 +786,8 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 }
 
 .iw-body {
-  margin: 4px 6px 0;
+  margin: 4px 0 0;
+  padding: 0;
 }
 
 .iw-tweet {
@@ -851,7 +852,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 }
 
 .iw-external-img {
-  width: 175px;
+  width: 200px;
   border-radius: 2px 2px 0 0;
 }
 
@@ -860,7 +861,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   font-style: italic;
   font-size: 8px;
   float: right;
-  margin: 4px 6px 0 0;
+  margin: 4px 0 0;
   padding: 0;
 }
 

@@ -320,13 +320,15 @@ var MODULE = (function (my) {
           '</div>'+
 
           '<div class="iw-body">'+
+
           '<div class="iw-username-div"><a href="'+userURL+'" target="_blank" class="iw-username">'+username+'</a></div>'+
           '<div class="iw-tweet"><a href="'+tweetURL+'" target="_blank" >'+text+'</a></div>'+
-          '</div>'+
 
           '<p class="iw-time">'+time_and_distance+'</p>'+
           '<img src="../images/instagramlogo.png" class="iw-ig-camera">'+
           '<img src="../images/twitterbird.png" class="iw-tw-bird">'+
+
+          '</div>'+
 
           '</div>'
 
@@ -334,7 +336,7 @@ var MODULE = (function (my) {
         var infowindow = new google.maps.InfoWindow({
           content: iwContent,
           disableAutoPan: true, // prevent map from moving around to each infowindow - spastic motion
-          maxWidth: 175 // width of the card - also change .gm-style-iw width in css
+          maxWidth: 200 // width of the card - also change .gm-style-iw width in css
         });
 
         // Attach to marker variable
@@ -346,7 +348,7 @@ var MODULE = (function (my) {
         // About 'state':
         // true = 'I am currently open'
         // false = 'I am currently not open'
-        marker.infowindow.state = true; 
+        marker.infowindow.state = true;
 
         // Have the markers be bouncing upon load to signal that they are pending discovery
         // Doing some action like 'liking' them or clicking on the marker will stop the bouncing
@@ -449,7 +451,7 @@ var MODULE = (function (my) {
           iwCloseBtn.css({
             opacity: '1.0', // by default the close button has an opacity of 0.7
             position: 'absolute',
-            right: '54px', top: '24px', // button repositioning
+            right: '62px', top: '24px', // button repositioning
             content: 'url("../images/closebutton@2x.png")',
             height: '15px', width: '15px'
           });
