@@ -26,6 +26,7 @@
 		<script src="javascripts/scavenge.js"></script>
 		<script src="javascripts/google.js"></script>
 		<script src="javascripts/twitter.js"></script>
+		<script src="javascripts/list.js"></script>
 		<script src="javascripts/map-styles/map-style-light.js"></script>
 		<script src="javascripts/map-styles/map-style-dark.js"></script>
 
@@ -36,25 +37,36 @@
 		<div id="container">
 
 			<div id="nav">
+				
+				<div id="list-arrow">
+					<span class="glyphicon glyphicon-chevron-left"></span>
+				</div>
+
 				<div id="nav-logo" class="logo">
 					<a href="/" title="home">
 						<img src='./images/scavengelogo@2x.png' alt='scavenge' id='nav-logo-img'>
 					</a>
 				</div>
-				<div id="search">
-					<input class="nav-search nav-search-bar" id="query-search-bar" type="text" placeholder="Add Search Term">
-					<input class="nav-search nav-button" id="query-add-button" type="button" value=" ">
+				<!-- <div id="search"> -->
+					
 					<input class="nav-search nav-search-bar" id="google-search-bar" type="text" placeholder="Location">
-					<input class="nav-search nav-button" id="nav-search-button" type="button" value=" ">
-				</div>
+					<!-- <input class="nav-search nav-button" id="nav-search-button" type="button" value=" "> -->
+				<!-- </div> -->
 				<!-- <input id="pac-input" class="controls" type="text" placeholder="Scavenge"> -->
 			</div>
 
 			<div id="body-container">	
 				
 				<div id="list-container">
-					<input id="remove-all" type="button" value="Clear Search Terms">
+
+					
+
+					<input class="nav-search nav-search-bar" id="query-search-bar" type="text" placeholder="Add Search Term">
+					<!-- <input class="nav-search nav-button" id="query-add-button" type="button" value=" "> -->
+
+					
 					<ul id="list-ul"></ul>
+					<input id="remove-all" type="button" value="Clear Search Terms">
 				</div>
 
 				<div id="grid-container">

@@ -94,13 +94,13 @@ var MODULE = (function (my) {
         var grid_image_id = 'grid-image-'+index;
 
 				var $grid_item = $('<div>', {id: 'grid_item_id', class: 'grid-item'});
-				var $image_link = $('<a>', {href: external_link, target: '_blank'});
+				// var $image_link = $('<a>', {href: external_link, target: '_blank'});
         var $image = $('<div>', {id: 'grid_image_id', class: 'grid-image'});
 
         image_arr.push($image);
         
-				$image_link.append($image);
-				$grid_item.append($image_link);
+				// $image_link.append($image);
+				$grid_item.append($image);
 				$('.grid').append($grid_item);
         
         $image.css({
@@ -115,8 +115,26 @@ var MODULE = (function (my) {
         var image_width = $image.width();
         $image.css({'height': image_width+'px'});
 
-        // set center of map on coordinates of image
+        // change to pointer hand signifying clickable event
         $grid_item.mouseover(function(event){
+          $grid_item.css({
+            'cursor': 'pointer'
+          });
+        });
+
+        // set center of map on coordinates of image
+        $grid_item.click(function(event){
+
+          // clear all outlines
+          $('.grid-image').css({
+            'outline': 'none'
+          })
+
+          // outline the selected image in our grid
+          $image.css({
+            'outline-color': 'white',
+            'outline-style': 'solid'
+          });
 
           var map = my.google_map;
 

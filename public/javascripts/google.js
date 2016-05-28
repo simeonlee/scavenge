@@ -60,9 +60,9 @@ var MODULE = (function (my) {
 
     // If you click the search button (magnifying glass in top right),
     // search for more content in your current location
-    document.getElementById('nav-search-button').onclick = function(){
-      my.setAndSendDataToServer(my.pos, my.search_radius, my.twitterQueryTerms);
-    }
+    // document.getElementById('nav-search-button').onclick = function(){
+    //   my.setAndSendDataToServer(my.pos, my.search_radius, my.twitterQueryTerms);
+    // }
     
   });
 

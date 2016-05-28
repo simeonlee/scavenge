@@ -60,14 +60,14 @@ a {
 
 /* div */
 #search {
-  position: absolute;
+/*  position: absolute;
   
   right: 10%;
   top: 12px;
   bottom: 0;
 
   margin: 0;
-  padding: 0;
+  padding: 0;*/
 }
 
 .nav-search {
@@ -82,11 +82,19 @@ a {
   outline: none;
 }
 
-.nav-search-bar {
+#google-search-bar {
+  position: absolute;
+  
+  right: 10%;
+  top: 12px;  
+
+  /*margin: 0;
+  padding: 0;*/
+
   margin: 0;
   padding: 4px 7px;
 
-  width: 200px;
+  width: 25%;
 
   /*border: 1px solid #5F9FEA;*/
   border: 1px solid white;
@@ -99,7 +107,48 @@ a {
 }
 
 #query-search-bar {
+  margin: 6px 4%;
+  padding: 4px 6px;
 
+  width: 92%;
+  /*top: 8px;
+  left: 0px;
+  position: absolute;*/
+
+  /*border: 1px solid #5F9FEA;*/
+  border: 1px solid white;
+  border-radius: 3px;
+  
+  /*box-shadow: inset 0px 0px 2px rgba(178, 178, 178, 0.6);*/
+
+  background-color: #fff;
+  text-overflow: ellipsis; /* ... */
+}
+
+#remove-all {
+  bottom: 6px;
+  left: 0px;
+  z-index: 1200;
+  position: absolute;
+
+
+  border: 1px solid #5F9FEA;
+  background-color: #5F9FEA;
+  border-radius: 2px;
+  
+  font-weight: 300;
+  color: white;
+  font-size: 12px;
+
+  margin: 0 4%;
+  padding: 4px 6px;
+
+  width: 92%;
+}
+
+#remove-all:hover {
+  background-color: red;
+  border: 1px solid red;
 }
 
 #google-search-bar {
@@ -155,6 +204,7 @@ a {
   margin: 0;
   padding: 50px 0 0 0;
   position: absolute;
+  background-color: rgba(30,30,30,1.0);
 }
 
 #grid-container {
@@ -173,34 +223,9 @@ a {
   margin: 0;
   padding: 0;
   float: right;
-  position: relative;
-  /*overflow: hidden;
-  flex: 1 1 auto;*/
-}
-
-#remove-all {
-  top: 8px;
-  left: 0px;
-  z-index: 1001;
   position: absolute;
-
-
-  border: 1px solid #5F9FEA;
-  background-color: #5F9FEA;
-  border-radius: 2px;
-  
-  font-weight: 300;
-  color: white;
-  font-size: 12px;
-
-  margin: 0 4%;
-  padding: 4px 6px;
-
-  width: 92%;
-}
-
-#remove-all:active {
-  background-color: red;
+  top: 0;
+  right: 0;
 }
 
 #list-container {
@@ -232,22 +257,83 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 }
 
 
-
 #list-container ul::-webkit-scrollbar { 
   display: none;
 }
 
-#list-container ul li {
-  /*height: 65px;
-  min-height: 65px;
-  max-height: 65px;*/
+/* search terms in list... equal to '#list-container ul li' */
+.term-li {
+  background-color: rgba(120,120,120,0.6);
+  margin: 6px 4%;
+  padding: 4px 6px;
+  width: 100%;
+
+  display: flex; /* flexbox */
+  align-items: center; /* flexbox center vertically */
   list-style-type: none;
 
-  /*background-color: rgba(255,255,255,0.9);*/
-  /*padding: 0px;
-  margin: 24px 0;*/
-
   position: relative;
+
+  /*margin: 8px 4%;
+  padding: 4px 6px;*/
+
+  width: 92%;
+  /*top: 8px;
+  left: 0px;
+  position: absolute;*/
+
+  /*border: 1px solid #5F9FEA;*/
+  /*border: 1px solid white;*/
+  border-radius: 3px;
+  
+  /*box-shadow: inset 0px 0px 2px rgba(178, 178, 178, 0.6);*/
+
+  /*background-color: #fff;*/
+  text-overflow: ellipsis; /* ... */
+}
+
+#list-container ul li {
+
+}
+
+/* push the first list item down further so that it shows up below 'remove-all' button */
+#list-container ul li:first-child {
+  margin-top: 0;
+}
+
+.term-div {
+  font-weight: 300;
+  /*color: #5F9FEA;*/
+  color: white;
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+  text-overflow: ellipsis; /* ... */
+  /*width: 100px;*/
+  display: inline-block;
+  
+
+  /*float: left;*/
+  -webkit-align-self: flex-start;
+  align-self: flex-start;
+}
+
+.query-dislike-div {
+
+}
+
+.query-dislike-img {
+  /*float: right;*/
+  
+  margin: 0 0 0 auto;
+  padding: 0;
+  
+  
+  height: 10px;
+}
+
+.query-dislike-img:active {
+  background-color: white;
 }
 
 #list-container ul .place-li {
@@ -479,66 +565,6 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   /*right: 0;*/
   float: right;
   /*position: relative;*/
-}
-
-.term-li {
-  /*border-top: 1px solid rgba(255,255,255,1.0);*/
-  /*border-right: 1px solid rgba(255,255,255,1.0);*/
-  /*border-bottom: 1px solid rgba(255,255,255,1.0);*/
-
-  background-color: rgba(255,255,255,0.6);
-  /*border-radius: 0 3px 3px 0;*/
-  margin: 4px 0;
-  padding: 4px 6px;
-  width: 100%;
-
-  /* used to center the logo */
-  display: flex; /* flexbox */
-  align-items: center; /* flexbox center vertically */
-
-}
-
-/* push the first list item down further so that it shows up below 'remove-all' button */
-#list-container ul li:first-child {
-  margin: 42px 0 4px 0;
-}
-
-.term-div {
-  font-weight: 300;
-  /*color: #5F9FEA;*/
-  color: white;
-  font-size: 12px;
-  margin: 0;
-  padding: 0;
-  text-overflow: ellipsis; /* ... */
-  /*width: 100px;*/
-  display: inline-block;
-  
-
-  /*float: left;*/
-  -webkit-align-self: flex-start;
-  align-self: flex-start;
-}
-
-.query-dislike-div {
-
-}
-
-
-
-.query-dislike-img {
-  /*float: right;*/
-  
-  margin: 0 0 0 auto;
-  padding: 0;
-  
-  
-  height: 10px;
-}
-
-
-.query-dislike-img:active {
-  background-color: white;
 }
 
 .emptyheart {  
@@ -1013,6 +1039,15 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   background-color: white;
   margin: 0;
   padding: 0;
+}
+
+#list-arrow {
+  margin: 0;
+  padding: 0;
+  left: 8px;
+  top: 16px;
+  position: absolute;
+  color: white;
 }
 
 

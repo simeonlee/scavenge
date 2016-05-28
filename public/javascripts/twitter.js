@@ -60,11 +60,11 @@ var MODULE = (function (my) {
     }
 
     // Same functionality so that user can add query terms by pressing the blue 'plus' button
-    query_add_button.onclick = function(){
+    // query_add_button.onclick = function(){
 
-      addTermAndResetSearch(query_search_bar);
+    //   addTermAndResetSearch(query_search_bar);
 
-    }    
+    // }
     
   });
 
