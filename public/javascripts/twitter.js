@@ -34,7 +34,10 @@ var MODULE = (function (my) {
     document.getElementById('remove-all').onclick=function(){
 
       // Clear list in DOM using jQuery
-      $("#list-ul").empty();
+      $('#list-ul').empty();
+
+      // put cursor automatically in query search bar so you can start adding new terms immediately
+      $('#query-search-bar').focus();
 
       // Call a function that clears our my.twitterQueryTerms array
       removeAllTwitterQueryTerms();
@@ -93,7 +96,7 @@ var MODULE = (function (my) {
     var dislike_img = document.createElement("img");
     dislike_img.setAttribute("src", "../images/dislike@2x.png");
     dislike_img.className = "query-dislike-img";
-    dislike_img.id = term+"-dislike-img"      
+    dislike_img.id = term+"-dislike-img";
 
 
     // Create <li> item to hold the <div> we just created so we can attach to the <ul> on index.html
@@ -319,16 +322,16 @@ var MODULE = (function (my) {
           '</a>'+
           '</div>'+
 
-          '<div class="iw-body">'+
+          // '<div class="iw-body">'+
 
-          '<div class="iw-username-div"><a href="'+userURL+'" target="_blank" class="iw-username">'+username+'</a></div>'+
-          '<div class="iw-tweet"><a href="'+tweetURL+'" target="_blank" >'+text+'</a></div>'+
+          // '<div class="iw-username-div"><a href="'+userURL+'" target="_blank" class="iw-username">'+username+'</a></div>'+
+          // '<div class="iw-tweet"><a href="'+tweetURL+'" target="_blank" >'+text+'</a></div>'+
 
-          '<p class="iw-time">'+time_and_distance+'</p>'+
-          '<img src="../images/instagramlogo.png" class="iw-ig-camera">'+
-          '<img src="../images/twitterbird.png" class="iw-tw-bird">'+
+          // '<p class="iw-time">'+time_and_distance+'</p>'+
+          // '<img src="../images/instagramlogo.png" class="iw-ig-camera">'+
+          // '<img src="../images/twitterbird.png" class="iw-tw-bird">'+
 
-          '</div>'+
+          // '</div>'+
 
           '</div>'
 

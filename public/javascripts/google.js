@@ -341,6 +341,27 @@ var MODULE = (function (my) {
 
   }
   
+  my.overlayTextOnMap = function(text, class_name, external_link) {
+    console.log(text);
+
+    $('.erase-'+class_name).each(function(){
+      var $this = $(this);
+      $this.hide();
+    });
+
+    var $map = $('#map-container');
+    var $link = $('<a>', {href: external_link, target: '_blank'});
+    var $div = $('<div>', {class: class_name+' erase-'+class_name});
+    
+    $div.html(text);
+    $link.append($div);
+    $map.append($link);
+
+    return false;
+  }
+
+
+
   
   return my;
 }(MODULE || {}));

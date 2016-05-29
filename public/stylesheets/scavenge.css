@@ -131,9 +131,8 @@ a {
   z-index: 1200;
   position: absolute;
 
-
-  border: 1px solid #5F9FEA;
-  background-color: #5F9FEA;
+  border: 1px solid rgba(217,83,79,1.0); /* 'Danger' red: #d9534f */
+  background-color: rgba(217,83,79,1.0);
   border-radius: 2px;
   
   font-weight: 300;
@@ -147,8 +146,8 @@ a {
 }
 
 #remove-all:hover {
-  background-color: red;
-  border: 1px solid red;
+  border: 1px solid rgba(217,83,79,0.8);
+  background-color: rgba(217,83,79,0.8);
 }
 
 #google-search-bar {
@@ -330,6 +329,10 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   
   
   height: 10px;
+}
+
+.query-dislike-img:hover {
+  opacity: 0.8;
 }
 
 .query-dislike-img:active {
@@ -812,7 +815,8 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 }
 
 .iw-body {
-  margin: 4px 0 0;
+  /*margin: 4px 0 0;*/
+  margin: 0;
   padding: 0;
 }
 
@@ -878,8 +882,10 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 }
 
 .iw-external-img {
+  margin: 0;
+  padding: 0;
   width: 200px;
-  border-radius: 2px 2px 0 0;
+  border-radius: 2px;
 }
 
 .iw-time {
@@ -887,7 +893,7 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   font-style: italic;
   font-size: 8px;
   float: right;
-  margin: 4px 10px 0 0;
+  margin: 0;
   padding: 0;
 }
 
@@ -1051,6 +1057,45 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 }
 
 
+.map-username-overlay {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-weight: 300;
+  color: white;
+  z-index: 1400;
+  position: absolute;
+  top: 58px;
+  left: 12px;
+}
+
+.map-text-overlay {
+  margin: 0 10%;
+  padding: 0;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 300;
+  color: white;
+  text-shadow: 2px 0 2px #000, 0 -2px 2px #000, 0 2px 2px #000, -2px 0 2px #000;
+  /* text-shadow: h-shadow v-shadow blur-radius color|none|initial|inherit */
+  /* separate by commas to add more than one shadow to text */
+  z-index: 1400;
+  position: absolute;
+  bottom: 16%;
+}
+
+.map-time-distance-overlay {
+  margin: 0;
+  padding: 0;
+  font-size: 10px;
+  font-weight: 100;
+  color: white;
+  z-index: 1400;
+  position: absolute;
+  top: 58px;
+  right: 12px;
+}
+
 
 
 @media only screen and (min--moz-device-pixel-ratio: 2),
@@ -1088,7 +1133,6 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   }
 
 }
-
 
 
 

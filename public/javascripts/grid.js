@@ -11,6 +11,11 @@ var MODULE = (function (my) {
 
   var image_arr = [];
 
+  var instagram_logo = '../images/instagramlogo.png';
+  var instagram_logo_class = 'iw-ig-camera'
+  var twitter_logo = '../images/twitterbird.png';
+  var twitter_logo_class = 'iw-tw-bird'
+
 	// Display images in grid form (will also use masonry)
 	my.showImagesOnGrid = function(data) {
 
@@ -81,10 +86,10 @@ var MODULE = (function (my) {
         }
 
         // Link to the tweeter's profile
-        var userURL = 'https://www.twitter.com/'+handle;
+        var user_url = 'https://www.twitter.com/'+handle;
         
         // Direct link to the tweet
-        var tweetURL = 'https://www.twitter.com/'+handle+'/status/'+tweetID;
+        var tweet_url = 'https://www.twitter.com/'+handle+'/status/'+tweetID;
         
         // Twitter 'user' object comes with a url to the img of the profile photo
         var profileImageURL = user.profile_image_url;
@@ -115,15 +120,40 @@ var MODULE = (function (my) {
         var image_width = $image.width();
         $image.css({'height': image_width+'px'});
 
-        // change to pointer hand signifying clickable event
-        $grid_item.mouseover(function(event){
+        
+        $grid_item.mouseover(function(){
+        
+          // change to pointer hand signifying clickable event
           $grid_item.css({
             'cursor': 'pointer'
           });
+        
+          // highlight image on hover
+          $image.css({
+            'opacity': '0.8'
+          });
+
+        });
+        
+        $grid_item.mouseout(function(){
+
+          // unhighlight image when mouseout
+          $image.css({
+            'opacity': '1.0'
+          });
+          
         });
 
         // set center of map on coordinates of image
         $grid_item.click(function(event){
+
+          // Display elements of tweet over map
+          // Function located in google.js file
+          my.overlayTextOnMap(username, 'map-username-overlay', user_url);
+          my.overlayTextOnMap(text, 'map-text-overlay', tweet_url);
+          my.overlayTextOnMap(time_and_distance, 'map-time-distance-overlay');
+
+        
 
           // clear all outlines
           $('.grid-image').css({
@@ -133,7 +163,8 @@ var MODULE = (function (my) {
           // outline the selected image in our grid
           $image.css({
             'outline-color': 'white',
-            'outline-style': 'solid'
+            'outline-style': 'solid',
+            'opacity': '1.0'
           });
 
           var map = my.google_map;
@@ -185,24 +216,7 @@ var MODULE = (function (my) {
 
         index++;
 
-        // var iwContent = '<div class="iw-container">'+
         
-        //   '<div class="iw-tweet iw-external-img-div">'+
-        //   '<a href="'+external_link+'" target="_blank" >'+ // sometimes this errors out and surrounds the image with broken stuff
-        //   '<img src="'+thumbnail_url+'" alt="'+external_link+'" class="iw-external-img">'+
-        //   '</a>'+
-        //   '</div>'+
-
-        //   '<div class="iw-body">'+
-        //   '<div class="iw-username-div"><a href="'+userURL+'" target="_blank" class="iw-username">'+username+'</a></div>'+
-        //   '<div class="iw-tweet"><a href="'+tweetURL+'" target="_blank" >'+text+'</a></div>'+
-        //   '</div>'+
-
-        //   '<p class="iw-time">'+time_and_distance+'</p>'+
-        //   '<img src="../images/instagramlogo.png" class="iw-ig-camera">'+
-        //   '<img src="../images/twitterbird.png" class="iw-tw-bird">'+
-
-        //   '</div>'
       }
 		});
 	}

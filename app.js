@@ -169,7 +169,7 @@ var twitterSearch = function(userGeo, search_radius, twitterQueryTerms) {
   var geocode_input = lat+','+lng+',2mi';
 
   // Maximum results of 100, defaults to 15
-  var results_count = 50;
+  var results_count = 100;
 
   console.log('Twitter Query String:  ' + twitter_query);
   console.log('Twitter Query String Length:  ' + twitter_query.length + ' (500 char maximum)');
