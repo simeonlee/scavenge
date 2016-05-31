@@ -174,7 +174,7 @@ var MODULE = (function (my) {
           var sw = map.getBounds().getSouthWest();
 
           // get new, adjusted coordinates
-          var newLat = latLng.lat + 0.25*(ne.lat() - sw.lat());
+          var newLat = latLng.lat + 0.125*(ne.lat() - sw.lat());
           var lng = latLng.lng;
 
           // set map center at new, adjusted coordinates so that the image is centered, not the marker
@@ -233,7 +233,7 @@ var MODULE = (function (my) {
     })
 
     // keep the map centered upon window resize
-    my.google_map.setCenter(my.pos);
+    // my.google_map.setCenter(my.pos);
   }
 
   return my;

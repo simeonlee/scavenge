@@ -1,0 +1,9 @@
+$(document).ready(function(){
+	/*Google.init();
+	Grid.init();
+	Layout.init();
+	List.init();
+	Scavenge.init();
+	Twitter.init();*/
+	Yelp.init();
+});

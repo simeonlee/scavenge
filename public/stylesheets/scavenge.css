@@ -58,6 +58,53 @@ a {
   height: 32px;
 }
 
+#layout-buttons {
+  margin: 0;
+  padding: 0;
+
+  position: absolute;
+  top: 7px;
+  right: 6%;
+}
+
+.layout-button {
+
+}
+
+.layout-button:hover {
+  opacity: 0.8;
+}
+
+.layout-button:active {
+  outline-color: white;
+  outline-style: solid;
+  outline-width: 1px;
+}
+
+#x-div {
+  margin: 0;
+  padding: 0;
+}
+
+#x-button {
+  margin: 0 6px 0 0;
+  padding: 0;
+  height: 36px;
+  width: 36px;
+}
+
+#y-div {
+  margin: 0;
+  padding: 0;
+}
+
+#y-button {
+  margin: 0;
+  padding: 0;
+  height: 36px;
+  width: 36px;
+}
+
 /* div */
 #search {
 /*  position: absolute;
@@ -85,7 +132,7 @@ a {
 #google-search-bar {
   position: absolute;
   
-  right: 10%;
+  right: 20%;
   top: 12px;  
 
   /*margin: 0;
@@ -94,7 +141,7 @@ a {
   margin: 0;
   padding: 4px 7px;
 
-  width: 25%;
+  width: 24%;
 
   /*border: 1px solid #5F9FEA;*/
   border: 1px solid white;
