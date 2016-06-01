@@ -4,6 +4,6 @@ $(document).ready(function(){
 	Layout.init();
 	List.init();
 	Scavenge.init();
-	Twitter.init();*/
-	Yelp.init();
+	Twitter.init();
+	Yelp.init();*/
 });

@@ -147,6 +147,9 @@ var MODULE = (function (my) {
         // set center of map on coordinates of image
         $grid_item.click(function(event){
 
+          // Start logic that eventually accesses Yelp API for best guesses on location
+          my.yelpInit(tweet);
+
           // Display elements of tweet over map
           // Function located in google.js file
           my.overlayTextOnMap(username, 'map-username-overlay', user_url);

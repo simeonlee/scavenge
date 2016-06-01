@@ -224,7 +224,8 @@ var MODULE = (function (my) {
     
     // Twitter API data set
     my.tweets = data;
-    var tweets = my.tweets;
+    var tweets = data;
+    console.log(data);
   
     for (var i = 0; i < tweets.length; i++) {  
       var tweet = tweets[i];
