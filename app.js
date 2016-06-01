@@ -17,6 +17,13 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+// Authentication stuffs for Twitter and Yelp API
+var oauthSignature = require('oauth-signature');
+var n = require('nonce')();
+var request = require('request');
+var qs = require('querystring');
+var _ = require('lodash');
+
 // Middleware to serve files from within a given root directory
 var serveStatic = require('serve-static');
 
@@ -34,12 +41,7 @@ var server = http.createServer(app);
 // We are using socket.io to communicate with client
 var io = require('socket.io')(server);
 
-// Authentication stuffs for Twitter and Yelp API
-var oauthSignature = require('oauth-signature');
-var n = require('nonce')();
-var request = require('request');
-var qs = require('querystring');
-var _ = require('lodash');
+
 
 // This npm unwraps the t.co urls into the expanded link
 // E.g., t.co/xxx --> www.instagram.com/xxx
@@ -87,7 +89,7 @@ io.on('connection', function(socket) {
     var yelp_term = yelp_request_data.term;
     var yelp_latLng = yelp_request_data.latLng;
     var set_parameters = {
-      term: yelp_term
+      term: 'restaurant'
     }
     requestYelp(set_parameters, yelp_latLng, yelpCallback);
   })
@@ -517,7 +519,6 @@ app.use(function(err, req, res, next) {
 
 var yelpCallback = function(error, response, body) {
   var yelp_response_data = JSON.parse(body);
-  console.log(yelp_response_data);
   io.sockets.emit('yelp_response_data', yelp_response_data);
 }
 
@@ -532,8 +533,6 @@ var requestYelp = function(set_parameters, pos, callback) {
   var lat = pos.lat;
   var lng = pos.lng;
   var yelpLatLng = lat+','+lng;
-
-  console.log(yelpLatLng);
 
   /* We can setup default parameters here */
   var default_parameters = {
