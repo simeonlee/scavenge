@@ -39,8 +39,13 @@ var MODULE = (function (my) {
 
 	// Return the response from the yelp API call
 	socket.on('yelp_response_data', function(yelp_response_data){
-		console.log(yelp_response_data);
+		displayYelpData(yelp_response_data);
 	})
+
+	// Do things with the yelp data
+	var displayYelpData = function(data){
+		
+	}
 
   return my;
 }(MODULE || {}));

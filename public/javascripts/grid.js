@@ -170,7 +170,7 @@ var MODULE = (function (my) {
             'opacity': '1.0'
           });
 
-          var map = my.google_map;
+          var map = my.map;
 
           // get the corners of the map at the current zoom so we can calculate relative size
           var ne = map.getBounds().getNorthEast();
@@ -193,7 +193,7 @@ var MODULE = (function (my) {
               marker.setAnimation(google.maps.Animation.BOUNCE);
 
               var infowindow = marker.infowindow;
-              infowindow.open(my.google_map, marker);
+              infowindow.open(my.map, marker);
 
               // true = 'I am currently open'
               infowindow.state = true;
@@ -236,7 +236,7 @@ var MODULE = (function (my) {
     })
 
     // keep the map centered upon window resize
-    // my.google_map.setCenter(my.pos);
+    // my.map.setCenter(my.pos);
   }
 
   return my;

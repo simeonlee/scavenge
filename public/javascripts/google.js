@@ -131,7 +131,7 @@ var MODULE = (function (my) {
     });
 
     // Set the map as a property of 'my' to make it and its functions accessible to other scripts
-    my.google_map = map;
+    my.map = map;
 
     // Add certain event listeners to map
     addMapListeners(map);
@@ -200,39 +200,47 @@ var MODULE = (function (my) {
       // save new_location to my.pos variable to persist user's new location across files
       my.pos = new_location;
 
+      var icon_img_src = '../images/newlocation@2x.png';
+      var icon_dim = {
+        width: 55,
+        height: 62
+      }
+      var marker_title = 'new location';
+      my.createMapMarker(new_location, icon_img_src, icon_dim, marker_title);
+
       // Mark new location
-      var new_location_marker_icon = new google.maps.MarkerImage("../images/newlocation@2x.png", null, null, null, new google.maps.Size(55,62));
-      var marker = new google.maps.Marker({
-        position: new_location,
-        icon: new_location_marker_icon,
-        animation: google.maps.Animation.DROP,
-        title: 'new location'
-      });
+      // var new_location_marker_icon = new google.maps.MarkerImage("../images/newlocation@2x.png", null, null, null, new google.maps.Size(55,62));
+      // var marker = new google.maps.Marker({
+      //   position: new_location,
+      //   icon: new_location_marker_icon,
+      //   animation: google.maps.Animation.DROP,
+      //   title: 'new location'
+      // });
 
       // Set marker on map
-      marker.setMap(map);
+      // marker.setMap(map);
 
       // Make the marker bounce upon load
-      marker.setAnimation(google.maps.Animation.BOUNCE);
+      // marker.setAnimation(google.maps.Animation.BOUNCE);
 
       // Have the marker stop bouncing after 10 seconds for UX optimization
-      setTimeout(function(){
-        marker.setAnimation(null);
-      },10000)
+      // setTimeout(function(){
+        // marker.setAnimation(null);
+      // },10000)
 
       // Stop animation or reanimate the marker once you click on it
-      marker.addListener('click', function() {
+      // marker.addListener('click', function() {
         
         // Reset zoom
-        map.setZoom(15);
+        // map.setZoom(15);
 
         // Bounce on / off
-        if (marker.getAnimation() !== null) {
-          marker.setAnimation(null);
-        } else {
-          marker.setAnimation(google.maps.Animation.BOUNCE);
-        }
-      });
+      //   if (marker.getAnimation() !== null) {
+      //     marker.setAnimation(null);
+      //   } else {
+      //     marker.setAnimation(google.maps.Animation.BOUNCE);
+      //   }
+      // });
 
       // Attach user geolocation data and twitter query terms to a data object
       // that we will send to the server to make API calls with based on user context
@@ -257,49 +265,61 @@ var MODULE = (function (my) {
     if (navigator.geolocation) {
       
       navigator.geolocation.getCurrentPosition(function(position) {        
+
+        // Create marker for user position
         var pos = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
+        var icon_img_src = '../images/homeicon@2x.png';
+        var icon_dim = {
+          width: 55,
+          height: 62
+        }
+        var marker_title = 'you';
+        my.createMapMarker(pos, icon_img_src, icon_dim, marker_title);
+
+        console.log('User located at ' + pos.lat + ', ' + pos.lng);
 
         // for calculating distances, etc.
         my.pos = pos;
-
-        console.log('User located at ' + pos.lat + ', ' + pos.lng);
         
-        var user_position_marker_icon = new google.maps.MarkerImage("../images/homeicon@2x.png", null, null, null, new google.maps.Size(55,62));
+
+
+
+        // var user_position_marker_icon = new google.maps.MarkerImage("../images/homeicon@2x.png", null, null, null, new google.maps.Size(55,62));
 
         // mark user location - 'the nest'
-        var marker = new google.maps.Marker({
-          position: pos,
-          icon: user_position_marker_icon,
-          animation: google.maps.Animation.DROP,
-          title: 'you'
-        });
+        // var marker = new google.maps.Marker({
+        //   position: pos,
+        //   icon: user_position_marker_icon,
+        //   animation: google.maps.Animation.DROP,
+        //   title: 'you'
+        // });
 
         // put the home marker on the map
-        marker.setMap(map);
+        // marker.setMap(map);
 
         // make the home marker bounce upon load
-        marker.setAnimation(google.maps.Animation.BOUNCE);
+        // marker.setAnimation(google.maps.Animation.BOUNCE);
 
         // Have the home marker stop bouncing after 10 seconds
-        setTimeout(function(){
-          marker.setAnimation(null);
-        },10000)
+        // setTimeout(function(){
+        //   marker.setAnimation(null);
+        // },10000)
 
-        marker.addListener('click', function() {
+        // marker.addListener('click', function() {
           
-          // Reset zoom
-          map.setZoom(15);
+        //   // Reset zoom
+        //   map.setZoom(15);
 
-          // bounce toggle on / off
-          if (marker.getAnimation() !== null) {
-            marker.setAnimation(null);
-          } else {
-            marker.setAnimation(google.maps.Animation.BOUNCE);
-          }
-        });
+        //   // bounce toggle on / off
+        //   if (marker.getAnimation() !== null) {
+        //     marker.setAnimation(null);
+        //   } else {
+        //     marker.setAnimation(google.maps.Animation.BOUNCE);
+        //   }
+        // });
 
         // Attach user geolocation data and twitter query terms to a data object
         // that we will send to the server to make API calls with based on user context
@@ -362,6 +382,34 @@ var MODULE = (function (my) {
 
 
 
+
+  // This should go in the google or map js file
+  // https://developers.google.com/maps/documentation/javascript/markers
+  my.createMapMarker = function(pos_lat_lng, icon_img_src, icon_dim, marker_title) {
+    var icon_width = icon_dim.width;
+    var icon_height = icon_dim.height;
+    var marker_icon = new google.maps.MarkerImage(icon_img_src, null, null, null, new google.maps.Size(icon_width,icon_height));
+    var marker = new google.maps.Marker({
+      position: pos_lat_lng,
+      icon: marker_icon,
+      title: marker_title,
+      animation: google.maps.Animation.DROP
+    });
+    marker.setMap(my.map);
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+    setTimeout(function(){
+      marker.setAnimation(null);
+    },10000)
+    marker.addListener('click', function() {
+      map.setZoom(15);
+      if (marker.getAnimation() !== null) {
+        marker.setAnimation(null);
+      } else {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+      }
+    });
+    return marker;
+  }
   
   return my;
 }(MODULE || {}));

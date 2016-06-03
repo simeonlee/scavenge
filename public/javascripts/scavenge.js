@@ -87,7 +87,7 @@ var MODULE = (function (my) {
     socket.emit('my_geolocation', json_string);
 
     // set the position to be center of map
-    my.google_map.setCenter(pos);
+    my.map.setCenter(pos);
 
   }
 
