@@ -12,6 +12,9 @@ var MODULE = (function (my) {
   // To set unique identities for each downloaded tweet, we'll increment 'id'
   var id = 0;
 
+  var instagram_logo_path = '../images/instagramlogo.png';
+  var twitter_logo_path = '../images/twitterbird.png';
+
   // When the user dislikes a query term, they have the option to remove it
   // from their search parameters by pressing the 'x' button next to the term
   // When they press that 'x', the client will send a request to the server to do a new API call
@@ -221,256 +224,25 @@ var MODULE = (function (my) {
   
   // Present our tweets on the map with markers and infowindows
   my.markTweets = function(data, map) {
-    
-    // Twitter API data set
-    my.tweets = data;
-    var tweets = data;
     console.log(data);
-  
-    for (var i = 0; i < tweets.length; i++) {  
-      var tweet = tweets[i];
-
-      // The main text of the tweet
-      var text = tweet.text;
-      
-      // Link to sites external to Twitter... for example, a link to an instagram photo
-      var external_link = tweet.external_link;
-
-      // Twitter user data
-      var user = tweet.user;
-      var username = user.name;
-      var handle = user.screen_name;
-
-      // Unique ID that Twitter assigns to each tweet
-      var tweetID = tweet.tweetID;
-
-      // Calculate the time since each tweet using our calculateSince function
-      var timestamp = tweet.timestamp;
-      var timeSince = my.calculateSince(timestamp);
-
-      // If there is a geolocation associated with the tweet (usually there is for Twitter API), calculate distance
-      if (tweet.latLng) {
-        var distance = my.calculateDistance(my.pos.lat, my.pos.lng, tweet.latLng.lat, tweet.latLng.lng);
-      }
-
-      var latLng = tweet.latLng;
-
-      // Try to extract the url to an Instagram photo's url
-      try {
-        var thumbnail_url = tweet.instagram_data.thumbnail_url;
-      }
-      catch(err) {
-
-      }
-
-      // Query metadata
-      var query = tweet.query;
-
-      // Should match my.twitterQueryTerms... I imagine this could be used for
-      // security later on so that bad people aren't injecting spam results
-      var queryArr = query.split('+OR+');
-      
-      // Add a marker for each geotagged tweet
-      if (latLng){
-        
-        // Our pretty scavenge bird logo
-        var scavenge_bird_marker_icon = new google.maps.MarkerImage("../images/scavengebird@2x.png", null, null, null, new google.maps.Size(30,30));
-
-        // Create marker that signifies location of each tweet
-        var marker = new google.maps.Marker({
-          position: latLng,
-          icon: scavenge_bird_marker_icon,
-          animation: google.maps.Animation.DROP
-        });
-
-        // Add the tweet marker to the map
-        marker.setMap(map);
-
-        // Show how long ago and how far away the tweet was
-        if (distance) {
-          
-          // Mile vs. Miles
-          if (Math.round(10*distance) === 10) {
-            var distance_phrase = Math.round(10*distance)/10 + ' mile away'
-          } else {
-            var distance_phrase = Math.round(10*distance)/10 + ' miles away'
+    my.tweets = data;
+    for (var i = 0; i < my.tweets.length; i++) {
+      (function(i){
+        var tweet = my.tweets[i];
+        var latLng = tweet.latLng;
+        if (latLng){
+          var icon_img_src = '../images/scavengebird@2x.png';
+          var icon_dim = {
+            width: 30,
+            height: 30
           }
+          var marker_title = 'scavenged';
+          var marker = my.createMapMarker(latLng, icon_img_src, icon_dim, marker_title, tweet);
 
-          var time_and_distance = timeSince + ', ' + distance_phrase
-
-        } else {
-          var time_and_distance = timeSince
+          // Add the marker variable to the master my.tweets array for later manipulation
+          my.tweets[i].marker = marker;
         }
-        
-        // Add the marker variable to the master my.tweets array for later manipulation
-        my.tweets[i].marker = marker;
-
-        // Link to the tweeter's profile
-        var userURL = 'https://www.twitter.com/'+handle;
-        
-        // Direct link to the tweet
-        var tweetURL = 'https://www.twitter.com/'+handle+'/status/'+tweetID;
-        
-        // Twitter 'user' object comes with a url to the img of the profile photo
-        var profileImageURL = user.profile_image_url;
-
-        // This is the HTML content we will be injecting into our Google infowindow
-        var iwContent = '<div class="iw-container">'+
-        
-          '<div class="iw-tweet iw-external-img-div">'+
-          '<a href="'+external_link+'" target="_blank" >'+ // sometimes this errors out and surrounds the image with broken stuff
-          '<img src="'+thumbnail_url+'" alt="'+external_link+'" class="iw-external-img">'+
-          '</a>'+
-          '</div>'+
-
-          // '<div class="iw-body">'+
-
-          // '<div class="iw-username-div"><a href="'+userURL+'" target="_blank" class="iw-username">'+username+'</a></div>'+
-          // '<div class="iw-tweet"><a href="'+tweetURL+'" target="_blank" >'+text+'</a></div>'+
-
-          // '<p class="iw-time">'+time_and_distance+'</p>'+
-          // '<img src="../images/instagramlogo.png" class="iw-ig-camera">'+
-          // '<img src="../images/twitterbird.png" class="iw-tw-bird">'+
-
-          // '</div>'+
-
-          '</div>'
-
-        // Create Google infowindow object
-        var infowindow = new google.maps.InfoWindow({
-          content: iwContent,
-          disableAutoPan: true, // prevent map from moving around to each infowindow - spastic motion
-          maxWidth: 200 // width of the card - also change .gm-style-iw width in css
-        });
-
-        // Attach to marker variable
-        marker.infowindow = infowindow;
-        
-        // .open sets the infowindow upon the map
-        marker.infowindow.open(map, marker);
-        
-        // About 'state':
-        // true = 'I am currently open'
-        // false = 'I am currently not open'
-        marker.infowindow.state = true;
-
-        // Have the markers be bouncing upon load to signal that they are pending discovery
-        // Doing some action like 'liking' them or clicking on the marker will stop the bouncing
-        marker.setAnimation(google.maps.Animation.BOUNCE);
-
-        /* 
-         * Use 'this' instead of 'marker' in this function to point to the right marker
-         *
-         * Use 'that' = 'this' to have 'this' set to correct scope in regards to setTimeout
-         * Otherwise 'this' will point to global scope
-         */
-
-        // Have the marker stop bouncing automatically after 10 seconds
-        // (currently not using)
-        marker.setBounceTimeout = function(){
-          var that = this;
-          setTimeout(function(){
-            that.setAnimation(null);
-          },10000)
-        }
-
-        // Toggles animation
-        marker.toggleBounce = function(){
-          console.log('Toggling marker bounce animation!');
-          if (this.getAnimation() !== null) {
-            this.setAnimation(null);
-          } else {
-            this.setAnimation(google.maps.Animation.BOUNCE);
-          }
-        }
-
-        // Stops animation
-        marker.stopBounce = function(){
-          console.log('Stopping marker bounce animation!');
-          if (this.getAnimation() !== null) {
-            this.setAnimation(null);
-          }
-        }
-
-        // Add a listener to marker's infowindow so that when you
-        // close the infowindow, the associated marker stops its animation
-        marker.infowindowCloseClick = function(){
-          var that = this; 
-          google.maps.event.addListener(marker.infowindow,'closeclick',function(){
-            console.log('Closed infowindow!');
-            that.stopBounce(); // referring to 'marker'
-            this.state = false; // referring to 'infowindow'
-          });
-        }
-
-        // Add listener
-        marker.infowindowCloseClick();
-        
-        // When you click on the marker, toggle the bounce animation on/off
-        marker.addListener('click', function() {
-          if (this.infowindow.state) { // if infowindow is currently open
-            console.log('closing infowindow');
-            this.infowindow.close();
-            this.infowindow.state = false; // currently not open
-          } else {
-            console.log('opening infowindow');
-            this.infowindow.open(map, this);
-            this.infowindow.state = true; // currently open
-          }
-          this.toggleBounce();
-        });
-
-        // Add custom styling to the Google infowindow to differentiate our app
-        google.maps.event.addListener(infowindow, 'domready', function() {
-
-          // This is the <div> which receives the infowindow contents
-          var iwOuter = $('.gm-style-iw');
-
-          // The <div> we want to change is above the .gm-style-iw <div>
-          var iwBackground = iwOuter.prev();
-
-          // Remove the background shadow <div>
-          iwBackground.children(':nth-child(2)').css({'display' : 'none'});
-
-          // Remove the white background <div>
-          iwBackground.children(':nth-child(4)').css({'display' : 'none'});
-
-          // Move the infowindow to the right.
-          // iwOuter.parent().parent().css({left: '25px'});
-
-          // Move the shadow of the arrow 76px to the left margin 
-          // iwBackground.children(':nth-child(1)').attr('style', function(i,s){ return s + 'left: -25px !important;'});
-
-          // Move the arrow 76px to the left margin 
-          // iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'left: -25px !important;'});
-
-          // Change color of tail outline
-          // The outline of the tail is composed of two descendants of <div> which contains the tail
-          // The .find('div').children() method refers to all the <div> which are direct descendants of the previous <div>
-          iwBackground.children(':nth-child(3)').find('div').children().css({'box-shadow': 'rgba(140, 140, 140, 0.6) 0px 1px 6px', 'z-index' : '1'});
-
-          // This <div> groups the close button elements
-          var iwCloseBtn = iwOuter.next();
-
-          iwCloseBtn.css({
-            opacity: '1.0', // by default the close button has an opacity of 0.7
-            position: 'absolute',
-            right: '62px', top: '24px', // button repositioning
-            content: 'url("../images/closebutton@2x.png")',
-            height: '15px', width: '15px'
-          });
-
-          // Google API automatically applies 0.7 opacity to the button after the mouseout event.
-          // This function reverses this event to the desired value.
-          iwCloseBtn.mouseout(function(){
-            $(this).css({opacity: '1.0'});
-          });
-
-          // Remove close button
-          // iwCloseBtn.css({'display': 'none'});
-
-        });
-      }
+      })(i);
     }
   }
 
@@ -535,6 +307,42 @@ var MODULE = (function (my) {
     if (unit=="N") { dist = dist * 0.8684 }
     return dist
   }
+
+
+
+
+
+
+
+
+  /*// The main text of the tweet
+  var text = tweet.text;
+
+  // Twitter user data
+  var user = tweet.user;
+  var username = user.name;
+  var handle = user.screen_name;
+
+  // Unique ID that Twitter assigns to each tweet
+  var tweetID = tweet.tweetID;
+
+  // Calculate the time since each tweet using our calculateSince function
+  var timestamp = tweet.timestamp;
+  var timeSince = my.calculateSince(timestamp);
+
+  // Query metadata
+  var query = tweet.query;
+
+  // Should match my.twitterQueryTerms... I imagine this could be used for
+  // security later on so that bad people aren't injecting spam results
+  var queryArr = query.split('+OR+');*/
+
+
+
+
+
+
+
 
 
   return my;

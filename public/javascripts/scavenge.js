@@ -16,11 +16,11 @@ var MODULE = (function (my) {
 
     // search for healthy eating tips
     // 'paleo',
-    'healthy',
+    // 'healthy',
     // 'keto',
     // 'ketogenic',
     // 'avocado',
-    // 'juice',
+    'juice',
     // 'juicepress',
     // 'smoothies',
     // 'chia',

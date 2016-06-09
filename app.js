@@ -537,7 +537,7 @@ var requestYelp = function(set_parameters, pos, callback) {
   /* We can setup default parameters here */
   var default_parameters = {
     ll: yelpLatLng,
-    sort: '0' // 0=Best matched (default), 1=Distance, 2=Highest Rated
+    sort: '1' // 0=Best matched (default), 1=Distance, 2=Highest Rated
   };
 
   /* We set the require parameters here */

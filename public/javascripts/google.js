@@ -187,19 +187,10 @@ var MODULE = (function (my) {
           (place.address_components[2] && place.address_components[2].short_name || '')
         ].join(' ');
       }
-
       console.log(address);
 
-      // var new_location = {
-      //   lat: new_location latitude,
-      //   lng: new_location longitude
-      // }
+      // Mark new location
       var new_location = place.geometry.location;
-      console.log(new_location);
-
-      // save new_location to my.pos variable to persist user's new location across files
-      my.pos = new_location;
-
       var icon_img_src = '../images/newlocation@2x.png';
       var icon_dim = {
         width: 55,
@@ -208,39 +199,10 @@ var MODULE = (function (my) {
       var marker_title = 'new location';
       my.createMapMarker(new_location, icon_img_src, icon_dim, marker_title);
 
-      // Mark new location
-      // var new_location_marker_icon = new google.maps.MarkerImage("../images/newlocation@2x.png", null, null, null, new google.maps.Size(55,62));
-      // var marker = new google.maps.Marker({
-      //   position: new_location,
-      //   icon: new_location_marker_icon,
-      //   animation: google.maps.Animation.DROP,
-      //   title: 'new location'
-      // });
-
-      // Set marker on map
-      // marker.setMap(map);
-
-      // Make the marker bounce upon load
-      // marker.setAnimation(google.maps.Animation.BOUNCE);
-
-      // Have the marker stop bouncing after 10 seconds for UX optimization
-      // setTimeout(function(){
-        // marker.setAnimation(null);
-      // },10000)
-
-      // Stop animation or reanimate the marker once you click on it
-      // marker.addListener('click', function() {
-        
-        // Reset zoom
-        // map.setZoom(15);
-
-        // Bounce on / off
-      //   if (marker.getAnimation() !== null) {
-      //     marker.setAnimation(null);
-      //   } else {
-      //     marker.setAnimation(google.maps.Animation.BOUNCE);
-      //   }
-      // });
+      console.log(new_location);
+      
+      // save new_location to my.pos variable to persist user's new location across files
+      my.pos = new_location;
 
       // Attach user geolocation data and twitter query terms to a data object
       // that we will send to the server to make API calls with based on user context
@@ -283,43 +245,6 @@ var MODULE = (function (my) {
 
         // for calculating distances, etc.
         my.pos = pos;
-        
-
-
-
-        // var user_position_marker_icon = new google.maps.MarkerImage("../images/homeicon@2x.png", null, null, null, new google.maps.Size(55,62));
-
-        // mark user location - 'the nest'
-        // var marker = new google.maps.Marker({
-        //   position: pos,
-        //   icon: user_position_marker_icon,
-        //   animation: google.maps.Animation.DROP,
-        //   title: 'you'
-        // });
-
-        // put the home marker on the map
-        // marker.setMap(map);
-
-        // make the home marker bounce upon load
-        // marker.setAnimation(google.maps.Animation.BOUNCE);
-
-        // Have the home marker stop bouncing after 10 seconds
-        // setTimeout(function(){
-        //   marker.setAnimation(null);
-        // },10000)
-
-        // marker.addListener('click', function() {
-          
-        //   // Reset zoom
-        //   map.setZoom(15);
-
-        //   // bounce toggle on / off
-        //   if (marker.getAnimation() !== null) {
-        //     marker.setAnimation(null);
-        //   } else {
-        //     marker.setAnimation(google.maps.Animation.BOUNCE);
-        //   }
-        // });
 
         // Attach user geolocation data and twitter query terms to a data object
         // that we will send to the server to make API calls with based on user context
@@ -371,21 +296,53 @@ var MODULE = (function (my) {
 
     var $map = $('#map-container');
     var $link = $('<a>', {href: external_link, target: '_blank'});
-    var $div = $('<div>', {class: class_name+' erase-'+class_name});
-    
-    $div.html(text);
-    $link.append($div);
+
+    if (class_name === 'place-overlay-rating') {
+      var $span = $('<span>', {class: class_name+' erase-'+class_name});
+
+      $span.html(text);
+      $link.append($span);
+    } else if (class_name === 'map-profile-img-overlay' || class_name === 'overlay-place-img') {
+      var $img = $('<img>', {class: class_name+' erase-'+class_name});
+
+      $img.attr('src', text);
+      $link.append($img);
+    } else {
+      var $div = $('<div>', {class: class_name+' erase-'+class_name});
+      
+      $div.html(text);
+      $link.append($div);
+    } 
+
+
     $map.append($link);
+
+    if (class_name === 'place-overlay-rating') {
+      $(function() {
+        $('.place-overlay-rating').stars();
+      });
+    }
 
     return false;
   }
 
+  // $.fn extends functions unto $(..)
+  $.fn.stars = function() {
+    return $(this).each(function() {
+      // Get the value
+      var val = parseFloat($(this).html());
+      // Make sure that the value is in 0 - 5 range, multiply to get width
+      var size = Math.max(0, (Math.min(5, val))) * 16;
+      // Create stars holder
+      var $span = $('<span />').width(size);
+      // Replace the numerical value with stars
+      $(this).html($span);
+    });
+  }
 
-
-
-  // This should go in the google or map js file
+  // Put a custom marker on the map
   // https://developers.google.com/maps/documentation/javascript/markers
-  my.createMapMarker = function(pos_lat_lng, icon_img_src, icon_dim, marker_title) {
+  my.createMapMarker = function(pos_lat_lng, icon_img_src, icon_dim, marker_title, tweet) {
     var icon_width = icon_dim.width;
     var icon_height = icon_dim.height;
     var marker_icon = new google.maps.MarkerImage(icon_img_src, null, null, null, new google.maps.Size(icon_width,icon_height));
@@ -397,18 +354,183 @@ var MODULE = (function (my) {
     });
     marker.setMap(my.map);
     marker.setAnimation(google.maps.Animation.BOUNCE);
-    setTimeout(function(){
-      marker.setAnimation(null);
-    },10000)
-    marker.addListener('click', function() {
-      map.setZoom(15);
-      if (marker.getAnimation() !== null) {
-        marker.setAnimation(null);
-      } else {
-        marker.setAnimation(google.maps.Animation.BOUNCE);
-      }
-    });
+    addMarkerFunctionality(marker, customizeMarkerAnimation, marker_title, tweet);
     return marker;
+  }
+
+  var addMarkerFunctionality = function(marker, callback, marker_title, tweet){
+    // Toggles animation
+    marker.toggleBounce = function(){
+      if (this.getAnimation() !== null) {
+        this.setAnimation(null);
+      } else {
+        this.setAnimation(google.maps.Animation.BOUNCE);
+      }
+    }
+
+    // Stops animation
+    marker.stopAnimation = function(){
+      if (this.getAnimation() !== null) {
+        this.setAnimation(null);
+      }
+    }
+
+    // Have the marker stop animating automatically
+    marker.setAnimationTimeout = function(sec){
+      var that = this;
+      setTimeout(function(){
+        that.stopAnimation();
+      },sec*1000)
+    }
+
+    // Add a listener to marker's infowindow so that when you
+    // close the infowindow, the associated marker stops its animation
+    marker.infowindowClose = function(){
+      var that = this; 
+      google.maps.event.addListener(marker.infowindow,'closeclick',function(){
+        console.log('Closed infowindow!');
+        that.stopAnimation(); // referring to 'marker'
+        this.state = false; // referring to 'infowindow'
+      });
+    }
+
+    marker.addToggle = function(){
+      marker.addListener('click', function() {
+        this.toggleBounce();
+        if (this.infowindow) {
+          if (this.infowindow.state) { // if infowindow is currently open
+            console.log('closing infowindow');
+            this.infowindow.close();
+            this.infowindow.state = false; // currently not open
+          } else {
+            console.log('opening infowindow');
+            this.infowindow.open(map, this);
+            this.infowindow.state = true; // currently open
+          }
+        }
+      })
+    }
+
+    callback(marker, marker_title, tweet);
+  }
+
+  var customizeMarkerAnimation = function(marker, marker_title, tweet){
+
+    // user geolocation
+    if (marker_title === 'you' || marker_title === 'new location') { 
+
+      marker.setAnimationTimeout(10);
+      marker.addListener('click', function() {
+        map.setZoom(15);
+        this.toggleBounce();
+      });
+
+    // twitter / instagram
+    } else if (marker_title === 'scavenged') {
+
+      // Link to sites external to Twitter... for example, a link to an instagram photo
+      var external_link = tweet.external_link;
+
+      // Try to extract the url to an Instagram photo's url
+      if (tweet.instagram_data) {
+        var thumbnail_url = tweet.instagram_data.thumbnail_url;
+      }
+
+      // return an infowindow and attach to the marker
+      var infowindow = my.createInfowindow(external_link, thumbnail_url, marker);
+
+    // yelp
+    } else if (marker_title === 'place') { 
+
+      marker.setAnimationTimeout(5);
+      marker.addListener('click', marker.toggleBounce);
+
+    }
+  }
+
+  my.createInfowindow = function(external_link, thumbnail_url, marker) {
+    var iwContent = '<div class="iw">'+
+      '<a href="'+external_link+'" target="_blank" class="iw iw-link">'+
+      '<img src="'+thumbnail_url+'" alt="'+external_link+'" class="iw iw-img">'+
+      '</a>'+
+      '</div>'
+    var infowindow = new google.maps.InfoWindow({
+      content: iwContent,
+      disableAutoPan: true, // prevent map from moving around to each infowindow - spastic motion
+      maxWidth: 200 // width of the card - also change .gm-style-iw width in css
+    });
+
+    // Attach to marker variable
+    marker.infowindow = infowindow;
+    
+    // .open sets the infowindow upon the map
+    marker.infowindow.open(map, marker);
+    
+    // About 'state':
+    // true = 'I am currently open'
+    // false = 'I am currently not open'
+    marker.infowindow.state = true;
+
+    // Add custom bounce / infowindow close listener to marker
+    marker.addToggle();    
+
+    // Add custom styling to the Google infowindow to differentiate our app
+    google.maps.event.addListener(infowindow, 'domready', function() {
+
+      // This is the <div> which receives the infowindow contents
+      var iwOuter = $('.gm-style-iw');
+
+      // The <div> we want to change is above the .gm-style-iw <div>
+      var iwBackground = iwOuter.prev();
+
+      // Remove the background shadow <div>
+      iwBackground.children(':nth-child(2)').css({'display' : 'none'});
+
+      // Remove the white background <div>
+      iwBackground.children(':nth-child(4)').css({'display' : 'none'});
+
+      // Move the infowindow to the right.
+      // iwOuter.parent().parent().css({left: '25px'});
+
+      // Move the shadow of the arrow 76px to the left margin 
+      // iwBackground.children(':nth-child(1)').attr('style', function(i,s){ return s + 'left: -25px !important;'});
+
+      // Move the arrow 76px to the left margin 
+      // iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'left: -25px !important;'});
+
+      // Change color of tail outline
+      // The outline of the tail is composed of two descendants of <div> which contains the tail
+      // The .find('div').children() method refers to all the <div> which are direct descendants of the previous <div>
+      // iwBackground.children(':nth-child(3)').find('div').children().css({'box-shadow': 'rgba(140, 140, 140, 0.6) 0px 1px 6px', 'z-index' : '1'});
+      iwBackground.children(':nth-child(3)').find('div').children().css({
+        'box-shadow': 'none !important',
+        'background': 'none !important',
+        'z-index' : '1'
+      });
+
+      // This <div> groups the close button elements
+      var iwCloseBtn = iwOuter.next();
+
+      iwCloseBtn.css({
+        opacity: '1.0', // by default the close button has an opacity of 0.7
+        position: 'absolute',
+        right: '62px', top: '24px', // button repositioning
+        content: 'url("../images/closebutton@2x.png")',
+        height: '15px', width: '15px'
+      });
+
+      // Google API automatically applies 0.7 opacity to the button after the mouseout event.
+      // This function reverses this event to the desired value.
+      iwCloseBtn.mouseout(function(){
+        $(this).css({opacity: '1.0'});
+      });
+
+      // Remove close button
+      iwCloseBtn.css({'display': 'none'});
+
+    });
+
+    return infowindow;
   }
   
   return my;

@@ -632,14 +632,14 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   background: url('../images/fullheart.png');
 }
 
-.outer-span, .outer-span span {
+.place-overlay-rating, .place-overlay-rating span {
   display: block;
   background: url(../images/stars.png) 0 -16px repeat-x;
   width: 80px;
   height: 16px;
 }
 
-.outer-span span {
+.place-overlay-rating span {
   width: 0px;
   background-position: 0 0;
 }
@@ -745,215 +745,26 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
 .gm-style-iw {
   width: 200px !important;
   top: 15px !important; /* move the infowindow 15px down */
-  left: 0 !important;
-  background-color: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
-  border: 4px solid rgba(72, 181, 233, 0.0);
-  border-radius: 5px 5px 5px 5px; /* make card-like */
+  background-color: rgba(255, 255, 255, 1.0);
+  border: none;
+  border-radius: 0;
   position: relative;
-}
-
-/*.iw-container .iw-header {
-  padding: 5px 10px 5px 5px;
-  background-color: rgba(85, 172, 238, 0.6);
   margin: 0;
-}*/
-
-.iw-profile-img {
-  width: 48px;
-  height: 48px;
-  margin: 0;
-  padding: 0;
-  border: 2px solid white;
-  border-radius: 3px 3px 3px 3px;
-  position: absolute;
+  padding: 5px 5px 0;
 }
 
-.iw-username-div {
-  padding: 0;
-  margin: 0;
-  color: #5F9FEA;
-  overflow: hidden;
+.iw {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
 }
 
-.iw-username {
-  font-weight: 300;
-  font-size: 12px;
-  color: #5F9FEA;
-  overflow: hidden;
-}
-
-/* unvisited link */
-/*.iw-container .iw-header a:link {*/
-.iw-username:link {
-    color: #5F9FEA;
-    text-decoration: none;
-    overflow: hidden;
-}
-
-/* visited link */
-.iw-username:visited {
-    color: #5F9FEA;
-    text-decoration: none;
-    overflow: hidden;
-}
-
-/* mouse over link */
-.iw-username:hover {
-    color: #5F9FEA;
-    text-decoration: none;
-    overflow: hidden;
-}
-
-/* selected link */
-.iw-username:active {
-    color: #5F9FEA;
-    text-decoration: none;
-    overflow: hidden;
-}
-
-.iw-username-div {
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
-}
-
-.iw-handle-div {
-  margin: 0;
-  padding: 0;
-  position: relative;
-  top: -1px;
-}
-
-.iw-handle {
-  font-weight: 100;
-  font-size: 10px;
-  color: white;
-  overflow: hidden;
-}
-
-/* unvisited link */
-/*.iw-container .iw-header a:link {*/
-.iw-handle:link {
-  color: white;
-  text-decoration: none;
-  overflow: hidden;
-}
-
-/* visited link */
-.iw-handle:visited {
-    color: white;
-    text-decoration: none;
-    overflow: hidden;
-}
-
-/* mouse over link */
-.iw-handle:hover {
-    color: white;
-    text-decoration: underline;
-    overflow: hidden;
-}
-
-/* selected link */
-.iw-handle:active {
-    color: white;
-    text-decoration: none;
-    overflow: hidden;
-}
-
-.iw-body {
-  /*margin: 4px 0 0;*/
-  margin: 0;
-  padding: 0;
-}
-
-.iw-tweet {
-  font-weight: 300;
-  font-size: 10px;
-  margin: 0;
-  padding: 0;
-}
-
-/* unvisited link */
-.iw-tweet a:link {
-    color: black;
-    text-decoration: none;
-}
-
-/* visited link */
-.iw-tweet a:visited {
-    color: black;
-    text-decoration: none;
-}
-
-/* mouse over link */
-.iw-tweet a:hover {
-    color: black;
-    text-decoration: none;
-}
-
-/* selected link */
-.iw-tweet a:active {
-    color: black;
-    text-decoration: none;
-}
-
-.iw-external-link {
-  font-size: 8px;
-  margin: 0;
-  padding: 0;
-}
-
-/* unvisited link */
-.iw-external-link a:link {
-  color: rgba(0,128,0,0.8);
-}
-
-/* visited link */
-.iw-external-link a:visited {
-  color: rgba(0,128,0,0.8);
-}
-
-/* mouse over link */
-.iw-external-link a:hover {
-  color: rgba(0,128,0,0.8);
-}
-
-/* selected link */
-.iw-external-link a:active {
-  color: rgba(0,128,0,0.8);
-}
-
-.iw-external-img-div {
+.iw-link {
 
 }
 
-.iw-external-img {
-  margin: 0;
-  padding: 0;
-  width: 200px;
-  border-radius: 2px;
-}
+.iw-img {
 
-.iw-time {
-  color: gray;
-  font-style: italic;
-  font-size: 8px;
-  float: right;
-  margin: 0;
-  padding: 0;
-}
-
-.iw-tw-bird {
-  height: 8px;
-  float: right;
-  margin: 4px 0 0;
-}
-
-.iw-ig-camera {
-  height: 8px;
-  float: right;
-  margin: 4px 2px 0; 
 }
 
 .iw-bottom-gradient {
@@ -1103,6 +914,14 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   color: white;
 }
 
+.map-profile-img-overlay {
+  margin: 0;
+  padding: 0;
+  z-index: 1400;
+  position: absolute;
+  top: 58px;
+  left: 8px;
+}
 
 .map-username-overlay {
   margin: 0;
@@ -1112,23 +931,26 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   color: white;
   z-index: 1400;
   position: absolute;
-  top: 58px;
-  left: 12px;
+  top: 110px;
+  left: 8px;
 }
 
 .map-text-overlay {
-  margin: 0 10%;
+  /*margin: 0 10%;*/
+  margin: 0;
   padding: 0;
-  text-align: center;
-  font-size: 18px;
-  font-weight: 300;
+  /*text-align: center;*/
+  font-size: 12px;
+  font-weight: 100;
   color: white;
-  text-shadow: 2px 0 2px #000, 0 -2px 2px #000, 0 2px 2px #000, -2px 0 2px #000;
+  /*text-shadow: 2px 0 2px #000, 0 -2px 2px #000, 0 2px 2px #000, -2px 0 2px #000;*/
   /* text-shadow: h-shadow v-shadow blur-radius color|none|initial|inherit */
   /* separate by commas to add more than one shadow to text */
   z-index: 1400;
   position: absolute;
-  bottom: 16%;
+  left: 8px;
+  top: 134px;
+  width: 25%;
 }
 
 .map-time-distance-overlay {
@@ -1140,9 +962,42 @@ This also uses the shadow positioning rules 10px sends it to the right (horizont
   z-index: 1400;
   position: absolute;
   top: 58px;
-  right: 12px;
+  right: 10px;
 }
 
+.overlay-place-img, .place-overlay-closed, .place-overlay-name, .place-overlay-rating, .place-overlay-review-count {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 100;
+  color: white;
+  z-index: 1400;
+  position: absolute;
+  left: 10px;
+  top: 280px;
+}
+
+.overlay-place-img {
+  top: 280px;
+  width: 100px;
+}
+
+.place-overlay-closed {
+  top: 360px;
+}
+
+.place-overlay-name {
+  top: 380px;
+}
+
+.place-overlay-rating {
+  top: 400px;
+}
+
+.place-overlay-review-count {
+  top: 418px;
+  font-size: 10px;
+}
 
 
 @media only screen and (min--moz-device-pixel-ratio: 2),

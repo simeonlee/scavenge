@@ -92,7 +92,7 @@ var MODULE = (function (my) {
         var tweet_url = 'https://www.twitter.com/'+handle+'/status/'+tweetID;
         
         // Twitter 'user' object comes with a url to the img of the profile photo
-        var profileImageURL = user.profile_image_url;
+        var profile_img_url = user.profile_image_url;
 
 
         var grid_item_id = 'grid-item-'+index;
@@ -147,16 +147,26 @@ var MODULE = (function (my) {
         // set center of map on coordinates of image
         $grid_item.click(function(event){
 
+          // clear any existing yelp / place markers on map from previous clicks
+          for (var i = 0; i < my.places.length; i++) {
+            (function(i){
+              var place = my.places[i];
+              var marker = place.marker
+              if (marker) {
+                marker.setMap(null);
+              };
+            })(i);
+          };
+
           // Start logic that eventually accesses Yelp API for best guesses on location
           my.yelpInit(tweet);
 
           // Display elements of tweet over map
           // Function located in google.js file
+          my.overlayTextOnMap(profile_img_url, 'map-profile-img-overlay', user_url);
           my.overlayTextOnMap(username, 'map-username-overlay', user_url);
           my.overlayTextOnMap(text, 'map-text-overlay', tweet_url);
           my.overlayTextOnMap(time_and_distance, 'map-time-distance-overlay');
-
-        
 
           // clear all outlines
           $('.grid-image').css({
