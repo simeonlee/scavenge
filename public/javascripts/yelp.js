@@ -13,27 +13,51 @@ var MODULE = (function (my) {
 		// Hashtag logic to search yelp with
 		var hashtags_arr = [];
 		var latLng = tweet.latLng;
+		var tweet_text = tweet.text;
+		var tweet_text_arr = tweet_text.split(' ');
+		var query_arr = my.query_arr;
+		var yelp_query_term;
+		console.log(query_arr);
 
-		if (tweet.hashtags.length > 0) {
+		for (var i = 0; i < query_arr.length; i++) {
+			(function(i){
+
+				// TO DO: replace below loop with regexp
+				for (var j = 0; j < tweet_text_arr.length; j++) {
+					(function(j){
+						var curr_query_term = query_arr[i];
+						var curr_tweet_word = tweet_text_arr[j];
+						if (curr_query_term === curr_tweet_word || '#'+curr_query_term === curr_tweet_word) { // account for 'juice...' or other puncuation
+							yelp_query_term = curr_query_term;
+						}
+					})(j);
+				}
+			})(i);
+		}
+		console.log('Found a matching term: '+yelp_query_term);
+		yelpRequestPrep(yelp_query_term, latLng);
+
+		/*if (tweet.hashtags.length > 0) {
 		  var hashtags = tweet.hashtags;
 
 		  for (var i = 0; i < hashtags.length; i++) {
-		    var hashtag = hashtags[i].text;
-		    hashtags_arr.push(hashtag);
+		  	(function(i){
+		  		var hashtag = hashtags[i].text;
+		  		hashtags_arr.push(hashtag);
+		  	})(i);
 		  }
 		  
 		  console.log(hashtags_arr);
 
-		  yelpRequestPrep(hashtags, latLng);
-		}
+		  yelpRequestPrep(hashtags_arr, latLng);
+		}*/
 	}
 
 	// Send the data to the server to initiate the yelp API call
-	var yelpRequestPrep = function(hashtags, latLng) {
-		var term = hashtags[0];
+	var yelpRequestPrep = function(yelp_query_term, latLng) {
 
 		var yelp_request_data = {
-			term: term,
+			term: yelp_query_term,
 			latLng: latLng
 		}
 

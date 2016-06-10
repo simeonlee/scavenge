@@ -63,7 +63,7 @@ a {
   padding: 0;
 
   position: absolute;
-  top: 7px;
+  top: 13px;
   right: 6%;
 }
 
@@ -87,10 +87,10 @@ a {
 }
 
 #x-button {
-  margin: 0 6px 0 0;
+  margin: 0;
   padding: 0;
-  height: 36px;
-  width: 36px;
+  height: 24px;
+  width: 24px;
 }
 
 #y-div {
@@ -99,10 +99,10 @@ a {
 }
 
 #y-button {
-  margin: 0;
+  margin: 0 12px 0 0;
   padding: 0;
-  height: 36px;
-  width: 36px;
+  height: 24px;
+  width: 24px;
 }
 
 /* div */

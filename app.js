@@ -89,7 +89,7 @@ io.on('connection', function(socket) {
     var yelp_term = yelp_request_data.term;
     var yelp_latLng = yelp_request_data.latLng;
     var set_parameters = {
-      term: 'restaurant'
+      term: yelp_term
     }
     requestYelp(set_parameters, yelp_latLng, yelpCallback);
   })

@@ -64,7 +64,7 @@ var MODULE = (function (my) {
 
       // Should match my.twitterQueryTerms... I imagine this could be used for
       // security later on so that bad people aren't injecting spam results
-      var queryArr = query.split('+OR+');
+      my.query_arr = query.split('+OR+');
       
       // Add a marker for each geotagged tweet
       if (latLng){
