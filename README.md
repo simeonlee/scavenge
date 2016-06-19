@@ -24,7 +24,7 @@ Given that Instagram has restricted their API ([requiring a review process][inst
 
 ### Author
 
-Scavenge was built by [Simeon Lee][linkedin] as part of the [Hack Reactor][hackreactor] admissions process.
+Scavenge was built by [Simeon Lee][linkedin].
 
 [logo]: https://github.com/simeonlee/scavenge/blob/master/public/images/scavengebird%402x.png "Scavenge logo"
 [site]: https://www.scavenge.io "Scavenge site"
