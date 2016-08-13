@@ -75,5 +75,8 @@ var MODULE = (function (my) {
     })
   }
 
+  // Have the list slide off-page dynamically after page load
+  setTimeout(my.moveListOffPage, 3000);
+
 	return my;
 }(MODULE || {}));
