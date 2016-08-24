@@ -1,6 +1,14 @@
 import React from 'react';
 import mapStyle from '../styles/light-map'
 
+// const url = 'https://www.scavenge.io';
+const url = 'localhost:5000';
+const socket = io.connect(url);
+
+const instagram_logo_path = '../images/instagramlogo.png';
+const twitter_logo_path = '../images/twitterbird.png';
+
+
 export default class Map extends React.Component {
   constructor(props) {
     super(props);
@@ -10,6 +18,11 @@ export default class Map extends React.Component {
         // Washington Square Park
         lat: 40.7308,
         lng: -73.9973
+      },
+      tweets: [],
+      markers: {
+        user: null,
+        tweets: []
       }
     }
   }
@@ -148,6 +161,12 @@ export default class Map extends React.Component {
         // Attach user geolocation data and twitter query terms to a data object
         // that we will send to the server to make API calls with based on user context
         // my.setAndSendDataToServer(pos, search_radius, my.twitterQueryTerms);
+        socket.emit('userLocation', JSON.stringify({
+          position: position;
+        }));
+        socket.on('userLocationServerConfirmation', function(data) {
+          console.log(data);
+        })
 
         // Set map to center on position
         this.map.setCenter(this.state.location);

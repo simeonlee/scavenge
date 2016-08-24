@@ -83,6 +83,13 @@ io.on('connection', function(socket) {
 
   });
 
+  socket.on('userLocation', function(data) {
+    var position = data.position;
+    var lat = position.lat;
+    var lng = position.lng;
+    io.sockets.emit('userLocationServerConfirmation', 'App has detected user located at: '+lat+', '+lng);
+  });
+
   // called from yelp.js when the user clicks on a grid item
   // best guesses at what location the instagram was taken
   socket.on('yelp_request_data', function(yelp_request_data){
@@ -458,7 +465,7 @@ app.use(compression());
 // Add static middleware that handles serving up content from public directory
 // The public directory will be served and any content in it will be available
 // Request the root route '/' and you'll get index.html automatically
-app.use(serveStatic(__dirname + '/public', { maxAge: oneDay }));
+app.use(serveStatic(__dirname, { maxAge: oneDay }));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
