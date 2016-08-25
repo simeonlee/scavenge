@@ -4,6 +4,10 @@ import mapStyle from '../styles/light-map'
 const url = 'https://www.scavenge.io';
 const socket = io.connect(url);
 
+socket.on('userLocationServerConfirmation', function(data) {
+  console.log(data);
+})
+
 const instagram_logo_path = '../images/instagramlogo.png';
 const twitter_logo_path = '../images/twitterbird.png';
 
@@ -27,9 +31,7 @@ export default class Map extends React.Component {
   }
 
   initialize() {
-    socket.on('userLocationServerConfirmation', function(data) {
-      console.log(data);
-    })
+    
   }
 
   componentWillMount() {
