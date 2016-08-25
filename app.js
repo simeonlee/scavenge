@@ -90,6 +90,8 @@ io.on('connection', function(socket) {
     io.sockets.emit('userLocationServerConfirmation', 'App has detected user located at: '+lat+', '+lng);
   });
 
+  io.sockets.emit('userLocationServerConfirmation', 'App is sending data to client');
+
   // called from yelp.js when the user clicks on a grid item
   // best guesses at what location the instagram was taken
   socket.on('yelp_request_data', function(yelp_request_data){
@@ -101,6 +103,8 @@ io.on('connection', function(socket) {
     requestYelp(set_parameters, yelp_latLng, yelpCallback);
   })
 });
+
+
 
 // Normalize a port into a number, string, or false
 function normalizePort(val) {

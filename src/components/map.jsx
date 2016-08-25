@@ -1,8 +1,7 @@
 import React from 'react';
 import mapStyle from '../styles/light-map'
 
-// const url = 'https://www.scavenge.io';
-const url = 'localhost:5000';
+const url = 'https://www.scavenge.io';
 const socket = io.connect(url);
 
 const instagram_logo_path = '../images/instagramlogo.png';
@@ -25,6 +24,12 @@ export default class Map extends React.Component {
         tweets: []
       }
     }
+  }
+
+  initialize() {
+    socket.on('userLocationServerConfirmation', function(data) {
+      console.log(data);
+    })
   }
 
   componentWillMount() {
@@ -164,9 +169,7 @@ export default class Map extends React.Component {
         socket.emit('userLocation', JSON.stringify({
           position: position;
         }));
-        socket.on('userLocationServerConfirmation', function(data) {
-          console.log(data);
-        })
+        
 
         // Set map to center on position
         this.map.setCenter(this.state.location);
