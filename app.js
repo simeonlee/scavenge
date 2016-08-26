@@ -87,6 +87,7 @@ io.on('connection', function(socket) {
     var position = data.position;
     var lat = position.lat;
     var lng = position.lng;
+    console.log(position);
     io.sockets.emit('userLocationServerConfirmation', 'App has detected user located at: '+lat+', '+lng);
   });
 
