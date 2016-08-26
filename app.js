@@ -84,7 +84,7 @@ io.on('connection', function(socket) {
   });
 
   socket.on('userLocation', function(data) {
-    var position = data.position;
+    var position = JSON.parse(data).position;
     var lat = position.lat;
     var lng = position.lng;
     console.log(position);
