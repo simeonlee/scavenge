@@ -33,7 +33,7 @@ var app = express();
 var debug = require('debug')('twitter-test-1:server');
 var http = require('http');
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '5000');
 app.set('port', port);
 
 var server = http.createServer(app);
@@ -88,10 +88,10 @@ io.on('connection', function(socket) {
     var lat = position.lat;
     var lng = position.lng;
     console.log(position);
-    io.sockets.emit('userLocationServerConfirmation', 'App has detected user located at: '+lat+', '+lng);
+    io.sockets.emit('userLocationServerConfirmation', 'Server has detected user location');
   });
 
-  io.sockets.emit('userLocationServerConfirmation', 'App is sending data to client');
+  io.sockets.emit('userLocationServerConfirmation', 'Server is sending data to client');
 
   // called from yelp.js when the user clicks on a grid item
   // best guesses at what location the instagram was taken

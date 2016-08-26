@@ -1,12 +1,11 @@
 import React from 'react';
-import mapStyle from '../styles/light-map'
+import mapStyle from '../styles/light-map';
+// import io from 'socket.io';
 
-const url = 'https://www.scavenge.io';
-const socket = io.connect(url);
+
 
 const instagram_logo_path = '../images/instagramlogo.png';
 const twitter_logo_path = '../images/twitterbird.png';
-
 
 export default class Map extends React.Component {
   constructor(props) {
@@ -26,15 +25,19 @@ export default class Map extends React.Component {
     }
   }
 
+  initialize() {
+  }
+
   componentWillMount() {
+    this.socket = io.connect('https://www.scavenge.io');
+    this.socket.on('userLocationServerConfirmation', function(data) {
+      console.log(data);
+    })
     this.geolocate();
   }
 
   componentDidMount() {
     this.initializeMap();
-    socket.on('userLocationServerConfirmation', function(data) {
-      console.log(data);
-    })
   }
 
   initializeMap() {
@@ -134,6 +137,8 @@ export default class Map extends React.Component {
       // that we will send to the server to make API calls with based on user context
       // my.setAndSendDataToServer(new_location, search_radius, my.twitterQueryTerms);
 
+  
+
     });
   }
 
@@ -160,11 +165,12 @@ export default class Map extends React.Component {
         // my.pos = pos;
         this.setState({'location': position});
 
+        // var socket = io.connect('https://www.scavenge.io');
         // Attach user geolocation data and twitter query terms to a data object
         // that we will send to the server to make API calls with based on user context
         // my.setAndSendDataToServer(pos, search_radius, my.twitterQueryTerms);
-        socket.emit('userLocation', JSON.stringify({
-          position: position;
+        this.socket.emit('userLocation', JSON.stringify({
+          position: position
         }));
         
 

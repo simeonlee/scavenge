@@ -62,6 +62,10 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	// socket.on('userLocationServerConfirmation', function(data) {
+	//   console.log(data);
+	// })
+
 	_reactDom2.default.render(_react2.default.createElement(_app2.default, null), document.querySelector('.root'));
 
 /***/ },
@@ -21795,6 +21799,9 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	// const url = 'https://www.scavenge.io';
+	// const socket = io.connect(url);
+
 	var instagram_logo_path = '../images/instagramlogo.png';
 	var twitter_logo_path = '../images/twitterbird.png';
 
@@ -21811,12 +21818,7 @@
 	      searchRadius: null,
 	      queryTerms: [
 	      // search for all instagram pics
-	      'instagram'],
-	      tweets: [],
-	      markers: {
-	        user: null,
-	        tweets: []
-	      }
+	      'instagram']
 	    };
 	    return _this;
 	  }
@@ -21826,14 +21828,14 @@
 	    value: function setAndSendDataToServer() {
 	      // TODO: clear markers
 	      // TODO: clear grid
-	      var currentPosition = this.state.currentPosition;
-	      var searchRadius = this.state.searchRadius;
-	      var queryTerms = this.state.queryTerms;
-	      socket.emit('my_geolocation', JSON.stringify({
-	        pos: currentPosition,
-	        search_radius: searchRadius,
-	        twitterQueryTerms: queryTerms
-	      }));
+	      // var currentPosition = this.state.currentPosition;
+	      // var searchRadius = this.state.searchRadius;
+	      // var queryTerms = this.state.queryTerms;
+	      // socket.emit('my_geolocation', JSON.stringify({
+	      //   pos: currentPosition,
+	      //   search_radius: searchRadius,
+	      //   twitterQueryTerms: queryTerms
+	      // }));
 	    }
 	  }, {
 	    key: 'render',
@@ -21919,6 +21921,12 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	// import io from 'socket.io';
+
+
+	var instagram_logo_path = '../images/instagramlogo.png';
+	var twitter_logo_path = '../images/twitterbird.png';
+
 	var Map = function (_React$Component) {
 	  _inherits(Map, _React$Component);
 
@@ -21932,14 +21940,26 @@
 	        // Washington Square Park
 	        lat: 40.7308,
 	        lng: -73.9973
+	      },
+	      tweets: [],
+	      markers: {
+	        user: null,
+	        tweets: []
 	      }
 	    };
 	    return _this;
 	  }
 
 	  _createClass(Map, [{
+	    key: 'initialize',
+	    value: function initialize() {}
+	  }, {
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
+	      this.socket = io.connect('https://www.scavenge.io');
+	      this.socket.on('userLocationServerConfirmation', function (data) {
+	        console.log(data);
+	      });
 	      this.geolocate();
 	    }
 	  }, {
@@ -22041,6 +22061,7 @@
 	        // Attach user geolocation data and twitter query terms to a data object
 	        // that we will send to the server to make API calls with based on user context
 	        // my.setAndSendDataToServer(new_location, search_radius, my.twitterQueryTerms);
+
 	      });
 	    }
 	  }, {
@@ -22070,9 +22091,13 @@
 	          // my.pos = pos;
 	          _this2.setState({ 'location': position });
 
+	          // var socket = io.connect('https://www.scavenge.io');
 	          // Attach user geolocation data and twitter query terms to a data object
 	          // that we will send to the server to make API calls with based on user context
 	          // my.setAndSendDataToServer(pos, search_radius, my.twitterQueryTerms);
+	          _this2.socket.emit('userLocation', JSON.stringify({
+	            position: position
+	          }));
 
 	          // Set map to center on position
 	          _this2.map.setCenter(_this2.state.location);

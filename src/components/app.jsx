@@ -2,8 +2,8 @@ import React from 'react';
 import Nav from './nav.jsx';
 import Map from './map.jsx';
 
-const url = 'https://www.scavenge.io';
-const socket = io.connect(url);
+// const url = 'https://www.scavenge.io';
+// const socket = io.connect(url);
 
 const instagram_logo_path = '../images/instagramlogo.png';
 const twitter_logo_path = '../images/twitterbird.png';
@@ -72,14 +72,14 @@ export default class App extends React.Component {
   setAndSendDataToServer() {
     // TODO: clear markers
     // TODO: clear grid
-    var currentPosition = this.state.currentPosition;
-    var searchRadius = this.state.searchRadius;
-    var queryTerms = this.state.queryTerms;
-    socket.emit('my_geolocation', JSON.stringify({
-      pos: currentPosition,
-      search_radius: searchRadius,
-      twitterQueryTerms: queryTerms
-    }));
+    // var currentPosition = this.state.currentPosition;
+    // var searchRadius = this.state.searchRadius;
+    // var queryTerms = this.state.queryTerms;
+    // socket.emit('my_geolocation', JSON.stringify({
+    //   pos: currentPosition,
+    //   search_radius: searchRadius,
+    //   twitterQueryTerms: queryTerms
+    // }));
   }
 
   render() {
