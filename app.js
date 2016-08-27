@@ -67,7 +67,7 @@ io.on('connection', function(socket) {
 
   sendDataToClient = function(event, data) {
     console.log('Sending data to client');
-    console.log(data);
+    console.log('Event: ', event)
     io.sockets.emit(event, data);
   }
 
@@ -462,7 +462,7 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
           console.log(debugindex3 + '  NEWS:  Last tweet in the array! Opening socket and sending data! :)');
           // Send data to client via socket.io
           // io.sockets.emit('scavenge_tweets', scavenge_tweets);
-          sendDataToClient('scavenge_tweets', scavenge_tweets);
+          sendDataToClient('newTweets', scavenge_tweets);
         }
         debugindex3++;
       });

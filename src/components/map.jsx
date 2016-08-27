@@ -30,7 +30,7 @@ export default class Map extends React.Component {
 
   componentWillMount() {
     this.socket = io.connect('https://www.scavenge.io');
-    this.socket.on('scavenge_tweets', function(data) {
+    this.socket.on('newTweets', function(data) {
       console.log('We have received some tweets from the server');
       this.handleTweets(data);
     });
