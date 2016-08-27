@@ -88,6 +88,8 @@ io.on('connection', function(socket) {
     var lat = position.lat;
     var lng = position.lng;
     console.log(position);
+    console.log('About to form request for Twitter API');
+    twitterSearch(position, 2, ['juice']);
     io.sockets.emit('userLocationServerConfirmation', 'Server has detected user location');
   });
 
