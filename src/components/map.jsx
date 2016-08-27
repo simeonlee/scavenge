@@ -2,7 +2,7 @@ import React from 'react';
 import mapStyle from '../styles/light-map';
 // import io from 'socket.io';
 
-
+// DON'T FORGET TO RUN 'NPM RUN DEV'
 
 const instagram_logo_path = '../images/instagramlogo.png';
 const twitter_logo_path = '../images/twitterbird.png';
@@ -17,27 +17,24 @@ export default class Map extends React.Component {
         lat: 40.7308,
         lng: -73.9973
       },
+      userMarker: null,
       tweets: [],
-      markers: {
-        user: null,
-        tweets: []
-      }
+      tweetMarkers: []
     }
-  }
-
-  initialize() {
   }
 
   componentWillMount() {
     this.socket = io.connect('https://www.scavenge.io');
-    this.socket.on('newTweets', function(data) {
-      console.log('We have received some tweets from the server');
-      this.handleTweets(data);
-    });
     this.socket.on('userLocationServerConfirmation', function(data) {
       console.log(data);
     });
-
+    // this.socket.on('newTweets', function(data) {
+    this.socket.on('newTweets', (data) => {
+      console.log('We have received some tweets from the server');
+      // this.handleTweets(data);
+      this.setState({ tweets: data });
+      this.addMarkersToMap();
+    });
     // After we have sent our parameters to app.js, the server will make a Twitter API Call
     // and return tweets and related data to the client via socket below
     this.geolocate();
@@ -57,28 +54,26 @@ export default class Map extends React.Component {
   }
 
   addMarkersToMap() {
-    for (var i = 0; i < this.state.tweets.length; i++) {
-      (function(i){
-        var tweet = this.state.tweets[i];
-        var latLng = tweet.latLng;
-        if (latLng){
-          var icon_img_src = '../images/scavengebird@2x.png';
-          var icon_dim = {
-            width: 30,
-            height: 30
-          }
-          var marker_title = 'scavenged';
-          var marker = this.createMapMarker(latLng, icon_img_src, icon_dim, marker_title, tweet);
-
-          // Add the marker variable to the master my.tweets array for later manipulation
-          this.setState({
-            markers: {
-              user: this.state.markers.user,
-              tweets: this.state.markers.tweets.push(marker);
-            } 
-          })
+    for (let i = 0; i < this.state.tweets.length; i++) {
+      var tweet = this.state.tweets[i];
+      var latLng = tweet.latLng;
+      if (latLng){
+        var icon_img_src = '../images/scavengebird@2x.png';
+        var icon_dim = {
+          width: 30,
+          height: 30
         }
-      })(i);
+        var marker_title = 'scavenged';
+        var marker = this.createMapMarker(latLng, icon_img_src, icon_dim, marker_title, tweet);
+
+        // Add the marker variable to the master my.tweets array for later manipulation
+        // this.setState({
+        //   markers: {
+        //     user: this.state.markers.user,
+        //     tweets: this.state.markers.tweets.push(marker)
+        //   } 
+        // })
+      }
     }
   }
 
@@ -238,7 +233,7 @@ export default class Map extends React.Component {
     });
     marker.setMap(this.map);
     marker.setAnimation(google.maps.Animation.BOUNCE);
-    this.addMarkerFunctionality(marker, this.customizeMarkerAnimation, marker_title, tweet);
+    this.addMarkerFunctionality(marker, this.customizeMarkerAnimation.bind(this), marker_title, tweet);
     return marker;
   }
 
@@ -298,7 +293,7 @@ export default class Map extends React.Component {
     callback(marker, marker_title, tweet);
   }
 
-  customizeMarkerAnimation(marker, marker_title, tweet){
+  customizeMarkerAnimation(marker, marker_title, tweet) {
 
     // user geolocation
     if (marker_title === 'you' || marker_title === 'new location') { 
@@ -321,7 +316,7 @@ export default class Map extends React.Component {
       }
 
       // return an infowindow and attach to the marker
-      var infowindow = my.createInfowindow(external_link, thumbnail_url, marker);
+      var infowindow = this.createInfowindow(external_link, thumbnail_url, marker);
 
     // yelp
     } else if (marker_title === 'place') { 
@@ -330,6 +325,93 @@ export default class Map extends React.Component {
       marker.addListener('click', marker.toggleBounce);
 
     }
+  }
+
+  createInfowindow(external_link, thumbnail_url, marker) {
+    var iwContent = '<div class="iw">'+
+      '<a href="'+external_link+'" target="_blank">'+
+      '<img src="'+thumbnail_url+'" alt="'+external_link+'" class="iw">'+
+      '</a>'+
+      '</div>'
+    var infowindow = new google.maps.InfoWindow({
+      content: iwContent,
+      disableAutoPan: true, // prevent map from moving around to each infowindow - spastic motion
+      maxWidth: 200 // width of the card - also change .gm-style-iw width in css
+    });
+
+    // Attach to marker variable
+    marker.infowindow = infowindow;
+    
+    // .open sets the infowindow upon the map
+    marker.infowindow.open(map, marker);
+    
+    // About 'state':
+    // true = 'I am currently open'
+    // false = 'I am currently not open'
+    marker.infowindow.state = true;
+
+    // Add custom bounce / infowindow close listener to marker
+    marker.addToggle();    
+
+    // Add custom styling to the Google infowindow to differentiate our app
+    google.maps.event.addListener(infowindow, 'domready', function() {
+
+      // This is the <div> which receives the infowindow contents
+      var iwOuter = $('.gm-style-iw');
+
+      // The <div> we want to change is above the .gm-style-iw <div>
+      var iwBackground = iwOuter.prev();
+
+      // Remove the background shadow <div>
+      iwBackground.children(':nth-child(2)').css({'display' : 'none'});
+
+      // Remove the white background <div>
+      iwBackground.children(':nth-child(4)').css({'display' : 'none'});
+
+      // Move the infowindow to the right.
+      // iwOuter.parent().parent().css({left: '25px'});
+
+      // Move the shadow of the arrow 76px to the left margin 
+      // iwBackground.children(':nth-child(1)').attr('style', function(i,s){ return s + 'left: -25px !important;'});
+      iwBackground.children(':nth-child(1)').css({'display': 'none'});
+
+      // Move the arrow 76px to the left margin 
+      // iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'left: -25px !important;'});
+
+      // Change color of tail outline
+      // The outline of the tail is composed of two descendants of <div> which contains the tail
+      // The .find('div').children() method refers to all the <div> which are direct descendants of the previous <div>
+      iwBackground.children(':nth-child(3)').find('div').children().css({'display': 'none'});
+      // iwBackground.children(':nth-child(3)').find('div').children().css({'box-shadow': 'rgba(140, 140, 140, 0.6) 0px 1px 6px', 'z-index' : '1'});
+      // iwBackground.children(':nth-child(3)').find('div').children().css({
+      //   'box-shadow': 'none !important',
+      //   'background': 'none !important',
+      //   'z-index' : '1'
+      // });
+
+      // This <div> groups the close button elements
+      var iwCloseBtn = iwOuter.next();
+
+      iwCloseBtn.css({
+        opacity: '1.0', // by default the close button has an opacity of 0.7
+        position: 'absolute',
+        right: '62px', top: '24px', // button repositioning
+        content: 'url("../images/closebutton@2x.png")',
+        height: '15px', width: '15px'
+      });
+
+      // Google API automatically applies 0.7 opacity to the button after the mouseout event.
+      // This function reverses this event to the desired value.
+      iwCloseBtn.mouseout(function(){
+        $(this).css({opacity: '1.0'});
+      });
+
+      // Remove close button
+      iwCloseBtn.css({'display': 'none'});
+
+    });
+
+    return infowindow;
   }
 
   render() {
