@@ -33,11 +33,67 @@ export default class Map extends React.Component {
     this.socket.on('userLocationServerConfirmation', function(data) {
       console.log(data);
     })
+
+    // After we have sent our parameters to app.js, the server will make a Twitter API Call
+    // and return tweets and related data to the client via socket below
+    this.socket.on('scavenge_tweets', this.handleTweets);
     this.geolocate();
   }
 
   componentDidMount() {
     this.initializeMap();
+  }
+
+  handleTweets(data) {
+    this.setState({ tweets: data })
+    console.log(this.state.tweets);
+    // Start displaying data that we received from server on our map
+    this.addMarkersToMap();
+    // this.addToGrid(data);
+  }
+
+  addMarkersToMap() {
+    for (var i = 0; i < this.state.tweets.length; i++) {
+      (function(i){
+        var tweet = this.state.tweets[i];
+        var latLng = tweet.latLng;
+        if (latLng){
+          var icon_img_src = '../images/scavengebird@2x.png';
+          var icon_dim = {
+            width: 30,
+            height: 30
+          }
+          var marker_title = 'scavenged';
+          var marker = this.createMapMarker(latLng, icon_img_src, icon_dim, marker_title, tweet);
+
+          // Add the marker variable to the master my.tweets array for later manipulation
+          this.setState({
+            markers: {
+              user: this.state.markers.user,
+              tweets: this.state.markers.tweets.push(marker);
+            } 
+          })
+        }
+      })(i);
+    }
+  }
+
+  createMapMarker(pos_lat_lng, icon_img_src, icon_dim, marker_title, tweet) {
+    // Put a custom marker on the map
+    // https://developers.google.com/maps/documentation/javascript/markers
+    var icon_width = icon_dim.width;
+    var icon_height = icon_dim.height;
+    var marker_icon = new google.maps.MarkerImage(icon_img_src, null, null, null, new google.maps.Size(icon_width,icon_height));
+    var marker = new google.maps.Marker({
+      position: pos_lat_lng,
+      icon: marker_icon,
+      title: marker_title,
+      animation: google.maps.Animation.DROP
+    });
+    marker.setMap(this.map);
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+    addMarkerFunctionality(marker, customizeMarkerAnimation, marker_title, tweet);
+    return marker;
   }
 
   initializeMap() {

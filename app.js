@@ -224,6 +224,7 @@ var twitterSearch = function(userGeo, search_radius, twitterQueryTerms) {
 // Error
 var error = function (err, response, body) {
   console.log('ERROR [%s]', err);
+  console.log(err);
 };
 
 // Variables for the success callback
