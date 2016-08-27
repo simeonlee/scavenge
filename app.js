@@ -450,9 +450,12 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
 
         // Find out if this is the last scavenge_tweet in scavenge_tweets
         if (expanded_arr_length === thumbnail_arr_length) {
-          console.log(debugindex3 + '  NEWS:  Last tweet in the array! Opening socket and sending data!');
-            // Send data to client via socket.io
-            io.sockets.emit('scavenge_tweets', scavenge_tweets);
+          console.log(debugindex3 + '  NEWS:  Last tweet in the array! Opening socket and sending data! :)');
+          // Send data to client via socket.io
+          console.log('blah');
+          console.log(io);
+          console.log(io.sockets);
+          io.sockets.emit('scavenge_tweets', scavenge_tweets);
         }
         debugindex3++;
       });

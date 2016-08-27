@@ -30,13 +30,16 @@ export default class Map extends React.Component {
 
   componentWillMount() {
     this.socket = io.connect('https://www.scavenge.io');
+    this.socket.on('scavenge_tweets', function(data) {
+      console.log('We have received some tweets from the server');
+      this.handleTweets(data);
+    });
     this.socket.on('userLocationServerConfirmation', function(data) {
       console.log(data);
-    })
+    });
 
     // After we have sent our parameters to app.js, the server will make a Twitter API Call
     // and return tweets and related data to the client via socket below
-    this.socket.on('scavenge_tweets', this.handleTweets);
     this.geolocate();
   }
 
@@ -46,6 +49,7 @@ export default class Map extends React.Component {
 
   handleTweets(data) {
     this.setState({ tweets: data })
+    console.log(data);
     console.log(this.state.tweets);
     // Start displaying data that we received from server on our map
     this.addMarkersToMap();
