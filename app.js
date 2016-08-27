@@ -470,7 +470,7 @@ app.use(compression());
 // Add static middleware that handles serving up content from public directory
 // The public directory will be served and any content in it will be available
 // Request the root route '/' and you'll get index.html automatically
-app.use(serveStatic(__dirname, { maxAge: oneDay }));
+app.use(serveStatic(path.join(__dirname), { maxAge: oneDay }));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
