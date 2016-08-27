@@ -60,8 +60,17 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
+var sendDataToClient;
+
 // Open up a socket.io receiver
 io.on('connection', function(socket) {
+
+  sendDataToClient = function(event, data) {
+    console.log('Sending data to client');
+    console.log(data);
+    io.sockets.emit(event, data);
+  }
+
   socket.on('my_geolocation', function(clientToServer) {
     
     var clientData = JSON.parse(clientToServer);
@@ -452,10 +461,8 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
         if (expanded_arr_length === thumbnail_arr_length) {
           console.log(debugindex3 + '  NEWS:  Last tweet in the array! Opening socket and sending data! :)');
           // Send data to client via socket.io
-          console.log('blah');
-          console.log(io);
-          console.log(io.sockets);
-          io.sockets.emit('scavenge_tweets', scavenge_tweets);
+          // io.sockets.emit('scavenge_tweets', scavenge_tweets);
+          sendDataToClient('scavenge_tweets', scavenge_tweets);
         }
         debugindex3++;
       });

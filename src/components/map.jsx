@@ -82,24 +82,6 @@ export default class Map extends React.Component {
     }
   }
 
-  // createMapMarker(pos_lat_lng, icon_img_src, icon_dim, marker_title, tweet) {
-  //   // Put a custom marker on the map
-  //   // https://developers.google.com/maps/documentation/javascript/markers
-  //   var icon_width = icon_dim.width;
-  //   var icon_height = icon_dim.height;
-  //   var marker_icon = new google.maps.MarkerImage(icon_img_src, null, null, null, new google.maps.Size(icon_width,icon_height));
-  //   var marker = new google.maps.Marker({
-  //     position: pos_lat_lng,
-  //     icon: marker_icon,
-  //     title: marker_title,
-  //     animation: google.maps.Animation.DROP
-  //   });
-  //   marker.setMap(this.map);
-  //   marker.setAnimation(google.maps.Animation.BOUNCE);
-  //   addMarkerFunctionality(marker, customizeMarkerAnimation, marker_title, tweet);
-  //   return marker;
-  // }
-
   initializeMap() {
     this.map = new google.maps.Map(document.getElementById('map'), {
 
