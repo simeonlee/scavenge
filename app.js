@@ -71,7 +71,7 @@ io.on('connection', function(socket) {
 
   socket.on('my_geolocation', function(data) {
     data = JSON.parse(data);
-    twitterUtils.search({
+    twitterUtils.twitter.getSearch({
       // Twitter query search terms
       'q': data.topic,
       // 'latitude,longitude,radius'
