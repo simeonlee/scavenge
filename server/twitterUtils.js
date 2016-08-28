@@ -48,7 +48,9 @@ exports.searchSuccess = function (tweet, callback) {
 
   isolateShortenedUrl(tweet.text, function(shortenedUrl) {
     // This function expands the t.co url into the external link
+    console.log(shortenedUrl);
     reverse(shortenedUrl, function(err, expandedUrl) {
+      console.log(expandedUrl);
       if (err) {
         console.log(err);
         return;
