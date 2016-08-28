@@ -9,7 +9,6 @@ var _ = require('lodash');
 // E.g., t.co/xxx --> www.instagram.com/xxx
 var reverse = require('long-url');
 
-// var Twitter = require('twitter-node-client').Twitter;
 // Secret!!!
 var config = {
   "consumerKey": process.env.TWITTER_CONSUMERKEY,
@@ -22,61 +21,9 @@ var config = {
 var Twitter = require('twitter-node-client').Twitter;
 exports.twitter = new Twitter(config);
 
-// exports.twitter = twitter;
-
-// exports.search = new Twitter(config).getSearch;
-// var twitter = new Twitter(config);
-// exports.search = twitter.getSearch;
-
 // Contain the latest twitter query terms in the app.js scope
 var twitterQueryTerms;
 
-// var search = function(userGeo, search_radius, twitterQueryTerms) {
-
-//   // Reference:
-//   // https://dev.twitter.com/rest/reference/get/search/tweets
-
-//   if (userGeo) {
-//     var lat = userGeo.lat;
-//     var lng = userGeo.lng;
-//   } else {
-//     var lat = 40.7308;
-//     var lng = -73.9973;
-//   }
-
-//   // UTF-8, URL-encoded search query of 500 characters maximum, including operators
-//   // var twitter_query = twitterQueryTerms.join(' OR ');
-  
-//   // 37.781157,-122.398720,1mi
-//   var geocode_input = lat+','+lng+',2mi';
-
-//   // Maximum results of 100, defaults to 15
-//   var results_count = 100;
-
-//   console.log('Twitter Query String:  ' + twitterQueryTerms);
-//   console.log('Twitter Query String Length:  ' + twitterQueryTerms.length + ' (500 char maximum)');
-//   console.log('Twitter Geocode Input:  ' + geocode_input);
-//   console.log('Number Of Results To Return:  ' + results_count);
-
-//   return twitter.getSearch({
-    
-//     // Twitter query search terms
-//     'q': twitterQueryTerms,
-
-//     // 'latitude,longitude,radius'
-//     'geocode': geocode_input,
-
-//     // Search for this many results
-//     'count': results_count,
-
-//     // Bias towards recent tweets
-//     // 'result_type': 'recent'
-
-//   }, error, success); // callbacks
-// }
-
-// Callback functions for Twitter API call:
-// Error
 exports.searchError = function (err, response, body) {
   console.log('ERROR [%s]', err);
   console.log(err);
@@ -88,8 +35,6 @@ var debugindex1;
 var debugindex2;
 var debugindex3;
 
-// Success
-// Lots of console.log's to debug with! Can trace path through functions
 exports.searchSuccess = function (data) {
 
   // Wipe the slate clean
@@ -306,6 +251,7 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
           console.log(debugindex3 + '  NEWS:  Last tweet in the array! Opening socket and sending data! :)');
           // Send data to client via socket.io
           // io.sockets.emit('scavenge_tweets', scavenge_tweets);
+          var sendDataToClient = require('../app.js').sendDataToClient;
           sendDataToClient('newTweets', scavenge_tweets);
         }
         debugindex3++;

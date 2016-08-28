@@ -21831,6 +21831,7 @@
 
 	    // Use socket to communicate between client & server
 	    _this.socket = io.connect('https://www.scavenge.io');
+	    // this.socket = io.connect('127.0.0.1:8080');
 
 	    // Locate position of user
 	    _this.geolocate();
@@ -21994,6 +21995,8 @@
 	      tweetMarkers: []
 	    };
 	    _this.socket = io.connect('https://www.scavenge.io');
+	    // this.socket = io.connect('127.0.0.1:8080');
+
 	    return _this;
 	  }
 

@@ -81,6 +81,7 @@ export default class App extends React.Component {
 
     // Use socket to communicate between client & server
     this.socket = io.connect('https://www.scavenge.io');
+    // this.socket = io.connect('127.0.0.1:8080');
 
     // Locate position of user
     this.geolocate();

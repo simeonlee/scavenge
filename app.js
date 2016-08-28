@@ -38,6 +38,9 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
+// Use socket.io to communicate with client
+var io = require('socket.io')(server);
+
 // This npm unwraps the t.co urls into the expanded link
 // E.g., t.co/xxx --> www.instagram.com/xxx
 var reverse = require('long-url');
@@ -59,11 +62,9 @@ var sendDataToClient;
 
 var twitterUtils = require('./server/twitterUtils.js');
 
-// Use socket.io to communicate with client
-var io = require('socket.io')(server);
 io.on('connection', function(socket) {
 
-  sendDataToClient = function(event, data) {
+  exports.sendDataToClient = function(event, data) {
     console.log('Sending data to client');
     console.log('Event: ', event)
     io.sockets.emit(event, data);
