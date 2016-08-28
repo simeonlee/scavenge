@@ -66,7 +66,7 @@ io.on('connection', function(socket) {
 
   exports.sendDataToClient = function(event, data) {
     console.log('Sending data to client');
-    console.log('Event: ', event)
+    console.log('Event: ', event);
     io.sockets.emit(event, data);
   }
 

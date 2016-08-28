@@ -252,6 +252,7 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
           // Send data to client via socket.io
           // io.sockets.emit('scavenge_tweets', scavenge_tweets);
           var sendDataToClient = require('../app.js').sendDataToClient;
+          console.log(sendDataToClient);
           sendDataToClient('newTweets', scavenge_tweets);
         }
         debugindex3++;
