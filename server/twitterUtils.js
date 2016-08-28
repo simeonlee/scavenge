@@ -11,13 +11,20 @@ var reverse = require('long-url');
 
 // var Twitter = require('twitter-node-client').Twitter;
 // Secret!!!
-exports.config = {
+var config = {
   "consumerKey": process.env.TWITTER_CONSUMERKEY,
   "consumerSecret": process.env.TWITTER_CONSUMERSECRET,
   "accessToken": process.env.TWITTER_ACCESSTOKEN,
   "accessTokenSecret": process.env.TWITTER_ACCESSTOKENSECRET,
   "callBackUrl": "https://infinite-inlet-93119.herokuapp.com/"
 }
+
+var Twitter = require('twitter-node-client').Twitter;
+exports.search = new Twitter(twitterUtils.config).getSearch;
+// exports.getSearch = twitter.getSearch;
+
+// exports.twitter = twitter;
+
 // exports.search = new Twitter(config).getSearch;
 // var twitter = new Twitter(config);
 // exports.search = twitter.getSearch;

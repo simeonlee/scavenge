@@ -8,7 +8,6 @@
  * Then we use socket.io to send all the Twitter and Instagram data back to the client
  */
 
-// Require the modules needed
 var compression = require('compression');
 var express = require('express');
 var path = require('path');
@@ -39,13 +38,6 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
-// We are using socket.io to communicate with client
-var io = require('socket.io')(server);
-
-var twitterUtils = require('./server/twitterUtils.js');
-var Twitter = require('twitter-node-client').Twitter;
-var twitter = new Twitter(twitterUtils.config);
-
 // This npm unwraps the t.co urls into the expanded link
 // E.g., t.co/xxx --> www.instagram.com/xxx
 var reverse = require('long-url');
@@ -65,7 +57,10 @@ server.on('listening', onListening);
 
 var sendDataToClient;
 
-// Open up a socket.io receiver
+var twitterUtils = require('./server/twitterUtils.js');
+
+// Use socket.io to communicate with client
+var io = require('socket.io')(server);
 io.on('connection', function(socket) {
 
   sendDataToClient = function(event, data) {
@@ -76,7 +71,7 @@ io.on('connection', function(socket) {
 
   socket.on('my_geolocation', function(data) {
     data = JSON.parse(data);
-    twitter.getSearch({
+    twitterUtils.search({
       // Twitter query search terms
       'q': data.topic,
       // 'latitude,longitude,radius'
@@ -98,7 +93,7 @@ io.on('connection', function(socket) {
   //   io.sockets.emit('userLocationServerConfirmation', 'Server has detected user location');
   // });
 
-  io.sockets.emit('userLocationServerConfirmation', 'Server is sending data to client');
+  // io.sockets.emit('userLocationServerConfirmation', 'Server is sending data to client');
 
   // called from yelp.js when the user clicks on a grid item
   // best guesses at what location the instagram was taken
