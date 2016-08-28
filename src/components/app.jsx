@@ -86,11 +86,11 @@ export default class App extends React.Component {
     this.geolocate();
   }
 
-  setAndSendDataToServer() {
+  setAndSendDataToServer(location) {
     // TODO: clear markers
     // TODO: clear grid
     this.socket.emit('my_geolocation', JSON.stringify({
-      pos: this.state.userLocation,
+      pos: location || this.state.userLocation,
       search_radius: this.state.searchRadius,
       twitterQueryTerms: this.state.topic
     }));
@@ -98,7 +98,7 @@ export default class App extends React.Component {
 
   onSubjectQuery(topic) {
     this.setState({topic: topic})
-    // TODO: send data to server
+    this.setAndSendDataToServer();
   }
 
   geolocate() {
@@ -112,14 +112,9 @@ export default class App extends React.Component {
 
         this.setState({'previousUserLocation': this.state.userLocation});
         this.setState({'userLocation': userLocation});
-
         // Attach user geolocation data and twitter query terms to a data object
         // that we will send to the server to make API calls with based on user context
         this.setAndSendDataToServer();
-        // this.socket.emit('userLocation', JSON.stringify({
-        //   position: userLocation
-        // }));
-
       }, function() {
         alert('Geolocation failed');
       });
@@ -137,6 +132,7 @@ export default class App extends React.Component {
         <div className="body-container">
           <Map
             userLocation={this.state.userLocation}
+            setAndSendDataToServer={this.setAndSendDataToServer.bind(this)}
             // previousUserLocation={this.state.previousUserLocation}
           />
         </div>

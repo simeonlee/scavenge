@@ -21839,11 +21839,11 @@
 
 	  _createClass(App, [{
 	    key: 'setAndSendDataToServer',
-	    value: function setAndSendDataToServer() {
+	    value: function setAndSendDataToServer(location) {
 	      // TODO: clear markers
 	      // TODO: clear grid
 	      this.socket.emit('my_geolocation', JSON.stringify({
-	        pos: this.state.userLocation,
+	        pos: location || this.state.userLocation,
 	        search_radius: this.state.searchRadius,
 	        twitterQueryTerms: this.state.topic
 	      }));
@@ -21852,7 +21852,7 @@
 	    key: 'onSubjectQuery',
 	    value: function onSubjectQuery(topic) {
 	      this.setState({ topic: topic });
-	      // TODO: send data to server
+	      this.setAndSendDataToServer();
 	    }
 	  }, {
 	    key: 'geolocate',
@@ -21869,13 +21869,9 @@
 
 	          _this2.setState({ 'previousUserLocation': _this2.state.userLocation });
 	          _this2.setState({ 'userLocation': userLocation });
-
 	          // Attach user geolocation data and twitter query terms to a data object
 	          // that we will send to the server to make API calls with based on user context
 	          _this2.setAndSendDataToServer();
-	          // this.socket.emit('userLocation', JSON.stringify({
-	          //   position: userLocation
-	          // }));
 	        }, function () {
 	          alert('Geolocation failed');
 	        });
@@ -21896,7 +21892,8 @@
 	          'div',
 	          { className: 'body-container' },
 	          _react2.default.createElement(_map2.default, {
-	            userLocation: this.state.userLocation
+	            userLocation: this.state.userLocation,
+	            setAndSendDataToServer: this.setAndSendDataToServer.bind(this)
 	            // previousUserLocation={this.state.previousUserLocation}
 	          })
 	        )
@@ -22003,7 +22000,6 @@
 	  _createClass(Map, [{
 	    key: 'setCenter',
 	    value: function setCenter() {
-	      // alert(this.props.userLocation.lat + " " + this.props.userLocation.lng + " (types: " + (typeof this.props.userLocation.lat) + ", " + (typeof this.props.userLocation.lng) + ")");
 	      this.map && this.map.setCenter(this.props.userLocation);
 	    }
 	  }, {
@@ -22021,11 +22017,6 @@
 	      };
 	      var marker_title = 'you';
 	      this.createMapMarker(position, icon_img_src, icon_dim, marker_title);
-	    }
-	  }, {
-	    key: 'componentWillUpdate',
-	    value: function componentWillUpdate() {
-	      // this.setState({'previousUserLocation', this.props.userLocation});
 	    }
 	  }, {
 	    key: 'componentDidUpdate',
@@ -22137,7 +22128,7 @@
 	      var autocomplete = new google.maps.places.Autocomplete(input);
 
 	      // Bias results to the bounds of the viewport
-	      autocomplete.bindTo('bounds', map);
+	      autocomplete.bindTo('bounds', this.map);
 
 	      // Do the following when the place value is changed...
 	      autocomplete.addListener('place_changed', function () {
@@ -22175,14 +22166,14 @@
 	        console.log(address);
 
 	        // Mark new location
-	        // var new_location = place.geometry.location;
-	        // var icon_img_src = '../images/newlocation@2x.png';
-	        // var icon_dim = {
-	        //   width: 55,
-	        //   height: 62
-	        // }
-	        // var marker_title = 'new location';
-	        // my.createMapMarker(new_location, icon_img_src, icon_dim, marker_title);
+	        var new_location = place.geometry.location;
+	        var icon_img_src = '../images/newlocation@2x.png';
+	        var icon_dim = {
+	          width: 55,
+	          height: 62
+	        };
+	        var marker_title = 'new location';
+	        this.createMapMarker(new_location, icon_img_src, icon_dim, marker_title);
 
 	        // console.log(new_location);
 
@@ -22192,8 +22183,9 @@
 	        // Attach user geolocation data and twitter query terms to a data object
 	        // that we will send to the server to make API calls with based on user context
 	        // my.setAndSendDataToServer(new_location, search_radius, my.twitterQueryTerms);
-
-	      });
+	        // need to update app.jsx with new location
+	        this.props.setAndSendDataToServer(place.geometry.location);
+	      }.bind(this));
 	    }
 	  }, {
 	    key: 'createMapMarker',

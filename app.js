@@ -201,7 +201,6 @@ var twitterSearch = function(userGeo, search_radius, twitterQueryTerms) {
 
   // UTF-8, URL-encoded search query of 500 characters maximum, including operators
   // var twitter_query = twitterQueryTerms.join(' OR ');
-  var twitter_query = twitterQueryTerms;
   
   // 37.781157,-122.398720,1mi
   var geocode_input = lat+','+lng+',2mi';
@@ -209,15 +208,15 @@ var twitterSearch = function(userGeo, search_radius, twitterQueryTerms) {
   // Maximum results of 100, defaults to 15
   var results_count = 100;
 
-  console.log('Twitter Query String:  ' + twitter_query);
-  console.log('Twitter Query String Length:  ' + twitter_query.length + ' (500 char maximum)');
+  console.log('Twitter Query String:  ' + twitterQueryTerms);
+  console.log('Twitter Query String Length:  ' + twitterQueryTerms.length + ' (500 char maximum)');
   console.log('Twitter Geocode Input:  ' + geocode_input);
   console.log('Number Of Results To Return:  ' + results_count);
 
   return twitter.getSearch({
     
     // Twitter query search terms
-    'q': twitter_query,
+    'q': twitterQueryTerms,
 
     // 'latitude,longitude,radius'
     'geocode': geocode_input,

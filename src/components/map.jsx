@@ -21,7 +21,6 @@ export default class Map extends React.Component {
   }
 
   setCenter() {
-    // alert(this.props.userLocation.lat + " " + this.props.userLocation.lng + " (types: " + (typeof this.props.userLocation.lat) + ", " + (typeof this.props.userLocation.lng) + ")");
     this.map && this.map.setCenter(this.props.userLocation);
   }
 
@@ -38,10 +37,6 @@ export default class Map extends React.Component {
     }
     var marker_title = 'you';
     this.createMapMarker(position, icon_img_src, icon_dim, marker_title);
-  }
-
-  componentWillUpdate() {
-    // this.setState({'previousUserLocation', this.props.userLocation});
   }
 
   componentDidUpdate() {
@@ -145,7 +140,7 @@ export default class Map extends React.Component {
     var autocomplete = new google.maps.places.Autocomplete(input);
 
     // Bias results to the bounds of the viewport
-    autocomplete.bindTo('bounds', map);
+    autocomplete.bindTo('bounds', this.map);
 
     // Do the following when the place value is changed...
     autocomplete.addListener('place_changed', function() {
@@ -187,14 +182,14 @@ export default class Map extends React.Component {
       console.log(address);
 
       // Mark new location
-      // var new_location = place.geometry.location;
-      // var icon_img_src = '../images/newlocation@2x.png';
-      // var icon_dim = {
-      //   width: 55,
-      //   height: 62
-      // }
-      // var marker_title = 'new location';
-      // my.createMapMarker(new_location, icon_img_src, icon_dim, marker_title);
+      var new_location = place.geometry.location;
+      var icon_img_src = '../images/newlocation@2x.png';
+      var icon_dim = {
+        width: 55,
+        height: 62
+      }
+      var marker_title = 'new location';
+      this.createMapMarker(new_location, icon_img_src, icon_dim, marker_title);
 
       // console.log(new_location);
       
@@ -204,10 +199,11 @@ export default class Map extends React.Component {
       // Attach user geolocation data and twitter query terms to a data object
       // that we will send to the server to make API calls with based on user context
       // my.setAndSendDataToServer(new_location, search_radius, my.twitterQueryTerms);
-
+      // need to update app.jsx with new location
+      this.props.setAndSendDataToServer(place.geometry.location);
   
 
-    });
+    }.bind(this));
   }
 
  
