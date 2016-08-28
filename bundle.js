@@ -21787,11 +21787,13 @@
 
 	var _nav2 = _interopRequireDefault(_nav);
 
-	var _map = __webpack_require__(179);
+	var _map = __webpack_require__(178);
 
 	var _map2 = _interopRequireDefault(_map);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -21809,20 +21811,29 @@
 	  _inherits(App, _React$Component);
 
 	  function App(props) {
+	    var _this$state;
+
 	    _classCallCheck(this, App);
 
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this, props));
 
-	    _this.state = {
+	    _this.state = (_this$state = {
 	      currentPosition: null,
 	      searchRadius: null,
-	      topic: 'juice',
-	      queryTerms: [
-	      // search for all instagram pics
-	      'instagram']
-	    };
+	      topic: 'juice'
+	    }, _defineProperty(_this$state, 'searchRadius', 2), _defineProperty(_this$state, 'userLocation', {
+	      // Washington Square Park
+	      lat: 40.7308,
+	      lng: -73.9973
+	    }), _defineProperty(_this$state, 'queryTerms', [
+	    // search for all instagram pics
+	    'instagram']), _this$state);
 
+	    // Use socket to communicate between client & server
 	    _this.socket = io.connect('https://www.scavenge.io');
+
+	    // Locate position of user
+	    _this.geolocate();
 	    return _this;
 	  }
 
@@ -21831,20 +21842,46 @@
 	    value: function setAndSendDataToServer() {
 	      // TODO: clear markers
 	      // TODO: clear grid
-	      // var currentPosition = this.state.currentPosition;
-	      // var searchRadius = this.state.searchRadius;
-	      // var queryTerms = this.state.queryTerms;
-	      // socket.emit('my_geolocation', JSON.stringify({
-	      //   pos: currentPosition,
-	      //   search_radius: searchRadius,
-	      //   twitterQueryTerms: queryTerms
-	      // }));
+	      this.socket.emit('my_geolocation', JSON.stringify({
+	        pos: this.state.userLocation,
+	        search_radius: this.state.searchRadius,
+	        twitterQueryTerms: this.state.topic
+	      }));
 	    }
 	  }, {
 	    key: 'onSubjectQuery',
 	    value: function onSubjectQuery(topic) {
 	      this.setState({ topic: topic });
-	      // send data to server
+	      // TODO: send data to server
+	    }
+	  }, {
+	    key: 'geolocate',
+	    value: function geolocate() {
+	      var _this2 = this;
+
+	      if (navigator.geolocation) {
+	        navigator.geolocation.getCurrentPosition(function (position) {
+	          var userLocation = {
+	            lat: position.coords.latitude,
+	            lng: position.coords.longitude
+	          };
+	          // console.log('User located at ' + position.lat + ', ' + position.lng);
+
+	          _this2.setState({ 'previousUserLocation': _this2.state.userLocation });
+	          _this2.setState({ 'userLocation': userLocation });
+
+	          // Attach user geolocation data and twitter query terms to a data object
+	          // that we will send to the server to make API calls with based on user context
+	          _this2.setAndSendDataToServer();
+	          // this.socket.emit('userLocation', JSON.stringify({
+	          //   position: userLocation
+	          // }));
+	        }, function () {
+	          alert('Geolocation failed');
+	        });
+	      } else {
+	        alert('Your browser doesn\'t support geolocation');
+	      }
 	    }
 	  }, {
 	    key: 'render',
@@ -21858,7 +21895,10 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'body-container' },
-	          _react2.default.createElement(_map2.default, null)
+	          _react2.default.createElement(_map2.default, {
+	            userLocation: this.state.userLocation
+	            // previousUserLocation={this.state.previousUserLocation}
+	          })
 	        )
 	      );
 	    }
@@ -21908,8 +21948,7 @@
 	*/
 
 /***/ },
-/* 178 */,
-/* 179 */
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21924,7 +21963,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _lightMap = __webpack_require__(180);
+	var _lightMap = __webpack_require__(179);
 
 	var _lightMap2 = _interopRequireDefault(_lightMap);
 
@@ -21952,11 +21991,7 @@
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Map).call(this, props));
 
 	    _this.state = {
-	      location: {
-	        // Washington Square Park
-	        lat: 40.7308,
-	        lng: -73.9973
-	      },
+	      previousUserLocation: { lat: 0, lng: 0 },
 	      userMarker: null,
 	      tweets: [],
 	      tweetMarkers: []
@@ -21966,6 +22001,45 @@
 	  }
 
 	  _createClass(Map, [{
+	    key: 'setCenter',
+	    value: function setCenter() {
+	      // alert(this.props.userLocation.lat + " " + this.props.userLocation.lng + " (types: " + (typeof this.props.userLocation.lat) + ", " + (typeof this.props.userLocation.lng) + ")");
+	      this.map && this.map.setCenter(this.props.userLocation);
+	    }
+	  }, {
+	    key: 'addUserMarker',
+	    value: function addUserMarker() {
+	      // Create marker for user position
+	      var position = {
+	        lat: this.props.userLocation.lat,
+	        lng: this.props.userLocation.lng
+	      };
+	      var icon_img_src = __webpack_require__(180);
+	      var icon_dim = {
+	        width: 55,
+	        height: 62
+	      };
+	      var marker_title = 'you';
+	      this.createMapMarker(position, icon_img_src, icon_dim, marker_title);
+	    }
+	  }, {
+	    key: 'componentWillUpdate',
+	    value: function componentWillUpdate() {
+	      // this.setState({'previousUserLocation', this.props.userLocation});
+	    }
+	  }, {
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate() {
+	      if (this.props.userLocation !== this.state.previousUserLocation) {
+	        console.log('previousUserLocation', this.props.previousUserLocation);
+	        console.log('userLocation', this.props.userLocation);
+	        this.setCenter();
+	        this.addUserMarker();
+	      }
+	      // update our previous state for current state
+	      this.state.previousUserLocation = this.props.userLocation;
+	    }
+	  }, {
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      var _this2 = this;
@@ -21982,7 +22056,7 @@
 	      });
 	      // After we have sent our parameters to app.js, the server will make a Twitter API Call
 	      // and return tweets and related data to the client via socket below
-	      this.geolocate();
+	      // this.geolocate();
 	    }
 	  }, {
 	    key: 'componentDidMount',
@@ -22030,7 +22104,7 @@
 	      this.map = new google.maps.Map(document.getElementById('map'), {
 
 	        // Make map center the default location until the geolocation function finishes finding user
-	        center: this.state.location,
+	        center: this.props.userLocation,
 
 	        // Zoom the map to neighborhood level of detail
 	        zoom: 15,
@@ -22120,50 +22194,6 @@
 	        // my.setAndSendDataToServer(new_location, search_radius, my.twitterQueryTerms);
 
 	      });
-	    }
-	  }, {
-	    key: 'geolocate',
-	    value: function geolocate() {
-	      var _this3 = this;
-
-	      if (navigator.geolocation) {
-	        navigator.geolocation.getCurrentPosition(function (position) {
-
-	          // Create marker for user position
-	          var position = {
-	            lat: position.coords.latitude,
-	            lng: position.coords.longitude
-	          };
-	          var icon_img_src = __webpack_require__(181);
-	          var icon_dim = {
-	            width: 55,
-	            height: 62
-	          };
-	          var marker_title = 'you';
-	          _this3.createMapMarker(position, icon_img_src, icon_dim, marker_title);
-
-	          console.log('User located at ' + position.lat + ', ' + position.lng);
-
-	          // for calculating distances, etc.
-	          // my.pos = pos;
-	          _this3.setState({ 'location': position });
-
-	          // var socket = io.connect('https://www.scavenge.io');
-	          // Attach user geolocation data and twitter query terms to a data object
-	          // that we will send to the server to make API calls with based on user context
-	          // my.setAndSendDataToServer(pos, search_radius, my.twitterQueryTerms);
-	          _this3.socket.emit('userLocation', JSON.stringify({
-	            position: position
-	          }));
-
-	          // Set map to center on position
-	          _this3.map.setCenter(_this3.state.location);
-	        }, function () {
-	          alert('Geolocation failed');
-	        });
-	      } else {
-	        alert('Your browser doesn\'t support geolocation');
-	      }
 	    }
 	  }, {
 	    key: 'createMapMarker',
@@ -22378,7 +22408,7 @@
 	exports.default = Map;
 
 /***/ },
-/* 180 */
+/* 179 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -22501,7 +22531,7 @@
 	}];
 
 /***/ },
-/* 181 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "ba4169119b9cfa67fd400b1d43f78c54.png";

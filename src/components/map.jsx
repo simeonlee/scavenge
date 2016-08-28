@@ -12,16 +12,47 @@ export default class Map extends React.Component {
     super(props);
 
     this.state = {
-      location: {
-        // Washington Square Park
-        lat: 40.7308,
-        lng: -73.9973
-      },
+      previousUserLocation: {lat:0,lng:0},
       userMarker: null,
       tweets: [],
       tweetMarkers: []
     }
     this.socket = io.connect('https://www.scavenge.io');
+  }
+
+  setCenter() {
+    // alert(this.props.userLocation.lat + " " + this.props.userLocation.lng + " (types: " + (typeof this.props.userLocation.lat) + ", " + (typeof this.props.userLocation.lng) + ")");
+    this.map && this.map.setCenter(this.props.userLocation);
+  }
+
+  addUserMarker() {
+    // Create marker for user position
+    var position = {
+      lat: this.props.userLocation.lat,
+      lng: this.props.userLocation.lng
+    };
+    var icon_img_src = require('../images/homeicon@2x.png');
+    var icon_dim = {
+      width: 55,
+      height: 62
+    }
+    var marker_title = 'you';
+    this.createMapMarker(position, icon_img_src, icon_dim, marker_title);
+  }
+
+  componentWillUpdate() {
+    // this.setState({'previousUserLocation', this.props.userLocation});
+  }
+
+  componentDidUpdate() {
+    if (this.props.userLocation !== this.state.previousUserLocation) {
+      console.log('previousUserLocation',this.props.previousUserLocation);
+      console.log('userLocation',this.props.userLocation);
+      this.setCenter();
+      this.addUserMarker();
+    }
+    // update our previous state for current state
+    this.state.previousUserLocation = this.props.userLocation;
   }
 
   componentWillMount() {
@@ -37,7 +68,7 @@ export default class Map extends React.Component {
     });
     // After we have sent our parameters to app.js, the server will make a Twitter API Call
     // and return tweets and related data to the client via socket below
-    this.geolocate();
+    // this.geolocate();
   }
 
   componentDidMount() {
@@ -81,7 +112,7 @@ export default class Map extends React.Component {
     this.map = new google.maps.Map(document.getElementById('map'), {
 
       // Make map center the default location until the geolocation function finishes finding user
-      center: this.state.location,
+      center: this.props.userLocation,
       
       // Zoom the map to neighborhood level of detail
       zoom: 15,
@@ -179,47 +210,7 @@ export default class Map extends React.Component {
     });
   }
 
-  geolocate() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {        
-
-        // Create marker for user position
-        var position = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-        var icon_img_src = require('../images/homeicon@2x.png');
-        var icon_dim = {
-          width: 55,
-          height: 62
-        }
-        var marker_title = 'you';
-        this.createMapMarker(position, icon_img_src, icon_dim, marker_title);
-
-        console.log('User located at ' + position.lat + ', ' + position.lng);
-
-        // for calculating distances, etc.
-        // my.pos = pos;
-        this.setState({'location': position});
-
-        // var socket = io.connect('https://www.scavenge.io');
-        // Attach user geolocation data and twitter query terms to a data object
-        // that we will send to the server to make API calls with based on user context
-        // my.setAndSendDataToServer(pos, search_radius, my.twitterQueryTerms);
-        this.socket.emit('userLocation', JSON.stringify({
-          position: position
-        }));
-        
-
-        // Set map to center on position
-        this.map.setCenter(this.state.location);
-      }, function() {
-        alert('Geolocation failed');
-      });
-    } else {
-      alert('Your browser doesn\'t support geolocation');
-    }
-  }
+ 
 
   createMapMarker(pos_lat_lng, icon_img_src, icon_dim, marker_title, tweet) {
     var icon_width = icon_dim.width;

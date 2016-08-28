@@ -200,7 +200,8 @@ var twitterSearch = function(userGeo, search_radius, twitterQueryTerms) {
   }
 
   // UTF-8, URL-encoded search query of 500 characters maximum, including operators
-  var twitter_query = twitterQueryTerms.join(' OR ');
+  // var twitter_query = twitterQueryTerms.join(' OR ');
+  var twitter_query = twitterQueryTerms;
   
   // 37.781157,-122.398720,1mi
   var geocode_input = lat+','+lng+',2mi';
