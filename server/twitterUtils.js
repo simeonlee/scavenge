@@ -9,16 +9,18 @@ var _ = require('lodash');
 // E.g., t.co/xxx --> www.instagram.com/xxx
 var reverse = require('long-url');
 
-var Twitter = require('twitter-node-client').Twitter;
+// var Twitter = require('twitter-node-client').Twitter;
 // Secret!!!
-var config = {
+exports.config = {
   "consumerKey": process.env.TWITTER_CONSUMERKEY,
   "consumerSecret": process.env.TWITTER_CONSUMERSECRET,
   "accessToken": process.env.TWITTER_ACCESSTOKEN,
   "accessTokenSecret": process.env.TWITTER_ACCESSTOKENSECRET,
   "callBackUrl": "https://infinite-inlet-93119.herokuapp.com/"
 }
-exports.search = new Twitter(config).getSearch;
+// exports.search = new Twitter(config).getSearch;
+// var twitter = new Twitter(config);
+// exports.search = twitter.getSearch;
 
 // Contain the latest twitter query terms in the app.js scope
 var twitterQueryTerms;
@@ -171,7 +173,7 @@ exports.searchSuccess = function (data) {
     console.log(debugindex1 + '  ACTION:  Calling expandURL function now');
 
     // This function expands the t.co url into the external link
-    expandURL(status, getInstagramData); 
+    expandURL(status, getInstagramData);
   }
 };
 

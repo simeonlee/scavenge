@@ -42,11 +42,13 @@ var server = http.createServer(app);
 // We are using socket.io to communicate with client
 var io = require('socket.io')(server);
 
-var twitter = require('./server/twitter.js');
+var twitterUtils = require('./server/twitterUtils.js');
+var Twitter = require('twitter-node-client').Twitter;
+var twitter = new Twitter(twitterUtils.config);
 
 // This npm unwraps the t.co urls into the expanded link
 // E.g., t.co/xxx --> www.instagram.com/xxx
-// var reverse = require('long-url');
+var reverse = require('long-url');
 
 // Will contain { lat: x, lng: y } of user
 var pos = {
@@ -74,7 +76,7 @@ io.on('connection', function(socket) {
 
   socket.on('my_geolocation', function(data) {
     data = JSON.parse(data);
-    twitter.search({
+    twitter.getSearch({
       // Twitter query search terms
       'q': data.topic,
       // 'latitude,longitude,radius'
@@ -83,7 +85,7 @@ io.on('connection', function(socket) {
       'count': 100,
       // Bias towards recent tweets
       // 'result_type': 'recent'
-    }, twitter.searchError, twitter.searchSuccess)
+    }, twitterUtils.searchError, twitterUtils.searchSuccess);
   });
 
   // socket.on('userLocation', function(data) {
@@ -106,7 +108,7 @@ io.on('connection', function(socket) {
     var set_parameters = {
       term: yelp_term
     }
-    requestYelp(set_parameters, yelp_latLng, yelpCallback);
+    // requestYelp(set_parameters, yelp_latLng, yelpCallback);
   })
 });
 
