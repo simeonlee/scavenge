@@ -4,14 +4,12 @@ var n = require('nonce')();
 var request = require('request');
 var qs = require('querystring');
 var _ = require('lodash');
-var Twitter = require('twitter-node-client').Twitter;
+
 // This npm unwraps the t.co urls into the expanded link
 // E.g., t.co/xxx --> www.instagram.com/xxx
 var reverse = require('long-url');
 
-// Dummy data
-var twitter_API_data = {test: 'No twitter data yet'};
-
+var Twitter = require('twitter-node-client').Twitter;
 // Secret!!!
 var config = {
   "consumerKey": process.env.TWITTER_CONSUMERKEY,
@@ -20,59 +18,58 @@ var config = {
   "accessTokenSecret": process.env.TWITTER_ACCESSTOKENSECRET,
   "callBackUrl": "https://infinite-inlet-93119.herokuapp.com/"
 }
-
-var twitter = new Twitter(config);
+exports.search = new Twitter(config).getSearch;
 
 // Contain the latest twitter query terms in the app.js scope
 var twitterQueryTerms;
 
-var twitterSearch = function(userGeo, search_radius, twitterQueryTerms) {
+// var search = function(userGeo, search_radius, twitterQueryTerms) {
 
-  // Reference:
-  // https://dev.twitter.com/rest/reference/get/search/tweets
+//   // Reference:
+//   // https://dev.twitter.com/rest/reference/get/search/tweets
 
-  if (userGeo) {
-    var lat = userGeo.lat;
-    var lng = userGeo.lng;
-  } else {
-    var lat = 40.7308;
-    var lng = -73.9973;
-  }
+//   if (userGeo) {
+//     var lat = userGeo.lat;
+//     var lng = userGeo.lng;
+//   } else {
+//     var lat = 40.7308;
+//     var lng = -73.9973;
+//   }
 
-  // UTF-8, URL-encoded search query of 500 characters maximum, including operators
-  // var twitter_query = twitterQueryTerms.join(' OR ');
+//   // UTF-8, URL-encoded search query of 500 characters maximum, including operators
+//   // var twitter_query = twitterQueryTerms.join(' OR ');
   
-  // 37.781157,-122.398720,1mi
-  var geocode_input = lat+','+lng+',2mi';
+//   // 37.781157,-122.398720,1mi
+//   var geocode_input = lat+','+lng+',2mi';
 
-  // Maximum results of 100, defaults to 15
-  var results_count = 100;
+//   // Maximum results of 100, defaults to 15
+//   var results_count = 100;
 
-  console.log('Twitter Query String:  ' + twitterQueryTerms);
-  console.log('Twitter Query String Length:  ' + twitterQueryTerms.length + ' (500 char maximum)');
-  console.log('Twitter Geocode Input:  ' + geocode_input);
-  console.log('Number Of Results To Return:  ' + results_count);
+//   console.log('Twitter Query String:  ' + twitterQueryTerms);
+//   console.log('Twitter Query String Length:  ' + twitterQueryTerms.length + ' (500 char maximum)');
+//   console.log('Twitter Geocode Input:  ' + geocode_input);
+//   console.log('Number Of Results To Return:  ' + results_count);
 
-  return twitter.getSearch({
+//   return twitter.getSearch({
     
-    // Twitter query search terms
-    'q': twitterQueryTerms,
+//     // Twitter query search terms
+//     'q': twitterQueryTerms,
 
-    // 'latitude,longitude,radius'
-    'geocode': geocode_input,
+//     // 'latitude,longitude,radius'
+//     'geocode': geocode_input,
 
-    // Search for this many results
-    'count': results_count,
+//     // Search for this many results
+//     'count': results_count,
 
-    // Bias towards recent tweets
-    // 'result_type': 'recent'
+//     // Bias towards recent tweets
+//     // 'result_type': 'recent'
 
-  }, error, success); // callbacks
-}
+//   }, error, success); // callbacks
+// }
 
 // Callback functions for Twitter API call:
 // Error
-var error = function (err, response, body) {
+exports.searchError = function (err, response, body) {
   console.log('ERROR [%s]', err);
   console.log(err);
 };
@@ -85,7 +82,7 @@ var debugindex3;
 
 // Success
 // Lots of console.log's to debug with! Can trace path through functions
-var success = function (data) {
+exports.searchSuccess = function (data) {
 
   // Wipe the slate clean
   debugindex1 = 1;
@@ -94,7 +91,7 @@ var success = function (data) {
   expanded_instagram_url_arr = [];
   thumbnail_url_arr = [];
 
-  twitter_API_data = JSON.parse(data);
+  var twitter_API_data = JSON.parse(data);
   
   // Tweets
   var statuses = twitter_API_data.statuses;
@@ -308,8 +305,4 @@ var getInstagramData = function(scavenge_tweet, expandedURL) {
     }
     debugindex2++;
   });
-}
-
-module.exports = {
-	twitterSearch: twitterSearch
 }

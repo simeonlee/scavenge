@@ -91,8 +91,8 @@ export default class App extends React.Component {
     // TODO: clear grid
     this.socket.emit('my_geolocation', JSON.stringify({
       pos: location || this.state.userLocation,
-      search_radius: this.state.searchRadius,
-      twitterQueryTerms: this.state.topic
+      radius: this.state.searchRadius,
+      topic: this.state.topic
     }));
   }
 

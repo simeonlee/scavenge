@@ -42,7 +42,7 @@ var server = http.createServer(app);
 // We are using socket.io to communicate with client
 var io = require('socket.io')(server);
 
-var twitterSearch = require('./server/twitter.js').twitterSearch;
+var twitter = require('./server/twitter.js');
 
 // This npm unwraps the t.co urls into the expanded link
 // E.g., t.co/xxx --> www.instagram.com/xxx
@@ -72,25 +72,18 @@ io.on('connection', function(socket) {
     io.sockets.emit(event, data);
   }
 
-  socket.on('my_geolocation', function(clientToServer) {
-    
-    var clientData = JSON.parse(clientToServer);
-    
-    // Query radius in miles
-    var search_radius = clientToServer.search_radius;
-
-    // Set user position
-    pos = clientData.pos;
-    var lat = pos.lat;
-    var lng = pos.lng;
-    console.log('Client geolocation: '+lat+','+lng);
-
-    // twitterQueryTerms = ['paleo','healthy','keto','ketogenic','avocado','juice','chia','salad'];
-    twitterQueryTerms = clientData.twitterQueryTerms;
-
-    // Initiate the Twitter API call
-    twitterSearch(pos, search_radius, twitterQueryTerms);
-
+  socket.on('my_geolocation', function(data) {
+    data = JSON.parse(data);
+    twitter.search({
+      // Twitter query search terms
+      'q': data.topic,
+      // 'latitude,longitude,radius'
+      'geocode': data.pos.lat+','+data.pos.lng+','+data.radius+'mi',
+      // Search for this many results
+      'count': 100,
+      // Bias towards recent tweets
+      // 'result_type': 'recent'
+    }, twitter.searchError, twitter.searchSuccess)
   });
 
   // socket.on('userLocation', function(data) {
