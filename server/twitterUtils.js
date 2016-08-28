@@ -20,8 +20,8 @@ var config = {
 }
 
 var Twitter = require('twitter-node-client').Twitter;
-exports.search = new Twitter(config).getSearch;
-// exports.getSearch = twitter.getSearch;
+var twitter = new Twitter(config);
+exports.search = twitter.getSearch;
 
 // exports.twitter = twitter;
 
