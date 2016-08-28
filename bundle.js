@@ -103,7 +103,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\n  margin: 0;\n  padding: 0;\n  font-family: 'Roboto', sans-serif;\n  font-weight: 100;\n  color: rgb(140, 140, 140);\n}\n\na {\n  text-decoration: none;\n}\n\n.nav {\n  height: 60px;\n  width: 100%;\n  margin: 0;\n  padding: 0;\n  /*background-color: rgba(255, 255, 255, 1.0);*/\n  /*box-shadow: 0 0px 4px rgba(120, 120, 120, 0.6);*/\n  display: flex;\n  align-items: center;\n  justify-content: space-around;\n  position: absolute;\n}\n\n.logo {\n  float: left;\n}\n\n.logo-image {\n  margin: 0;\n  padding: 0;\n  width: 30px;\n  height: 30px;\n  position: relative;\n}\n\n.logo-image > img {\n  height: 100%;\n  position: absolute;\n  margin: auto;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n}\n\n.logo-text {\n  line-height: 30px;\n  margin-left: 4px;\n  font-size: 24px;\n}\n\n.body-container {\n  position: absolute;\n  top: 60px;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n\n#map {\n  background-color: rgb(220, 220, 220);\n  padding: 8px;\n  height: 100%;\n  width: 100%;\n}\n\n.search {\n  margin: 0;\n  padding: 3px 8px;\n  font-size: 18px;\n  width: 240px;\n  border: 1px solid rgb(234, 234, 234);\n  border-radius: 5px;\n  text-overflow: ellipsis; /* ... */\n}\n\n/* styling of infowindow for each tweet */\n\n.gm-style-iw {\n  width: 200px !important;\n  top: 25px !important; /* move the infowindow down */\n  background-color: rgba(255, 255, 255, 0.8);\n  border: none;\n  border-radius: 0;\n  position: relative;\n  margin: 0;\n  padding: 5px;\n}\n\n.iw {\n  margin: 0 !important;\n  padding: 0 !important;\n  width: 100% !important;\n}", ""]);
+	exports.push([module.id, "body {\n  margin: 0;\n  padding: 0;\n  font-family: 'Roboto', sans-serif;\n  font-weight: 100;\n}\n\na, a:link, a:visited, a:hover, a:active {\n  text-decoration: none;\n}\n\n.nav {\n  height: 60px;\n  width: 100%;\n  margin: 0;\n  padding: 0;\n  /*background-color: rgba(255, 255, 255, 1.0);*/\n  /*box-shadow: 0 0px 4px rgba(120, 120, 120, 0.6);*/\n  display: flex;\n  align-items: center;\n  justify-content: space-around;\n  position: absolute;\n}\n\n.logo, .logo:link, .logo:visited, .logo:hover, .logo:active {\n  color: rgb(0, 196, 169);\n  font-size: 20px;\n  letter-spacing: 2px;\n}\n\n.logo-image {\n  margin: 0;\n  padding: 0;\n  width: 30px;\n  height: 30px;\n  position: relative;\n}\n\n.logo-image > img {\n  height: 100%;\n  position: absolute;\n  margin: auto;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n}\n\n.body-container {\n  position: absolute;\n  top: 60px;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n\n#map {\n  background-color: rgb(220, 220, 220);\n  padding: 8px;\n  height: 100%;\n  width: 100%;\n}\n\n.search {\n  margin: 0;\n  padding: 3px 8px;\n  font-size: 18px;\n  width: 240px;\n  border: 1px solid rgb(234, 234, 234);\n  border-radius: 5px;\n  text-overflow: ellipsis; /* ... */\n}\n\n/* styling of infowindow for each tweet */\n\n.gm-style-iw {\n  width: 200px !important;\n  top: 25px !important; /* move the infowindow down */\n  background-color: rgba(255, 255, 255, 0.8);\n  border: none;\n  border-radius: 0;\n  position: relative;\n  margin: 0;\n  padding: 5px;\n}\n\n.iw {\n  margin: 0 !important;\n  padding: 0 !important;\n  width: 100% !important;\n}", ""]);
 
 	// exports
 
@@ -21860,40 +21860,36 @@
 
 /***/ },
 /* 177 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	"use strict";
 
 	module.exports = function () {
-		return React.createElement(
-			"div",
-			{ className: "nav" },
-			React.createElement("input", { className: "search search-query", type: "text", placeholder: "Query" }),
-			React.createElement(
-				"div",
-				{ className: "logo logo-container" },
-				React.createElement(
-					"div",
-					{ className: "logo logo-image" },
-					React.createElement("img", { src: __webpack_require__(178) })
-				),
-				React.createElement(
-					"span",
-					{ className: "logo logo-text" },
-					"scavenge"
-				)
-			),
-			React.createElement("input", { className: "search", id: "google-search", type: "text", placeholder: "Location" })
-		);
+	  return React.createElement(
+	    "div",
+	    { className: "nav" },
+	    React.createElement("input", { className: "search search-query", type: "text", placeholder: "Query" }),
+	    React.createElement(
+	      "a",
+	      { href: "/", className: "logo" },
+	      "SCAVENGE"
+	    ),
+	    React.createElement("input", { className: "search", id: "google-search", type: "text", placeholder: "Location" })
+	  );
 	};
 
-/***/ },
-/* 178 */
-/***/ function(module, exports, __webpack_require__) {
+	/*
+	// Logo image below
+	<div className="logo logo-container">
+	  <div className="logo logo-image">
+	    <img src={require('../images/scavengebird@2x.png')} />
+	  </div>
+	  <span className="logo logo-text">SCAVENGE</span>
+	</div>
+	*/
 
-	module.exports = __webpack_require__.p + "b3ce96ee47c8676b037eb914c24ec3ff.png";
-
 /***/ },
+/* 178 */,
 /* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
