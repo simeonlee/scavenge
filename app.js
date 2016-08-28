@@ -15,6 +15,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var serveStatic = require('serve-static');
 var Promise = require('bluebird');
 
 // Authentication stuffs for Twitter and Yelp API
@@ -24,8 +25,7 @@ var request = require('request');
 var qs = require('querystring');
 var _ = require('lodash');
 
-// Middleware to serve files from within a given root directory
-var serveStatic = require('serve-static');
+var twitterUtils = require('./server/twitterUtils.js');
 
 // Create express server
 var app = express();
@@ -60,13 +60,10 @@ server.on('listening', onListening);
 
 var sendDataToClient;
 
-var twitterUtils = require('./server/twitterUtils.js');
 
 io.on('connection', function(socket) {
 
-  exports.sendDataToClient = function(event, data) {
-    console.log('Sending data to client');
-    console.log('Event: ', event);
+  sendDataToClient = function(event, data) {
     io.sockets.emit(event, data);
   }
 
@@ -81,7 +78,14 @@ io.on('connection', function(socket) {
       'count': 100,
       // Bias towards recent tweets
       // 'result_type': 'recent'
-    }, twitterUtils.searchError, twitterUtils.searchSuccess);
+    }, twitterUtils.searchError, function(data) {
+      var tweets = JSON.parse(data).statuses;
+      tweets.forEach(function(tweet) {
+        twitterUtils.searchSuccess(tweet, function(processedTweet) {
+          sendDataToClient('newTweets', processedTweet);
+        });
+      });
+    });
   });
 
   // socket.on('userLocation', function(data) {
@@ -107,6 +111,8 @@ io.on('connection', function(socket) {
     // requestYelp(set_parameters, yelp_latLng, yelpCallback);
   })
 });
+
+
 
 
 
