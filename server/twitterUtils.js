@@ -28,6 +28,8 @@ var isolateShortenedUrl = function(text, callback) {
     var index = text.indexOf(url);
     text = text.slice(0, index);
     callback(url);
+  } else {
+    return;
   }
 }
 
@@ -54,8 +56,10 @@ exports.searchSuccess = function (tweet, callback) {
       if (err) {
         console.log(err);
         return;
-      }
-      if (expandedURL.indexOf('instagram') > -1) {
+      } else if (!expandedUrl) {
+        console.log('No expandedUrl found');
+        return;
+      } else if (expandedURL.indexOf('instagram') > -1) {
         instagramUtils.getThumbnailUrl(expandedURL, function(thumbnailUrl) {
 
           // Create a new array of select data to be sent to client
