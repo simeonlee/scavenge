@@ -15,6 +15,7 @@ export default class App extends React.Component {
     this.state = {
       currentPosition: null,
       searchRadius: null,
+      topic: 'juice',
       queryTerms: [
         // search for all instagram pics
         'instagram',
@@ -67,6 +68,8 @@ export default class App extends React.Component {
       //   tweets: []
       // }
     }
+
+    this.socket = io.connect('https://www.scavenge.io');
   }
 
   setAndSendDataToServer() {
@@ -82,10 +85,17 @@ export default class App extends React.Component {
     // }));
   }
 
+  onSubjectQuery(topic) {
+    this.setState({topic: topic})
+    // send data to server
+  }
+
   render() {
     return (
       <div>
-        <Nav />
+        <Nav
+          onSubjectQuery={this.onSubjectQuery.bind(this)}
+        />
         <div className="body-container">
           <Map />
         </div>

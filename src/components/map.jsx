@@ -21,10 +21,10 @@ export default class Map extends React.Component {
       tweets: [],
       tweetMarkers: []
     }
+    this.socket = io.connect('https://www.scavenge.io');
   }
 
   componentWillMount() {
-    this.socket = io.connect('https://www.scavenge.io');
     this.socket.on('userLocationServerConfirmation', function(data) {
       console.log(data);
     });

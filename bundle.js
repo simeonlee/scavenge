@@ -103,7 +103,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\n  margin: 0;\n  padding: 0;\n  font-family: 'Roboto', sans-serif;\n  font-weight: 100;\n}\n\na, a:link, a:visited, a:hover, a:active {\n  text-decoration: none;\n}\n\n.nav {\n  height: 60px;\n  width: 100%;\n  margin: 0;\n  padding: 0;\n  /*background-color: rgba(255, 255, 255, 1.0);*/\n  /*box-shadow: 0 0px 4px rgba(120, 120, 120, 0.6);*/\n  display: flex;\n  align-items: center;\n  justify-content: space-around;\n  position: absolute;\n}\n\n.logo, .logo:link, .logo:visited, .logo:hover, .logo:active {\n  color: rgb(0, 196, 169);\n  font-size: 20px;\n  letter-spacing: 2px;\n}\n\n.logo-image {\n  margin: 0;\n  padding: 0;\n  width: 30px;\n  height: 30px;\n  position: relative;\n}\n\n.logo-image > img {\n  height: 100%;\n  position: absolute;\n  margin: auto;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n}\n\n.body-container {\n  position: absolute;\n  top: 60px;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n\n#map {\n  background-color: rgb(220, 220, 220);\n  padding: 8px;\n  height: 100%;\n  width: 100%;\n}\n\n.search {\n  margin: 0;\n  padding: 3px 8px;\n  font-size: 18px;\n  width: 240px;\n  border: 1px solid rgb(234, 234, 234);\n  border-radius: 5px;\n  text-overflow: ellipsis; /* ... */\n}\n\n/* styling of infowindow for each tweet */\n\n.gm-style-iw {\n  width: 200px !important;\n  top: 25px !important; /* move the infowindow down */\n  background-color: white;\n  border: none;\n  border-radius: 0;\n  position: relative;\n  margin: 0;\n  padding: 5px;\n  box-shadow: 0 0px 4px rgba(120, 120, 120, 0.6);\n}\n\n.iw {\n  margin: 0 !important;\n  padding: 0 !important;\n  width: 100% !important;\n}", ""]);
+	exports.push([module.id, "body {\n  margin: 0;\n  padding: 0;\n  font-family: 'Roboto', sans-serif;\n  font-weight: 100;\n}\n\na, a:link, a:visited, a:hover, a:active {\n  text-decoration: none;\n}\n\nform {\n  margin: 0;\n  padding: 0;\n}\n\n.nav {\n  height: 60px;\n  width: 100%;\n  margin: 0;\n  padding: 0;\n  /*background-color: rgba(255, 255, 255, 1.0);*/\n  /*box-shadow: 0 0px 4px rgba(120, 120, 120, 0.6);*/\n  display: flex;\n  align-items: center;\n  justify-content: space-around;\n  position: absolute;\n}\n\n.logo, .logo:link, .logo:visited, .logo:hover, .logo:active {\n  color: rgb(0, 196, 169);\n  font-size: 20px;\n  letter-spacing: 2px;\n}\n\n.logo-image {\n  margin: 0;\n  padding: 0;\n  width: 30px;\n  height: 30px;\n  position: relative;\n}\n\n.logo-image > img {\n  height: 100%;\n  position: absolute;\n  margin: auto;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n}\n\n.body-container {\n  position: absolute;\n  top: 60px;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n\n#map {\n  background-color: rgb(220, 220, 220);\n  padding: 8px;\n  height: 100%;\n  width: 100%;\n}\n\n.search {\n  margin: 0;\n  padding: 3px 8px;\n  font-size: 18px;\n  width: 200px;\n  border: 1px solid rgb(234, 234, 234);\n  border-radius: 5px;\n  text-overflow: ellipsis; /* ... */\n}\n\n/* styling of infowindow for each tweet */\n\n.gm-style-iw {\n  width: 200px !important;\n  top: 25px !important; /* move the infowindow down */\n  background-color: white;\n  border: none;\n  border-radius: 0;\n  position: relative;\n  margin: 0;\n  padding: 5px;\n  box-shadow: 0 0px 4px rgba(120, 120, 120, 0.6);\n}\n\n.iw {\n  margin: 0 !important;\n  padding: 0 !important;\n  width: 100% !important;\n}", ""]);
 
 	// exports
 
@@ -21816,10 +21816,13 @@
 	    _this.state = {
 	      currentPosition: null,
 	      searchRadius: null,
+	      topic: 'juice',
 	      queryTerms: [
 	      // search for all instagram pics
 	      'instagram']
 	    };
+
+	    _this.socket = io.connect('https://www.scavenge.io');
 	    return _this;
 	  }
 
@@ -21838,12 +21841,20 @@
 	      // }));
 	    }
 	  }, {
+	    key: 'onSubjectQuery',
+	    value: function onSubjectQuery(topic) {
+	      this.setState({ topic: topic });
+	      // send data to server
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_nav2.default, null),
+	        _react2.default.createElement(_nav2.default, {
+	          onSubjectQuery: this.onSubjectQuery.bind(this)
+	        }),
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'body-container' },
@@ -21864,11 +21875,19 @@
 
 	"use strict";
 
-	module.exports = function () {
+	module.exports = function (_ref) {
+	  var onSubjectQuery = _ref.onSubjectQuery;
 	  return React.createElement(
 	    "div",
 	    { className: "nav" },
-	    React.createElement("input", { className: "search search-query", type: "text", placeholder: "Query" }),
+	    React.createElement(
+	      "form",
+	      { className: "topic topic-form", onSubmit: function onSubmit(e) {
+	          e.preventDefault();
+	          onSubjectQuery($('#subject-query').val());
+	        } },
+	      React.createElement("input", { className: "search search-query", id: "subject-query", type: "text", placeholder: "Topic" })
+	    ),
 	    React.createElement(
 	      "a",
 	      { href: "/", className: "logo" },
@@ -21942,6 +21961,7 @@
 	      tweets: [],
 	      tweetMarkers: []
 	    };
+	    _this.socket = io.connect('https://www.scavenge.io');
 	    return _this;
 	  }
 
@@ -21950,7 +21970,6 @@
 	    value: function componentWillMount() {
 	      var _this2 = this;
 
-	      this.socket = io.connect('https://www.scavenge.io');
 	      this.socket.on('userLocationServerConfirmation', function (data) {
 	        console.log(data);
 	      });

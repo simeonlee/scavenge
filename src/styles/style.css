@@ -9,6 +9,11 @@ a, a:link, a:visited, a:hover, a:active {
   text-decoration: none;
 }
 
+form {
+  margin: 0;
+  padding: 0;
+}
+
 .nav {
   height: 60px;
   width: 100%;
@@ -65,7 +70,7 @@ a, a:link, a:visited, a:hover, a:active {
   margin: 0;
   padding: 3px 8px;
   font-size: 18px;
-  width: 240px;
+  width: 200px;
   border: 1px solid rgb(234, 234, 234);
   border-radius: 5px;
   text-overflow: ellipsis; /* ... */
