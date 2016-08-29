@@ -139,7 +139,7 @@ function onListening() {
 }
 
 // We want to include caching of the content with max age the number of milliseconds in one day
-var oneDay = 86400000;
+// var oneDay = 86400000;
 
 // We want to make sure our static content is compressed using gzip
 // Use compress middleware that is bundled with Express
@@ -150,7 +150,7 @@ app.use(compression());
 // Add static middleware that handles serving up content from public directory
 // The public directory will be served and any content in it will be available
 // Request the root route '/' and you'll get index.html automatically
-app.use(serveStatic('../client', { maxAge: oneDay }));
+app.use(express.static(__dirname + '/../client'));
 app.use(favicon(path.join(__dirname, 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
