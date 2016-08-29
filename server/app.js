@@ -17,8 +17,16 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var serveStatic = require('serve-static');
 var Promise = require('bluebird');
+var mongoose = require('mongoose');
 
-var twitterUtils = require('./server/twitterUtils.js');
+// Here we find an appropriate database to connect to, defaulting to
+// localhost if we don't find one.
+var uristring =
+process.env.MONGOLAB_URI ||
+process.env.MONGOHQ_URL ||
+'mongodb://localhost/scavenge';
+
+var twitterUtils = require('./server/utils/twitterUtils.js');
 
 // Create express server
 var app = express();
@@ -32,6 +40,16 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+// Makes connection asynchronously.  Mongoose will queue up database
+// operations and release them when the connection is complete.
+mongoose.connect(uristring, function (err, res) {
+  if (err) {
+    console.log ('ERROR connecting to: ' + uristring + '. ' + err);
+  } else {
+    console.log ('Succeeded connected to: ' + uristring);
+  }
+});
 
 // Use socket.io to communicate with client
 var io = require('socket.io')(server);
