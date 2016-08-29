@@ -17,14 +17,14 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var serveStatic = require('serve-static');
 var Promise = require('bluebird');
-var mongoose = require('mongoose');
+// var mongoose = require('mongoose');
 
 // Here we find an appropriate database to connect to, defaulting to
 // localhost if we don't find one.
-var uristring =
-process.env.MONGOLAB_URI ||
-process.env.MONGOHQ_URL ||
-'mongodb://localhost/scavenge';
+// var uristring =
+// process.env.MONGOLAB_URI ||
+// process.env.MONGOHQ_URL ||
+// 'mongodb://localhost/scavenge';
 
 var twitterUtils = require('./utils/twitterUtils.js');
 
@@ -43,13 +43,13 @@ server.on('listening', onListening);
 
 // Makes connection asynchronously.  Mongoose will queue up database
 // operations and release them when the connection is complete.
-mongoose.connect(uristring, function (err, res) {
-  if (err) {
-    console.log ('ERROR connecting to: ' + uristring + '. ' + err);
-  } else {
-    console.log ('Succeeded connected to: ' + uristring);
-  }
-});
+// mongoose.connect(uristring, function (err, res) {
+//   if (err) {
+//     console.log ('ERROR connecting to: ' + uristring + '. ' + err);
+//   } else {
+//     console.log ('Succeeded connected to: ' + uristring);
+//   }
+// });
 
 // Use socket.io to communicate with client
 var io = require('socket.io')(server);
@@ -150,7 +150,7 @@ app.use(compression());
 // Add static middleware that handles serving up content from public directory
 // The public directory will be served and any content in it will be available
 // Request the root route '/' and you'll get index.html automatically
-app.use(serveStatic(path.join(__dirname), { maxAge: oneDay }));
+app.use(serveStatic('../client', { maxAge: oneDay }));
 app.use(favicon(path.join(__dirname, 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
