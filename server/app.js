@@ -26,7 +26,7 @@ process.env.MONGOLAB_URI ||
 process.env.MONGOHQ_URL ||
 'mongodb://localhost/scavenge';
 
-var twitterUtils = require('./server/utils/twitterUtils.js');
+var twitterUtils = require('./utils/twitterUtils.js');
 
 // Create express server
 var app = express();
