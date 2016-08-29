@@ -22267,21 +22267,10 @@
 
 	        // twitter / instagram
 	      } else if (marker_title === 'scavenged') {
-
-	        // Link to sites external to Twitter... for example, a link to an instagram photo
-	        var externalLink = tweet.externalLink;
-
-	        // Try to extract the url to an Instagram photo's url
-	        if (tweet.instagram_data) {
-	          var thumbnailUrl = tweet.thumbnailUrl;
-	        }
-
 	        // return an infowindow and attach to the marker
-	        var infowindow = this.createInfowindow(externalLink, thumbnailUrl, marker);
-
+	        var infowindow = this.createInfowindow(tweet.externalLink, tweet.thumbnailUrl, marker);
 	        // yelp
 	      } else if (marker_title === 'place') {
-
 	        marker.setAnimationTimeout(5);
 	        marker.addListener('click', marker.toggleBounce);
 	      }

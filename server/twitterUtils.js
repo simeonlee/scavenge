@@ -33,21 +33,21 @@ var isolateShortenedUrl = function(text, callback) {
   }
 }
 
-exports.searchError = function (err, response, body) {
-  console.log('ERROR [%s]', err);
-  console.log(err);
-};
-
 var tweetCoordinates = function(tweet) {
   if (tweet.coordinates) {
     return {
       lat: tweet.coordinates.coordinates[1],
       lng: tweet.coordinates.coordinates[0]
-    }
+    };
   } else {
     return null;
   }
 }
+
+exports.searchError = function (err, response, body) {
+  console.log('ERROR [%s]', err);
+  console.log(err);
+};
 
 exports.searchSuccess = function (tweet, callback) {
   isolateShortenedUrl(tweet.text, function(shortenedUrl) {
@@ -63,8 +63,6 @@ exports.searchSuccess = function (tweet, callback) {
         return;
       } else if (expandedUrl.indexOf('instagram') > -1) {
         instagramUtils.getThumbnailUrl(expandedUrl, function(thumbnailUrl) {
-
-          // Create a new array of select data to be sent to client
           callback({
             tweetID: tweet.id_str,
             user: tweet.user,
