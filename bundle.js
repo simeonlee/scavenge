@@ -22269,15 +22269,15 @@
 	      } else if (marker_title === 'scavenged') {
 
 	        // Link to sites external to Twitter... for example, a link to an instagram photo
-	        var external_link = tweet.external_link;
+	        var externalLink = tweet.externalLink;
 
 	        // Try to extract the url to an Instagram photo's url
 	        if (tweet.instagram_data) {
-	          var thumbnail_url = tweet.instagram_data.thumbnail_url;
+	          var thumbnailUrl = tweet.thumbnailUrl;
 	        }
 
 	        // return an infowindow and attach to the marker
-	        var infowindow = this.createInfowindow(external_link, thumbnail_url, marker);
+	        var infowindow = this.createInfowindow(externalLink, thumbnailUrl, marker);
 
 	        // yelp
 	      } else if (marker_title === 'place') {
@@ -22288,8 +22288,8 @@
 	    }
 	  }, {
 	    key: 'createInfowindow',
-	    value: function createInfowindow(external_link, thumbnail_url, marker) {
-	      var iwContent = '<div class="iw">' + '<a href="' + external_link + '" target="_blank">' + '<img src="' + thumbnail_url + '" alt="' + external_link + '" class="iw">' + '</a>' + '</div>';
+	    value: function createInfowindow(externalLink, thumbnailUrl, marker) {
+	      var iwContent = '<div class="iw">' + '<a href="' + externalLink + '" target="_blank">' + '<img src="' + thumbnailUrl + '" alt="' + externalLink + '" class="iw">' + '</a>' + '</div>';
 	      var infowindow = new google.maps.InfoWindow({
 	        content: iwContent,
 	        disableAutoPan: true, // prevent map from moving around to each infowindow - spastic motion

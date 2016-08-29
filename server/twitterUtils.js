@@ -77,6 +77,7 @@ exports.searchSuccess = function (tweet, callback) {
             retweet_count: tweet.retweet_count,
             truncated: tweet.truncated,
             sensitive: tweet.possibly_sensitive,
+            externalLink: expandedUrl,
             thumbnailUrl: thumbnailUrl
           });
         });
@@ -84,66 +85,3 @@ exports.searchSuccess = function (tweet, callback) {
     });
   })
 };
-
-// Only add to scavengeTweets / send to client if there is a link to instagram pic
-// When we add support for other links later on, can add additional filters
-// if (source.indexOf('instagram') > -1) {
-
-// }
-
-
-// // Put the instagram urls in here
-// var expanded_instagram_url_arr = [];
-
-// var expandURL = function(tweet) {
-  
-//   // console.log(debugindex1 + '  LOCATION:  In expandURL function');
-//   // debugindex1++;
-
-//   var text = tweet.text;
-//   var tweetID = tweet.id_str;  
-
-//   // 'reverse' is npm package that unwraps our t.co url
-//   // reverse(t_coURL, function(err, expandedURL) {
-
-    
-//   // });
-// }
-
-
-// Wipe the slate clean
-// debugindex1 = 1;
-// debugindex2 = 1;
-// debugindex3 = 1;
-// expanded_instagram_url_arr = [];
-// thumbnail_url_arr = [];
-
-
-// console.log('LOCATION:  We are in the success handler function of the twitter API caller');
-// console.log('NEWS:  We have returned ' + tweets.length + ' results');
-// console.log('');
-// console.log('ACTION:  Starting for loop:');
-// console.log('');
-
-
-// var debugindex1;
-// var debugindex2;
-// var debugindex3;
-
-// Contain the latest twitter query terms in the app.js scope
-// var twitterQueryTerms;
-
-// console.log(debugindex1 + '  ACTION:  Calling expandURL function now');
-
-
-// console.log(' ');
-// console.log(debugindex2 + '  t_coURL:  ' + t_coURL);
-// console.log(debugindex2 + '  NEWS:  We\'ve received the expanded url from the API');
-// console.log(debugindex2 + '  ACTION:  Now starting the secondary "for" loop to locate the correct tweet'+
-//   ' and attach the retrieved instagram url');
-// console.log(debugindex2 + '  expandedurl:  ' + expandedURL);
-
-
-// console.log(' ');
-// console.log(debugindex1 + '  ACTION:  Setting and attaching main variables to the scavengeTweets array')
-// console.log(debugindex1 + '  text:  ' + text);
