@@ -151,7 +151,7 @@ app.use(compression());
 // The public directory will be served and any content in it will be available
 // Request the root route '/' and you'll get index.html automatically
 app.use(serveStatic(path.join(__dirname), { maxAge: oneDay }));
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'client', 'images', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
