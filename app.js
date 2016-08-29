@@ -74,7 +74,7 @@ io.on('connection', function(socket) {
       var tweets = JSON.parse(data).statuses;
       tweets.forEach(function(tweet) {
         twitterUtils.searchSuccess(tweet, function(processedTweet) {
-          io.sockets.emit('newTweets', processedTweet);
+          io.sockets.emit('newTweet', processedTweet);
         });
       });
     });

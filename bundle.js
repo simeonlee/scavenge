@@ -22042,11 +22042,12 @@
 	        console.log(data);
 	      });
 	      // this.socket.on('newTweets', function(data) {
-	      this.socket.on('newTweets', function (data) {
+	      this.socket.on('newTweet', function (tweet) {
 	        console.log('We have received some tweets from the server');
+	        console.log(data);
 	        // this.handleTweets(data);
-	        _this2.setState({ tweets: data });
-	        _this2.addMarkersToMap();
+	        // this.setState({ tweets: data });
+	        _this2.addTweetMarkerToMap(tweet);
 	      });
 	      // After we have sent our parameters to app.js, the server will make a Twitter API Call
 	      // and return tweets and related data to the client via socket below
@@ -22060,36 +22061,22 @@
 	  }, {
 	    key: 'handleTweets',
 	    value: function handleTweets(data) {
-	      this.setState({ tweets: data });
-	      console.log(data);
-	      console.log(this.state.tweets);
 	      // Start displaying data that we received from server on our map
-	      this.addMarkersToMap();
+	      this.addTweetMarkerToMap();
 	      // this.addToGrid(data);
 	    }
 	  }, {
-	    key: 'addMarkersToMap',
-	    value: function addMarkersToMap() {
-	      for (var i = 0; i < this.state.tweets.length; i++) {
-	        var tweet = this.state.tweets[i];
-	        var latLng = tweet.latLng;
-	        if (latLng) {
-	          var icon_img_src = '../images/scavengebird@2x.png';
-	          var icon_dim = {
-	            width: 30,
-	            height: 30
-	          };
-	          var marker_title = 'scavenged';
-	          var marker = this.createMapMarker(latLng, icon_img_src, icon_dim, marker_title, tweet);
-
-	          // Add the marker variable to the master my.tweets array for later manipulation
-	          // this.setState({
-	          //   markers: {
-	          //     user: this.state.markers.user,
-	          //     tweets: this.state.markers.tweets.push(marker)
-	          //   } 
-	          // })
-	        }
+	    key: 'addTweetMarkerToMap',
+	    value: function addTweetMarkerToMap(tweet) {
+	      var latLng = tweet.latLng;
+	      if (latLng) {
+	        var icon_img_src = '../images/scavengebird@2x.png';
+	        var icon_dim = {
+	          width: 30,
+	          height: 30
+	        };
+	        var marker_title = 'scavenged';
+	        var marker = this.createMapMarker(latLng, icon_img_src, icon_dim, marker_title, tweet);
 	      }
 	    }
 	  }, {
