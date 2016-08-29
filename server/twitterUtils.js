@@ -38,16 +38,18 @@ exports.searchError = function (err, response, body) {
   console.log(err);
 };
 
-exports.searchSuccess = function (tweet, callback) {
+var tweetCoordinates = function(tweet) {
   if (tweet.coordinates) {
-    var latLng = {
+    return {
       lat: tweet.coordinates.coordinates[1],
       lng: tweet.coordinates.coordinates[0]
     }
   } else {
-    var latLng = null;
+    return null;
   }
+}
 
+exports.searchSuccess = function (tweet, callback) {
   isolateShortenedUrl(tweet.text, function(shortenedUrl) {
     // This function expands the t.co url into the external link
     console.log(shortenedUrl);
@@ -59,7 +61,7 @@ exports.searchSuccess = function (tweet, callback) {
       } else if (!expandedUrl) {
         console.log('No expandedUrl found');
         return;
-      } else if (expandedURL.indexOf('instagram') > -1) {
+      } else if (expandedUrl.indexOf('instagram') > -1) {
         instagramUtils.getThumbnailUrl(expandedURL, function(thumbnailUrl) {
 
           // Create a new array of select data to be sent to client
@@ -68,7 +70,7 @@ exports.searchSuccess = function (tweet, callback) {
             user: tweet.user,
             text: tweet.text,
             hashtags: tweet.entities.hashtags,
-            latLng: latLng,
+            latLng: tweetCoordinates(tweet),
             timestamp: tweet.created_at,
             source: tweet.source,
             favorite_count: tweet.favorite_count,

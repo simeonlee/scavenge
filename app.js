@@ -58,15 +58,7 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-var sendDataToClient;
-
-
 io.on('connection', function(socket) {
-
-  sendDataToClient = function(event, data) {
-    io.sockets.emit(event, data);
-  }
-
   socket.on('my_geolocation', function(data) {
     data = JSON.parse(data);
     twitterUtils.twitter.getSearch({
@@ -82,7 +74,7 @@ io.on('connection', function(socket) {
       var tweets = JSON.parse(data).statuses;
       tweets.forEach(function(tweet) {
         twitterUtils.searchSuccess(tweet, function(processedTweet) {
-          sendDataToClient('newTweets', processedTweet);
+          io.sockets.emit('newTweets', processedTweet);
         });
       });
     });
