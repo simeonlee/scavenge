@@ -13,11 +13,12 @@ export default class Map extends React.Component {
 
     this.state = {
       previousUserLocation: {lat:0,lng:0},
+      previousTweetsLength: 0,
       userMarker: null,
       tweets: [],
       tweetMarkers: []
     }
-    this.socket = io.connect('https://www.scavenge.io');
+    // this.socket = io.connect('https://www.scavenge.io');
     // this.socket = io.connect('127.0.0.1:8080');
 
   }
@@ -49,21 +50,31 @@ export default class Map extends React.Component {
       this.addUserMarker();
     }
     // update our previous state for current state
-    this.state.previousUserLocation = this.props.userLocation;
+    this.setState({
+      previousUserLocation: this.props.userLocation
+    });
+    // this.state.previousUserLocation = this.props.userLocation;
+
+    if (this.props.tweets.length !== this.state.previousTweetsLength) {
+      this.addTweetMarkerToMap(this.props.tweets[this.props.tweets.length - 1]);
+    }
+    this.setState({
+      previousTweetsLength: this.props.tweets.length
+    })
   }
 
   componentWillMount() {
-    this.socket.on('userLocationServerConfirmation', function(data) {
-      console.log(data);
-    });
+    // this.socket.on('userLocationServerConfirmation', function(data) {
+    //   console.log(data);
+    // });
     // this.socket.on('newTweets', function(data) {
-    this.socket.on('newTweet', (tweet) => {
-      console.log('We have received some tweets from the server');
-      console.log(tweet);
-      // this.handleTweets(data);
-      // this.setState({ tweets: data });
-      this.addTweetMarkerToMap(tweet);
-    });
+    // this.socket.on('newTweet', (tweet) => {
+    //   console.log('We have received some tweets from the server');
+    //   console.log(tweet);
+    //   // this.handleTweets(data);
+    //   // this.setState({ tweets: data });
+    //   this.addTweetMarkerToMap(tweet);
+    // });
     // After we have sent our parameters to app.js, the server will make a Twitter API Call
     // and return tweets and related data to the client via socket below
     // this.geolocate();

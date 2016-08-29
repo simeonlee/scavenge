@@ -21791,6 +21791,10 @@
 
 	var _map2 = _interopRequireDefault(_map);
 
+	var _grid = __webpack_require__(181);
+
+	var _grid2 = _interopRequireDefault(_grid);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -21806,6 +21810,9 @@
 
 	var instagram_logo_path = 'client/images/instagramlogo.png';
 	var twitter_logo_path = 'client/images/twitterbird.png';
+
+	var tweets = [];
+	var imageUrls = [];
 
 	var App = function (_React$Component) {
 	  _inherits(App, _React$Component);
@@ -21825,13 +21832,27 @@
 	      // Washington Square Park
 	      lat: 40.7308,
 	      lng: -73.9973
-	    }), _defineProperty(_this$state, 'queryTerms', [
+	    }), _defineProperty(_this$state, 'tweets', []), _defineProperty(_this$state, 'imageUrls', []), _defineProperty(_this$state, 'queryTerms', [
 	    // search for all instagram pics
 	    'instagram']), _this$state);
 
 	    // Use socket to communicate between client & server
 	    _this.socket = io.connect('https://www.scavenge.io');
 	    // this.socket = io.connect('127.0.0.1:8080');
+
+	    _this.socket.on('newTweet', function (tweet) {
+	      console.log('We have received some tweets from the server');
+	      console.log(tweet);
+	      // this.addTweetMarkerToMap(tweet);
+	      tweets.push(tweet);
+	      _this.setState({
+	        tweets: tweets
+	      });
+	      imageUrls.push(tweet.thumbnailUrl);
+	      _this.setState({
+	        imageUrls: imageUrls
+	      });
+	    });
 
 	    // Locate position of user
 	    _this.geolocate();
@@ -21894,10 +21915,13 @@
 	          { className: 'body-container' },
 	          _react2.default.createElement(_map2.default, {
 	            userLocation: this.state.userLocation,
-	            setAndSendDataToServer: this.setAndSendDataToServer.bind(this)
-	            // previousUserLocation={this.state.previousUserLocation}
+	            setAndSendDataToServer: this.setAndSendDataToServer.bind(this),
+	            tweets: this.state.tweets
 	          })
-	        )
+	        ),
+	        _react2.default.createElement(_grid2.default, {
+	          imageUrls: this.state.imageUrls
+	        })
 	      );
 	    }
 	  }]);
@@ -21934,16 +21958,6 @@
 	    React.createElement("input", { className: "search", id: "google-search", type: "text", placeholder: "Location" })
 	  );
 	};
-
-	/*
-	// Logo image below
-	<div className="logo logo-container">
-	  <div className="logo logo-image">
-	    <img src={require('../images/scavengebird@2x.png')} />
-	  </div>
-	  <span className="logo logo-text">SCAVENGE</span>
-	</div>
-	*/
 
 /***/ },
 /* 178 */
@@ -21990,11 +22004,12 @@
 
 	    _this.state = {
 	      previousUserLocation: { lat: 0, lng: 0 },
+	      previousTweetsLength: 0,
 	      userMarker: null,
 	      tweets: [],
 	      tweetMarkers: []
 	    };
-	    _this.socket = io.connect('https://www.scavenge.io');
+	    // this.socket = io.connect('https://www.scavenge.io');
 	    // this.socket = io.connect('127.0.0.1:8080');
 
 	    return _this;
@@ -22031,24 +22046,32 @@
 	        this.addUserMarker();
 	      }
 	      // update our previous state for current state
-	      this.state.previousUserLocation = this.props.userLocation;
+	      this.setState({
+	        previousUserLocation: this.props.userLocation
+	      });
+	      // this.state.previousUserLocation = this.props.userLocation;
+
+	      if (this.props.tweets.length !== this.state.previousTweetsLength) {
+	        this.addTweetMarkerToMap(this.props.tweets[this.props.tweets.length - 1]);
+	      }
+	      this.setState({
+	        previousTweetsLength: this.props.tweets.length
+	      });
 	    }
 	  }, {
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      var _this2 = this;
-
-	      this.socket.on('userLocationServerConfirmation', function (data) {
-	        console.log(data);
-	      });
+	      // this.socket.on('userLocationServerConfirmation', function(data) {
+	      //   console.log(data);
+	      // });
 	      // this.socket.on('newTweets', function(data) {
-	      this.socket.on('newTweet', function (tweet) {
-	        console.log('We have received some tweets from the server');
-	        console.log(tweet);
-	        // this.handleTweets(data);
-	        // this.setState({ tweets: data });
-	        _this2.addTweetMarkerToMap(tweet);
-	      });
+	      // this.socket.on('newTweet', (tweet) => {
+	      //   console.log('We have received some tweets from the server');
+	      //   console.log(tweet);
+	      //   // this.handleTweets(data);
+	      //   // this.setState({ tweets: data });
+	      //   this.addTweetMarkerToMap(tweet);
+	      // });
 	      // After we have sent our parameters to app.js, the server will make a Twitter API Call
 	      // and return tweets and related data to the client via socket below
 	      // this.geolocate();
@@ -22506,6 +22529,24 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "ba4169119b9cfa67fd400b1d43f78c54.png";
+
+/***/ },
+/* 181 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	module.exports = function (_ref) {
+	  var imageUrls = _ref.imageUrls;
+	  return React.createElement(
+	    "div",
+	    { className: "grid" },
+	    imageUrls.map(function (imageUrl) {
+	      return React.createElement("img", { src: imageUrl });
+	      // return <div>{name}</div>;
+	    })
+	  );
+	};
 
 /***/ }
 /******/ ]);

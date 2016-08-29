@@ -1,12 +1,16 @@
 import React from 'react';
 import Nav from './nav.jsx';
 import Map from './map.jsx';
+import Grid from './grid.jsx';
 
 // const url = 'https://www.scavenge.io';
 // const socket = io.connect(url);
 
 const instagram_logo_path = 'client/images/instagramlogo.png';
 const twitter_logo_path = 'client/images/twitterbird.png';
+
+var tweets = [];
+var imageUrls = [];
 
 export default class App extends React.Component {
 	constructor(props) {
@@ -22,6 +26,8 @@ export default class App extends React.Component {
         lat: 40.7308,
         lng: -73.9973
       },
+      tweets: [],
+      imageUrls: [],
       // previousUserLocation: {
       //   lat: 0.0,
       //   lng: 0.0
@@ -83,6 +89,20 @@ export default class App extends React.Component {
     this.socket = io.connect('https://www.scavenge.io');
     // this.socket = io.connect('127.0.0.1:8080');
 
+    this.socket.on('newTweet', (tweet) => {
+      console.log('We have received some tweets from the server');
+      console.log(tweet);
+      // this.addTweetMarkerToMap(tweet);
+      tweets.push(tweet);
+      this.setState({
+        tweets: tweets
+      })
+      imageUrls.push(tweet.thumbnailUrl);
+      this.setState({
+        imageUrls: imageUrls
+      })
+    });
+
     // Locate position of user
     this.geolocate();
   }
@@ -134,9 +154,12 @@ export default class App extends React.Component {
           <Map
             userLocation={this.state.userLocation}
             setAndSendDataToServer={this.setAndSendDataToServer.bind(this)}
-            // previousUserLocation={this.state.previousUserLocation}
+            tweets={this.state.tweets}
           />
         </div>
+        <Grid
+          imageUrls={this.state.imageUrls}
+        />
       </div>
     );
   }
