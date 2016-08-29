@@ -10,7 +10,7 @@ exports.getThumbnailUrl = function(url, callback) {
       console.log(err);
       return;
     }
-    Parse and set instagram data
+    // Parse and set instagram data
     try {
       body = JSON.parse(body);
       callback(body.thumbnail_url);
