@@ -22044,7 +22044,7 @@
 	      // this.socket.on('newTweets', function(data) {
 	      this.socket.on('newTweet', function (tweet) {
 	        console.log('We have received some tweets from the server');
-	        console.log(data);
+	        console.log(tweet);
 	        // this.handleTweets(data);
 	        // this.setState({ tweets: data });
 	        _this2.addTweetMarkerToMap(tweet);

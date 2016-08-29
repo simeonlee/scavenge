@@ -59,7 +59,7 @@ export default class Map extends React.Component {
     // this.socket.on('newTweets', function(data) {
     this.socket.on('newTweet', (tweet) => {
       console.log('We have received some tweets from the server');
-      console.log(data);
+      console.log(tweet);
       // this.handleTweets(data);
       // this.setState({ tweets: data });
       this.addTweetMarkerToMap(tweet);
