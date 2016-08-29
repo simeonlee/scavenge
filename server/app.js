@@ -150,7 +150,7 @@ app.use(compression());
 // Add static middleware that handles serving up content from public directory
 // The public directory will be served and any content in it will be available
 // Request the root route '/' and you'll get index.html automatically
-app.use(express.static(__dirname + '/../client'));
+app.use(express.static(__dirname + '/..'));
 app.use(favicon(path.join(__dirname, 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());

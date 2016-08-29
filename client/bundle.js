@@ -21804,8 +21804,8 @@
 	// const url = 'https://www.scavenge.io';
 	// const socket = io.connect(url);
 
-	var instagram_logo_path = '../images/instagramlogo.png';
-	var twitter_logo_path = '../images/twitterbird.png';
+	var instagram_logo_path = 'client/images/instagramlogo.png';
+	var twitter_logo_path = 'client/images/twitterbird.png';
 
 	var App = function (_React$Component) {
 	  _inherits(App, _React$Component);
@@ -21977,8 +21977,8 @@
 
 	// DON'T FORGET TO RUN 'NPM RUN DEV'
 
-	var instagram_logo_path = '../images/instagramlogo.png';
-	var twitter_logo_path = '../images/twitterbird.png';
+	var instagram_logo_path = 'client/images/instagramlogo.png';
+	var twitter_logo_path = 'client/images/twitterbird.png';
 
 	var Map = function (_React$Component) {
 	  _inherits(Map, _React$Component);
@@ -22070,7 +22070,7 @@
 	    value: function addTweetMarkerToMap(tweet) {
 	      var latLng = tweet.latLng;
 	      if (latLng) {
-	        var icon_img_src = '../images/scavengebird@2x.png';
+	        var icon_img_src = 'client/images/scavengebird@2x.png';
 	        var icon_dim = {
 	          width: 30,
 	          height: 30
@@ -22342,7 +22342,7 @@
 	          opacity: '1.0', // by default the close button has an opacity of 0.7
 	          position: 'absolute',
 	          right: '62px', top: '24px', // button repositioning
-	          content: 'url("../images/closebutton@2x.png")',
+	          content: 'url("client/images/closebutton@2x.png")',
 	          height: '15px', width: '15px'
 	        });
 

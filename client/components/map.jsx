@@ -4,8 +4,8 @@ import mapStyle from '../styles/light-map';
 
 // DON'T FORGET TO RUN 'NPM RUN DEV'
 
-const instagram_logo_path = '../images/instagramlogo.png';
-const twitter_logo_path = '../images/twitterbird.png';
+const instagram_logo_path = 'client/images/instagramlogo.png';
+const twitter_logo_path = 'client/images/twitterbird.png';
 
 export default class Map extends React.Component {
   constructor(props) {
@@ -82,7 +82,7 @@ export default class Map extends React.Component {
   addTweetMarkerToMap(tweet) {
     var latLng = tweet.latLng;
     if (latLng){
-      var icon_img_src = '../images/scavengebird@2x.png';
+      var icon_img_src = 'client/images/scavengebird@2x.png';
       var icon_dim = {
         width: 30,
         height: 30
@@ -360,7 +360,7 @@ export default class Map extends React.Component {
         opacity: '1.0', // by default the close button has an opacity of 0.7
         position: 'absolute',
         right: '62px', top: '24px', // button repositioning
-        content: 'url("../images/closebutton@2x.png")',
+        content: 'url("client/images/closebutton@2x.png")',
         height: '15px', width: '15px'
       });
 
