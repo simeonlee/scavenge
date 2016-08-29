@@ -10,7 +10,15 @@ exports.getThumbnailUrl = function(url, callback) {
       console.log(err);
       return;
     }
-    callback(JSON.parse(body).thumbnail_url);
+    Parse and set instagram data
+    try {
+      body = JSON.parse(body);
+      callback(body.thumbnail_url);
+    }
+    catch(err) {
+      console.log(err);
+      callback(null);
+    }
   });
 }
 
@@ -18,16 +26,7 @@ exports.getThumbnailUrl = function(url, callback) {
 // console.log(debugindex3 + '  ACTION:  Requesting data from the Instagram API');
 // console.log(debugindex3 + '  instaAPIurl:  ' + instaAPIURL);
 
-// Parse and set instagram data
-// try {
-//   var instagram_data = JSON.parse(body);
-//   console.log(debugindex3 + '  thumbnailurl:  ' + instagram_data.thumbnail_url);
-// }
-// catch(err) {
-//   // var instagram_data = body;
-//   // console.log(debugindex3 + '  ERROR:  Cannot parse instagram_data');
-//   console.log('ERROR: Cannot parse instagram_data');
-// }
+
 
 // attach to scavenge_tweet
 // scavenge_tweet.instagram_data = instagram_data;

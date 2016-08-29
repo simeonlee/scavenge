@@ -79,8 +79,6 @@ exports.searchSuccess = function (tweet, callback) {
             sensitive: tweet.possibly_sensitive,
             thumbnailUrl: thumbnailUrl
           });
-
-          
         });
       }
     });
