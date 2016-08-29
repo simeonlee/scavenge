@@ -62,7 +62,7 @@ exports.searchSuccess = function (tweet, callback) {
         console.log('No expandedUrl found');
         return;
       } else if (expandedUrl.indexOf('instagram') > -1) {
-        instagramUtils.getThumbnailUrl(expandedURL, function(thumbnailUrl) {
+        instagramUtils.getThumbnailUrl(expandedUrl, function(thumbnailUrl) {
 
           // Create a new array of select data to be sent to client
           callback({
